@@ -1,0 +1,169 @@
+/* 공통 스타일 */
+body {
+    display: flex;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.border-container {
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-basis: 1024px;
+}
+
+.marginer {
+    width: 15%;
+    flex-grow: 1;
+    height: 100%;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+/* 헤더 스타일 시작*/
+header {
+    height: 100px;
+    background-color: #7F5539;
+    display: flex;
+}
+
+.header-area {
+    flex-basis: 1024px;
+    flex-shrink: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+}
+
+.header-title {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.header-title h3{
+    margin-bottom: 0;
+}
+
+.header-menu {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.header-menu-item {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.header-menu a {
+    font-weight: 600;
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+
+.header-user-menu {
+    width: 35%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.header-user-menu-item {
+    height: 60%;
+    display: flex;
+    align-items: center;
+    margin: 0px 5px;
+}
+
+.header-user-menu img {
+    margin: 10px;
+    height: 20px;
+}
+
+.header-user-menu button{
+    display: flex;
+    font-weight: 600;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+
+header img {
+    height: 50px;
+    margin: 0px 20px 3px 0px;
+}
+
+/* 헤더 스타일 끝*/
+
+/* 푸터 스타일 시작 */
+footer {
+    height: 200px;
+    border-collapse: collapse;
+    display: flex;
+}
+
+.footer-area {
+    flex-basis: 1024px;
+    flex-shrink: 0;
+    height: 100%;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-area hr {
+    width: 100%;
+    margin: 0px;
+}
+
+.footer-area h5,
+h6 {
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.footer-area div>h5 {
+    margin-bottom: 12px;
+}
+
+.footer-area div>p {
+    margin: 1px 0px 5px 0px;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0px;
+}
+
+.footer-info div {
+    display: flex;
+    align-items: baseline;
+}
+
+.footer-term {
+    padding: 8px 0px;
+}
+
+.footer-term a {
+    margin-right: 20px;
+    font-weight: 600;
+}
+
+/* 푸터 스타일 끝*/
