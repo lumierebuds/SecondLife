@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="/secondlife/resources/css/main.css">
 </head>
 
-<body>
+<body onselectstart="return false">
 	<div id="container">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-		<main>
+		<main id="main-container">
 			<div class="marginer"></div>
 			<div class="content">
 				<div class="intro">
@@ -154,8 +154,8 @@
 		</div>
 		<div class="modal-content result-form" style="display: flex;">
 			<img src="https://via.placeholder.com/50" alt="로고"> <label
-				for="id-result">임시 비밀번호가 발급되었습니다</label> <input type="text"
-				id="id-result" value="" placeholder="아이디 찾기 결과" disabled>
+				for="pwd-result">임시 비밀번호가 발급되었습니다</label> <input type="text"
+				id="pwd-result" value="" placeholder="아이디 찾기 결과" disabled>
 		</div>
 		<div class="modal-content result-form" style="display: flex;">
 			<img src="https://via.placeholder.com/50" alt="로고"> <label

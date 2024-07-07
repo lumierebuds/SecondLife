@@ -17,7 +17,7 @@
   		 com.kh.spring.member.model.service.MemberService -> memberService
   	 -->
   	 
-  	<package name="com.kh.spring"/>
+  	<package name="com.kh.secondLife"/>
   </typeAliases>
   
 </configuration>

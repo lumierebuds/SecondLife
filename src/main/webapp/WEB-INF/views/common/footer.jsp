@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Second Life - 상품의 새 삶</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/secondlife/resources/css/main.css">
+    <link rel="stylesheet" href="/secondlife/resources/css/common.css">
 </head>
 <body>
-    <div id="border-container">
+    <div>
         <footer>
             <div class="marginer"></div>
             <div class="footer-area">
