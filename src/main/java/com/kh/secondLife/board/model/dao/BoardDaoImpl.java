@@ -1,5 +1,8 @@
 package com.kh.secondLife.board.model.dao;
 
-public class BoardDaoImpl {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class BoardDaoImpl implements BoardDao {
 
 }

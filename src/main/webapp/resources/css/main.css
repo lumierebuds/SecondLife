@@ -318,35 +318,6 @@ main#main-container {
   border: 1px solid black;
 }
 
-/* 헤더 스타일 시작*/
-header {
-  width: 99.9vw;
-  height: 100px;
-  background-color: #f8f9fa;
-}
-
-.header-area {
-  flex-basis: 1024px;
-  flex-shrink: 0;
-  height: 100%;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-}
-
-.title {
-  display: flex;
-  margin: 0px 20px;
-  align-items: center;
-}
-
-header img {
-  width: 70px;
-  margin-right: 20px;
-}
-
-/* 헤더 스타일 끝*/
-
 /* 네비게이션 바 스타일 시작*/
 nav {
   width: 99.9vw;
@@ -432,63 +403,4 @@ main {
 }
 
 /* 메인 스타일 끝*/
-
-
-/* 푸터 스타일 시작 */
-footer {
-  height: 200px;
-  border-collapse: collapse;
-  display: flex;
-}
-
-.footer-area {
-  flex-basis: 1024px;
-  flex-shrink: 0;
-  height: 100%;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
-  display: flex;
-  flex-direction: column;
-}
-
-.footer-area hr {
-  width: 100%;
-  margin: 0px;
-}
-
-.footer-area h5,
-h6 {
-  font-weight: 600;
-  margin-right: 5px;
-}
-
-.footer-area div>h5 {
-  margin-bottom: 12px;
-}
-
-.footer-area div>p {
-  margin: 1px 0px 5px 0px;
-}
-
-.footer-info {
-  display: flex;
-  flex-direction: column;
-  padding: 15px 0px;
-}
-
-.footer-info div {
-  display: flex;
-  align-items: baseline;
-}
-
-.footer-term {
-  padding: 8px 0px;
-}
-
-.footer-term a {
-  margin-right: 20px;
-  font-weight: 600;
-}
-
-/* 푸터 스타일 끝*/
 

@@ -1,5 +1,5 @@
 package com.kh.secondLife.board.model.service;
 
-public class BoardService {
+public interface BoardService {
 
 }

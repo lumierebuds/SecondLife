@@ -1,5 +1,5 @@
 package com.kh.secondLife.board.model.dao;
 
-public class BoardDao {
+public interface BoardDao {
 
 }
