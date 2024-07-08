@@ -115,7 +115,7 @@
 					placeholder="비밀번호">
 				<div class="additional-options">
 					<a id="find-id" onclick="return false">계정을 잊어버리셨나요?</a> <a
-						id="register" onclick="return false">회원 가입</a>
+						id="register" href="member/signup">회원 가입</a>
 				</div>
 				<div class="flex-right">
 					<input type="checkbox" id="rememberMe"> <label
