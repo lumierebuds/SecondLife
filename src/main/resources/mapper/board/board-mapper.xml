@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	<select id="selectListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+	</select>
+	
+	<select id="selectBoardList" resultMap="boardExtMap">
+		SELECT
+		  B.BOARD_NO AS BOARD_NO,
+		  PRODUCT_NAME,
+		  PRICE,
+		  B.CREATE_DATE AS CREATE_DATE,
+		  
+		  BOARD_IMG_NO,
+		  IMG_PATH
+		FROM BOARD "B" 
+		LEFT JOIN BOARD_IMG "BI"
+		ON (B.BOARD_NO = BI.BOARD_NO)
+	</select>
+	
+	<resultMap type="boardExt" id="boardExtMap">
+		<id column="BOARD_NO" property="boardNo"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="PRICE" property="price"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		
+		<collection property="biList" javaType="List"
+		ofType="boardImg">
+			<id column="BOARD_IMG_NO" property="boardImgNo"/>
+			<result column="IMG_PATH" property="imgPath"/>
+		</collection>
+	</resultMap>
+	
+</mapper>
