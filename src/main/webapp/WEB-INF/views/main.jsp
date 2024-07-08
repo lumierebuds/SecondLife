@@ -13,12 +13,13 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/secondlife/resources/css/main.css">
+<link rel="stylesheet" href="/secondlife/resources/css/common.css">
 </head>
 
 <body onselectstart="return false">
 	<div id="container">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-
+		
 		<main id="main-container">
 			<div class="marginer"></div>
 			<div class="content">

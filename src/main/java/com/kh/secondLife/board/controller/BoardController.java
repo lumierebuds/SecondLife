@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/board")
 public class BoardController {
 	
-	@GetMapping("/")
+	// 게시글 목록 페이지
+	@GetMapping("/list")
 	public String listBoard() {
 		return "board/boardListView";
 	}
