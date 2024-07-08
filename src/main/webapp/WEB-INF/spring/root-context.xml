@@ -14,10 +14,10 @@
 	 -->
 	 
 	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="realDataSource" destroy-method="close">
-	 	<property name="driverClassName" value="${your.driverClassName}" />
-	 	<property name="url" value="${your.url}" />
-	 	<property name="username" value="${your.username}" />
-	 	<property name="password" value="${your.password}" />	 	
+	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+	 	<property name="username" value="C##SECONDLIFE" />
+	 	<property name="password" value="SECONDLIFE" />	 	
 	 </bean>
 	  <!-- mybatis가 DB로 전달하는 중간의 쿼리문을 가로채서 보여주기 위한 빈 객체 -->
 	
