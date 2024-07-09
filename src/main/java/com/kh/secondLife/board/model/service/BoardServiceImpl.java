@@ -1,6 +1,7 @@
 package com.kh.secondLife.board.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -17,14 +18,16 @@ public class BoardServiceImpl implements BoardService{
 	private final BoardDao boardDao;
 
 	@Override
-	public int selectListCount() {
+	public int selectListCount(Map<String, Object> paramMap) {
 		
-		return boardDao.selectListCount();
+		return boardDao.selectListCount(paramMap);
 	}
 
 	@Override
-	public List<Board> selectBoardList(PageInfo pi) {
+	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
 
-		return boardDao.selectBoardList(pi);
+		return boardDao.selectBoardList(pi, paramMap);
 	}
+
+
 }

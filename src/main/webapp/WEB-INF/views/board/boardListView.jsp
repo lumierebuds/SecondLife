@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -22,8 +25,14 @@
        <div class="list">
           <div class="list-top">
             <div class="list-description">
-              <span class="list-search">가방의 전체상품</span>
-              <span class="list-count">30,250개</span>
+              <c:if test="${empty param.search and empty param.category}">
+              	<span class="list-search">전체 상품</span>
+              </c:if>              	
+              <c:if test="${not empty param.search and empty param.category}">
+              	<span class="list-search">'${param.search }' 검색결과</span>
+              </c:if>
+              
+              <span class="list-count">${listCount } 개</span>
             </div>
             <div class="list-assort">
               <!-- 최신순, 인기순, 저가순, 고가순-->
@@ -36,482 +45,77 @@
             </div>
           </div>
           <div class="list-mid">
+          <c:forEach items="${list }" var="board">
+          
             <div class="board-card">
-              <a href="#" class="card-anchor">
+              <a href="/secondlife/board/detail/${board.boardNo}" class="card-anchor">
                 <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
+                  <c:if test="${board.biList.size() ne 0 }">
+                  	<img src="/secondlife/${board.biList.get(0).imgPath}/${board.biList.get(0).changeName}" alt="${board.productName}" />
+                  </c:if>
+				  <c:if test="${board.biList.size() eq 0 }"> <!-- 이미지가 존재하지 않을때 (사이트 로고) -->
+				  	<img src="/secondlife/resources/images/사이트 로고.png" alt="${board.productName}" />
+				  </c:if>
                 </div>
 
                 <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
+                  <div class="board-title">${board.productName}</div>
                   <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
+                    <div class="board-price"><fmt:formatNumber value="${board.price}" pattern="#,###" />원</div>
+                    <div class="board-writed">${board.createDate}</div>
                   </div>
                 </div>
               </a>
             </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div class="board-card">
-              <a href="#" class="card-anchor">
-                <div class="board-thumbnail">
-                  <img src="../resources/images/무야호.png" alt="무한 무야호" />
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">혹시 무한도전 보신적..</div>
-                  <div class="board-information">
-                    <div class="board-price">30,000원</div>
-                    <div class="board-writed">15초전</div>
-                  </div>
-                </div>
-              </a>
-            </div>
+            </c:forEach>
           </div>
-
+		  
+		  
+		  <!-- 전체, 카테고리, 검색조회시에 필요한 쿼리스트링을 포함한 url  -->
+		  
+		  <c:choose>
+		  	<c:when test="${not empty param.search and empty param.category}">
+		  		<c:set var="url" value="?search=${param.search}&pageNo="/>
+		  	</c:when>
+		  	<c:when test="${not empty param.category and empty param.search}">
+		  		<c:set var="url" value="?category=${param.category}&pageNo="/>
+		  	</c:when>
+		  	<c:when test="${not empty param.category and not empty param.search}">
+		  		<script>
+		  			location.href = "/secondlife/board/list?pageNo=1"
+		  		</script>
+		  	</c:when>
+		  	<c:otherwise>
+				<c:set var="url" value="?pageNo="/>	  		
+		  	</c:otherwise>
+		  </c:choose>
+	
+		  
           <div class="list-bottom">
             <div class="page-bar">
-              <a href="#" class="page-item">
+              	
+              <c:if test="${pi.currentPage ne 1 }">
+              	<a href="${url }${pi.currentPage - 1}" class="page-item">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15.1602 7.41L10.5802 12L15.1602 16.59L13.7502 18L7.75016 12L13.7502 6L15.1602 7.41Z" fill="black"/>
                   </svg>
-              </a>
-              <a href="#" class="page-item page-on">1</a>
-              <a href="#" class="page-item">2</a>
-              <a href="#" class="page-item">3</a>
-              <a href="#" class="page-item">4</a>
-              <a href="#" class="page-item">5</a>
-              <a href="#" class="page-item">6</a>
-              <a href="#" class="page-item">7</a>
-              <a href="#" class="page-item">8</a>
-              <a href="#" class="page-item">9</a>
-              <a href="#" class="page-item">10</a>
+              	</a>
+              </c:if>
               
-              <a href="#" class="page-item">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8.83984 7.41L13.4198 12L8.83984 16.59L10.2498 18L16.2498 12L10.2498 6L8.83984 7.41Z" fill="black"/>
+              <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage }">
+             
+              	<a href="${url }${i}" class="page-item ${i eq pi.currentPage ? 'page-on' : ''}">${i}</a>
+              
+              </c:forEach>
+              
+              
+              <c:if test="${pi.currentPage ne pi.maxPage}">
+             	<a href="${url }${pi.currentPage + 1}" class="page-item">
+                	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                	<path d="M8.83984 7.41L13.4198 12L8.83984 16.59L10.2498 18L16.2498 12L10.2498 6L8.83984 7.41Z" fill="black"/>
                 </svg>
-                </a>
+              </a>
+              </c:if> 
             </div>
             
           </div>
@@ -523,63 +127,5 @@
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
   </div>
   
-  <!--  -->
-  <div class="modal-background" id="modalBackground">
-		<!-- 로그인 모달 -->
-		<div class="modal-content modal-login">
-			<img src="https://via.placeholder.com/50" alt="로고">
-			<form action="">
-				<input type="text" placeholder="아이디"> <input type="password"
-					placeholder="비밀번호">
-				<div class="additional-options">
-					<a id="find-id" onclick="return false">계정을 잊어버리셨나요?</a> <a
-						id="register" href="member/signup">회원 가입</a>
-				</div>
-				<div class="flex-right">
-					<input type="checkbox" id="rememberMe"> <label
-						for="rememberMe">로그인 유지</label>
-				</div>
-				<button class="submit-btn" onclick="return false">확 인</button>
-			</form>
-		</div>
-		<!-- 계정 찾기 모달(아이디/비밀번호) -->
-		<div class="modal-content modal-find-form">
-			<img src="https://via.placeholder.com/50" alt="로고">
-			<div class="tab-buttons">
-				<button id="id-select" value="find-id-form" class="find-btn">아이디
-					찾기</button>
-				<button id="pwd-select" value="find-pwd-form" class="find-btn">비밀번호
-					찾기</button>
-			</div>
-			<form action="" class="find-form find-id-form">
-				<label for="emailInput">가입 시 사용한 이메일을 입력해주세요</label> <input
-					type="text" id="emailInput" name="email" placeholder="이메일">
-				<button class="submit-btn">확 인</button>
-			</form>
-			<form action="" class="find-form find-pwd-form">
-				<label for="idInput">아이디</label> <input type="text" id="id-input"
-					name="id" placeholder="아이디">
-				<div class="flex-right">
-					<button id="id-submit" onclick="return false">인증번호 보내기</button>
-				</div>
-				<div class="certi-area">
-					<label for="certi-num">인증번호</label> <input type="text"
-						name="certiNum" id="certi-num">
-					<button id="certi-num-btn">확 인</button>
-				</div>
-				<button class="submit-btn">확 인</button>
-			</form>
-		</div>
-		<div class="modal-content result-form" style="display: flex;">
-			<img src="https://via.placeholder.com/50" alt="로고"> <label
-				for="pwd-result">임시 비밀번호가 발급되었습니다</label> <input type="text"
-				id="pwd-result" value="" placeholder="아이디 찾기 결과" disabled>
-		</div>
-		<div class="modal-content result-form" style="display: flex;">
-			<img src="https://via.placeholder.com/50" alt="로고"> <label
-				for="id-result">아이디 찾기 결과</label> <input type="text" id="id-result"
-				value="" placeholder="아이디 찾기 결과" disabled>
-		</div>
-	</div>
 	
 </html>

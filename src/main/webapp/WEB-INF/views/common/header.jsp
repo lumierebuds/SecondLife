@@ -25,7 +25,7 @@
                 </div>
                 <div class="header-menu">
                     <div class="header-menu-item">
-                        <a href="/secondlife/board/list?pageNo=1">거래 장터</a>
+                        <a href="/secondlife/board/list">거래 장터</a>
                     </div>
                 </div>
                 <div class="header-user-menu">

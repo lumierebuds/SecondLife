@@ -1,6 +1,7 @@
 package com.kh.secondLife.board.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,9 @@ import com.kh.secondLife.common.model.vo.PageInfo;
 @Service
 public interface BoardService {
 
-	int selectListCount();
+	int selectListCount(Map<String, Object> paramMap);
 
-	List<Board> selectBoardList(PageInfo pi);
+	List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap);
+
 
 }

@@ -1,6 +1,7 @@
 package com.kh.secondLife.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -10,8 +11,10 @@ import com.kh.secondLife.common.model.vo.PageInfo;
 @Repository
 public interface BoardDao {
 
-	int selectListCount();
+	int selectListCount(Map<String, Object> paramMap);
 
-	List<Board> selectBoardList(PageInfo pi);
+	List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap);
+
+	
 
 }
