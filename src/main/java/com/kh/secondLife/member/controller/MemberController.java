@@ -21,7 +21,7 @@ import oracle.jdbc.clio.annotations.Debug;
 
 @Controller
 @RequestMapping("/member")
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser"})
 @Slf4j
 @RequiredArgsConstructor
 public class MemberController {

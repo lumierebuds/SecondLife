@@ -73,8 +73,8 @@
 		<!-- 로그인 모달 -->
 		<div class="modal-content modal-login">
 			<img src="https://via.placeholder.com/50" alt="로고">
-			<form action="">
-				<input type="text" placeholder="아이디"> <input type="password"
+			<form action="/secondlife/member/login" method="Post">
+				<input type="text" name="id" placeholder="아이디"> <input type="password" name="pwd"
 					placeholder="비밀번호">
 				<div class="additional-options">
 					<a id="find-id" onclick="return false">계정을 잊어버리셨나요?</a>
@@ -84,7 +84,7 @@
 					<input type="checkbox" id="rememberMe"> <label
 						for="rememberMe">로그인 유지</label>
 				</div>
-				<button class="submit-btn" onclick="return false">확 인</button>
+				<button class="submit-btn">확 인</button>
 			</form>
 		</div>
 		<!-- 계정 찾기 모달(아이디/비밀번호) -->
@@ -128,5 +128,11 @@
 	</div>
 	
 	<script src="/secondlife/resources/js/common.js"></script>
+	
+	<c:if test="${not empty loginUser}">
+		<script>
+			loginView();
+		</script>
+	</c:if>
 </body>
 </html>

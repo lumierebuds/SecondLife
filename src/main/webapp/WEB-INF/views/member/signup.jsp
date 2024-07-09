@@ -302,10 +302,10 @@ form {
                id : $id.val()
             },
             success : function(result){
-               if(result == 1){ // 이미 사용중일때
+               if(result == "fail"){ // 이미 사용중일때
                   alert("이미 사용중입니다.");
-                  $userId.val("");
-                  $userId.focus();
+                  $id.val("");
+                  $id.focus();
                }else{ // 중복 아이디가 없을때
                   alert("사용가능한 아이디 입니다.");
                }
