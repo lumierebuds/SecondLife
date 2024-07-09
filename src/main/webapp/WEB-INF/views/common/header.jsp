@@ -35,17 +35,33 @@
                     </div>
                 </div>
                 <div class="header-user-menu">
+					<div class="header-user-menu-item login-menu">
+                        <button onclick="return false">
+                            <img src="/secondlife/resources/images/찜목록 아이콘.png" alt="찜목록 아이콘">
+                            찜 목록
+                        </button>
+                    </div>
                     <div class="header-user-menu-item">
                         <button onclick="return false">
                             <img src="/secondlife/resources/images/세라톡 아이콘.png" alt="세라톡 아이콘">
                             세라톡
                         </button>
                     </div>
-                    <div class="header-user-menu-item">
+                    <div class="header-user-menu-item logout-menu">
                         <button id="login" onclick="return false">
                             <img src="/secondlife/resources/images/로그인 아이콘.png" alt="로그인 아이콘">
                             로그인
                         </button>
+                    </div>
+					<div class="header-user-menu-item login-menu">
+                        <button id="drop-btn">
+                            <img src="/secondlife/resources/images/마이 아이콘.png" alt="마이 아이콘">
+                            마 이
+                        </button>
+						<div class="drop-box">
+							<button class="drop-item">마이페이지</button>
+							<button class="drop-item">로그아웃</button>
+						</div>
                     </div>
                 </div>
             </div>
