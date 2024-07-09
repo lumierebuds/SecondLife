@@ -5,10 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Second Life - 거래글 등록</title>
-<link rel="stylesheet" href="/secondlife/resources/css/board/boardEnrollForm.css">
-<script src="https://code.jquery.com/jquery-latest.js"></script>
-<script src="/secondlife/resources/js/board/boardEnrollForm.js"></script>
+<title>Second Life - 거래글 수정</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -155,7 +152,7 @@
 	            <label for="directTransaction">직거래</label>
 	          </div>
 	        </div>
-	        <button class="uploadButton" type="submit">등록</button>
+	        <button class="uploadButton" type="submit">수정</button>
 	      </section>
 	        
 	    </form>
