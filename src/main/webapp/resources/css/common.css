@@ -310,3 +310,149 @@ h6 {
 }
 
 /* 푸터 스타일 끝*/
+
+/* 로그인 모달 스타일 시작 */
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* display: flex; */
+}
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+    background-color: #EDE0D4;
+}
+
+.modal-content img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 40px;
+}
+.modal-content input[type="text"],
+.modal-content input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 0px 0px 10px 0px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.flex-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+
+.flex-right input {
+    margin-right: 3px;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #B08968;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.modal-content button:hover {
+    background: #7F5539;
+}
+
+.modal-content .additional-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.modal-content .submit-btn {
+    margin: 20px 0 0 0;
+}
+
+.modal-find-form {
+    display: none;
+}
+
+.modal-content .find-pwd-form {
+    display: none;
+}
+
+.modal-content form {
+    width: auto;
+    flex-direction: column;
+}
+
+.modal-content form label {
+    text-align: start;
+}
+
+.modal-content .tab-buttons {
+    display: flex;
+    background-color: #DDB892;
+    border-radius: 4px;
+    margin: 0px 0px 30px 0px;
+    padding: 0px 2px;
+}
+
+.modal-content .tab-buttons button {
+    flex: 1 0;
+    margin: 4px 2px 4px 2px;
+    background: #B08968;
+    color: #000;
+}
+
+.modal-content .tab-buttons button:hover {
+    background: #7F5539;
+}
+
+.modal-content .find-id-form #emailInput {
+    margin: 0px 0 20px 0;
+}
+
+.modal-content .find-pwd-form #id-submit {
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    padding: 0px;
+    margin: 0;
+}
+
+.modal-content .find-pwd-form .certi-area {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.certi-area label {
+    width: 100%;
+}
+.certi-area input {
+    flex-basis: 65%;
+}
+
+.modal-content .find-pwd-form #certi-num-btn {
+    width: 30%;
+    height: 45px;
+    padding: 0;
+    margin: 0 0px 10px 17px;
+}
+
+.result-form label {
+    text-align: start;
+}
+#id-result, #pwd-result {
+    margin-bottom: 50px;
+}
+/* 로그인 모달 스타일 끝 */
