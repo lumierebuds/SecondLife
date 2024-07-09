@@ -28,7 +28,7 @@ body {
 
 
 
-main {
+main.main-content {
     width: 99.9vw;
     flex-basis: 600px;
     display: flex;
@@ -203,18 +203,18 @@ form {
     <div id="container">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-        <main class="centered-content">
+        <main class="main-content">
             <div class="marginer"></div>
             <div class="content">
 
                 <div class="container">
                 <div><h2>회원가입</h2></div>
                 <div class="form-container">
-                    <form name="bodyform">
+                    <form id="bodyform" action="/secondlife/member/signup" method="Post">
                         <div class="form-group">
                             <label for="id">*아이디</label>
                             <input type="text" id="id" name="id" placeholder="아이디 입력(6~20자)" required />
-                            <button type="button" class="duplicate-check">아이디 중복체크</button>
+                            <button type="button" class="duplicate-check" onclick="idCheck();">아이디 중복체크</button>
                         </div>
                         <div class="form-group">
                             <label for="nickname">*닉네임</label>
@@ -222,7 +222,7 @@ form {
                         </div>
                         <div class="form-group">
                             <label for="password">*비밀번호</label>
-                            <input type="password" id="password" name="password" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)" required />
+                            <input type="password" id="password" name="pwd" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)" required />
                         </div>
                         <div class="form-group">
                             <label for="confirm-password">*비밀번호 확인</label>
@@ -261,7 +261,7 @@ form {
     
                         <div class="checkbox-container center">
                             <label for="agree-terms">
-                                <input type="checkbox" id="agree-terms" name="agree-terms">
+                                <input type="checkbox" id="agree-terms" name="agree-terms" required>
                                 <span>개인정보 이용약관 동의(필수)</span>
                             </label>
                         </div>
@@ -291,3 +291,26 @@ form {
     </div>
 
 </html>
+
+<script>
+      function idCheck(){
+         const $id = $("#bodyform input[name=id]");
+         
+         $.ajax({
+            url : "idCheck" ,
+            data : {
+               id : $id.val()
+            },
+            success : function(result){
+               if(result == 1){ // 이미 사용중일때
+                  alert("이미 사용중입니다.");
+                  $userId.val("");
+                  $userId.focus();
+               }else{ // 중복 아이디가 없을때
+                  alert("사용가능한 아이디 입니다.");
+               }
+            }
+         })
+         
+      }
+   </script>
