@@ -97,7 +97,7 @@ header img {
 	margin: 0px 20px 3px 0px;
 }
 
-main {
+main.centered-content {
 	width: 99.9vw;
 	flex-basis: 600px;
 	display: flex;
@@ -258,9 +258,9 @@ form {
 </style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 	<div id="container">
+	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 
 		<main class="centered-content">
@@ -338,8 +338,8 @@ form {
 		</main>
 
 
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	</div>
 
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 </html>

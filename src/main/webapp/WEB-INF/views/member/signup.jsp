@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Second Life - 상품의 새 삶</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
 body {
@@ -28,7 +30,7 @@ body {
 
 
 
-main {
+main.centered-content {
     width: 99.9vw;
     flex-basis: 600px;
     display: flex;
@@ -199,34 +201,10 @@ form {
 
 </style>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	
     <div id="container">
-        <header>
-            <div class="marginer"></div>
-            <div class="header-area">
-                <div class="title">
-                    <img src="사이트 로고.png" alt="사이트로고">
-                    <h3>SecondLife</h3>
-                </div>
-                <div class="menu">
-                    <div class="menu-item">
-                        <a href="">거래 장터</a>
-                    </div>
-                </div>
-                <div class="user-menu">
-                    <div class="user-menu-item">
-                        <img src="세라톡 아이콘.png" alt="사이트로고">
-                        <a href="">세라톡</a>
-                    </div>
-                    <div class="user-menu-item">
-                        <img src="로그인 아이콘.png" alt="사이트로고">
-                        <a href="">로그인</a>
-                    </div>
-                </div>
-            </div>
-            <div class="marginer"></div>
-        </header>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+        
 
         <main class="centered-content">
             <div class="marginer"></div>
@@ -235,11 +213,11 @@ form {
                 <div class="container">
                 <div><h2>회원가입</h2></div>
                 <div class="form-container">
-                    <form name="bodyform">
+                    <form name="bodyform" action="/secondlife/member/signup" method="post" id="enroll-form" onsubmit="return validateForm()">
                         <div class="form-group">
                             <label for="id">*아이디</label>
-                            <input type="text" id="id" name="id" placeholder="아이디 입력(6~20자)" required />
-                            <button type="button" class="duplicate-check">아이디 중복체크</button>
+                            <input type="text" id="id" name="id" placeholder="아이디 입력(6~20자)" minlength="6" maxlength="20" required />
+                            <button type="button" class="duplicate-check" id="idCheckButton">아이디 중복체크</button>
                         </div>
                         <div class="form-group">
                             <label for="nickname">*닉네임</label>
@@ -247,11 +225,11 @@ form {
                         </div>
                         <div class="form-group">
                             <label for="password">*비밀번호</label>
-                            <input type="password" id="password" name="password" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)" required />
+                            <input type="password" id="pwd" name="pwd" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)" minlength="8" maxlength="20" required />
                         </div>
                         <div class="form-group">
                             <label for="confirm-password">*비밀번호 확인</label>
-                            <input type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호 재입력" required />
+                            <input type="password" id="confirm-pwd" name="confirm-pwd" placeholder="비밀번호 재입력" minlength="8" maxlength="20" required />
                         </div>
                         <div class="form-group">
                             <label for="name">*이름</label>
@@ -283,7 +261,8 @@ form {
                                 <button type="button" class="file-select">파일 선택</button>
                             </div>
                         </div>
-    
+    				
+    				
                         <div class="checkbox-container center">
                             <label for="agree-terms">
                                 <input type="checkbox" id="agree-terms" name="agree-terms">
@@ -306,10 +285,49 @@ form {
                 </div>
 
             </div>
-
+			
             </div>
             <div class="marginer"></div>
-        </main>
+
+			<script>
+				$(document).ready(function() {
+					$("#idCheckButton").click(function() {
+						var id = $("#id").val();
+						if (id.length < 6 || id.length > 20) {
+		                    alert("아이디는 6자에서 20자 사이여야 합니다.");
+		                    return;
+		                }
+						$.ajax({
+							url : "/secondlife/member/idCheck",
+							type : "GET",
+							data : {
+								id : id
+							},
+							success : function(response) {
+								if (response === "fail") {
+									alert("아이디가 중복됩니다.");
+								} else {
+									alert("사용 가능한 아이디입니다.");
+								}
+							},
+							error : function() {
+								alert("중복 체크 중 오류가 발생했습니다.");
+							}
+						});
+					});
+				});
+				
+				function validateForm() {
+		            var agreeTerms = document.getElementById('agree-terms');
+		            if (!agreeTerms.checked) {
+		                alert('개인정보 이용약관에 동의해야 회원가입을 진행할 수 있습니다.');
+		                return false; // 폼 제출을 중지
+		            }
+		            return true; // 폼 제출 계속
+		        }
+			</script>
+
+		</main>
         
         
         <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
