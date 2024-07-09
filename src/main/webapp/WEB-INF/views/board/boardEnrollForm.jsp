@@ -14,7 +14,7 @@
 
 	  <div class="board-upload">
 	
-	    <form id="board-upload-form" action="board-upload.do" method="get">
+	    <form id="board-upload-form" action="/secondlife/board/list" method="post">
 	
 	      <div class="imgUpload-container"> <!--이미지 관련-->
 	
