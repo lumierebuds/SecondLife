@@ -43,6 +43,11 @@ public class BoardController {
 		return "board/boardListView";
 	}
 	
+	@GetMapping("/insert")
+	public String enrollBoard(@PathVariable("boardCode") String boardCode) {
+		return "board/boardEnrollForm";
+	}
+	
 	@PostMapping("/insert")
 	public String insertBoard(
 			@PathVariable("boardCode") String boardCode,
