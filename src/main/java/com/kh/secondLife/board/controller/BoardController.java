@@ -37,9 +37,10 @@ public class BoardController {
 	private final ServletContext application;
 	private final ResourceLoader resourceLoader;
 	
-	@GetMapping("/insert")
-	public String enrollBoard(/*@PathVariable("boardCode") String boardCode*/) {
-		return "board/boardEnrollForm";
+	// 게시글 목록 페이지
+	@GetMapping("/list")
+	public String listBoard() {
+		return "board/boardListView";
 	}
 	
 	@PostMapping("/insert")
