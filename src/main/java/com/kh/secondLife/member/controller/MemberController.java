@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.secondLife.member.model.service.MemberService;
@@ -32,7 +33,7 @@ public class MemberController {
 	
 	@PostMapping("/login")
 	public String login(
-			@ModelAttribute Member m,
+	        @ModelAttribute Member m,
 	        Model model,
 	        RedirectAttributes ra,
 	        HttpSession session
@@ -54,7 +55,6 @@ public class MemberController {
 	        
 	        String nextUrl = (String) session.getAttribute("nextUrl");
 	        viewName = "redirect:" + (nextUrl != null ? nextUrl : "/");
-	        session.removeAttribute("nextUrl");
 	    }
 	    return viewName;
 	}
@@ -106,7 +106,46 @@ public class MemberController {
 	
 	@GetMapping("/modify")
 	public String modify() {
-		return "modify";
+		return "/member/modify";
+	}
+	
+	
+	
+	@PostMapping
+	public String updateMember(
+			Member m ,
+			Model model,
+			RedirectAttributes ra,
+			HttpSession session
+			) {
+		
+		System.out.println("Changed member: " + m);
+		
+		
+		int result = mService.updateMember(m);
+		
+		System.out.println(result);
+		
+		String url = "";
+		
+		if(result > 0) {
+			Member loginUser = mService.login(m);
+			model.addAttribute("loginUser" , loginUser);
+			ra.addFlashAttribute("alertMsg","정보 수정 성공");
+			url = "redirect:/member/myPage";
+		}else {
+			model.addAttribute("alertMsg","정보 수정 실패...");
+			url = "redirect:/member/myPage";
+		}
+		return url;
+	}
+	
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session, SessionStatus status) {
+		status.setComplete();
+		
+		return "redirect:/";
 	}
 	
 	

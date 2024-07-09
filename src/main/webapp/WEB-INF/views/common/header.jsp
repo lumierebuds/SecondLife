@@ -51,18 +51,18 @@
 		<!-- 로그인 모달 -->
 		<div class="modal-content modal-login">
 			<img src="https://via.placeholder.com/50" alt="로고">
-			<form action="">
-				<input type="text" placeholder="아이디"> <input type="password"
-					placeholder="비밀번호">
+			<form action="/secondlife/member/login" method="post">
+				<input type="text" placeholder="아이디" name="id"> <input type="password"
+					placeholder="비밀번호" name="pwd">
 				<div class="additional-options">
 					<a id="find-id" onclick="return false">계정을 잊어버리셨나요?</a> <a
-						id="register" href="member/signup">회원 가입</a>
+						id="register" href="/secondlife/member/signup">회원 가입</a>
 				</div>
 				<div class="flex-right">
 					<input type="checkbox" id="rememberMe"> <label
 						for="rememberMe">로그인 유지</label>
 				</div>
-				<button class="submit-btn" onclick="return false">확 인</button>
+				<button class="submit-btn" >확 인</button>
 			</form>
 		</div>
 		<!-- 계정 찾기 모달(아이디/비밀번호) -->
