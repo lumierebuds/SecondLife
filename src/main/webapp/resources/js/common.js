@@ -39,4 +39,19 @@ $(document).ready(function() {
     });
 
     $('.find-btn').first().trigger('click');
+
+    $('#drop-btn').on('click', function(e) {
+        e.preventDefault();
+
+        if($('.drop-box').css('display') == 'none') {
+            $('.drop-box').css('display', 'block');
+        } else {
+            $('.drop-box').css('display', 'none');
+        }
+    })
 })
+
+function loginView() {
+    $('.login-menu').css('display', 'flex');
+    $('.logout-menu').css('display', 'none');
+}
