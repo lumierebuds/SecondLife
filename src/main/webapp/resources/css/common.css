@@ -40,6 +40,11 @@ header {
     display: flex;
 }
 
+header img {
+    height: 50px;
+    margin: 0px 20px 3px 0px;
+}
+
 .header-area {
     flex-basis: 1024px;
     flex-shrink: 0;
@@ -63,7 +68,7 @@ header {
 }
 
 .header-menu {
-    width: 40%;
+    width: 35%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -83,11 +88,12 @@ header {
 }
 
 .header-user-menu {
-    width: 35%;
+    width: 40%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    position: relative;
 }
 
 .header-user-menu-item {
@@ -95,6 +101,10 @@ header {
     display: flex;
     align-items: center;
     margin: 0px 5px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    width: 110px;
 }
 
 .header-user-menu img {
@@ -110,9 +120,37 @@ header {
     background-color: transparent;
 }
 
-header img {
-    height: 50px;
-    margin: 0px 20px 3px 0px;
+.drop-box {
+    display: none;
+    position: absolute;
+    top: 70%; /* Aligns dropdown content just below the button */
+    left: 65%;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 30%;
+}
+
+.drop-box .drop-item {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    background-color: #EDE0D4;
+    border: none;
+    width: 100%;
+    text-align: right;
+    cursor: pointer;
+}
+
+.drop-box .drop-item:hover {
+    background-color: #E6CCB2;
+}
+
+.login-menu {
+    display: none;
 }
 
 /* 헤더 스타일 끝*/
