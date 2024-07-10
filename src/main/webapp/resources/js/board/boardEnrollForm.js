@@ -1,9 +1,7 @@
+var biList = [];
+
 $(document).ready(function() {
 
-    // 자바스크립트에서 form 태그 만들기
-    var formData = new FormData();
-    var biList = [];
-   
     // 이미지 추가 버튼 클릭 시 파일 업로드 창 열기
     $('.imgUpload').on('click', function() {
       $('#fileInput').click();
@@ -87,30 +85,6 @@ $(document).ready(function() {
     $('.imgUpload p').text(currentCount + '/10');
    }
    
-   var originalColor = $('.price-container > span').css("color");
-   var originalPlaceholder = $('#writing').attr('placeholder');
-   
-   function free(){
-   
-    if($('#freeSharing').is(':checked')){
-      $('#price').attr('placeholder', '무료나눔').prop('disabled', true).addClass('disabled-input');
-      $('#price').val('무료나눔');
-      $('.price-container > span').css("color", "#DDB892");
-      //무료나눔 체크를 하면 카테고리에 selected2 클래스 추가
-      $('#category-13 > button').click();
-      $('#writing').attr('placeholder', '- 나눔 진행 사유\n- 상품 설명\n- 사용 기간\n- 나눔 장소\n* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.\n* 카카오톡 아이디 첨부 시 게시물 삭제 및 이용제재 처리될 수 있어요.\n안전하고 건전한 거래환경을 위해 과학기술정보통신부, 한국인터넷진흥원, 세컨드라이프가 함께합니다.');
-    }else{
-      $("input[name='price']").attr('placeholder', '판매가격').prop('disabled', false).removeClass('disabled-input');
-      $('.price-container > span').css("color", originalColor);
-      $('#category-13').removeClass('selected2');
-      $('#categoryNo').val('');
-      $('#writing').attr('placeholder', originalPlaceholder);
-      $('#price').val('');
-    }
-   };
-   
-   
-   
     $('.twotypebutton button').click(function() {
    
       var isSelected = $(this).hasClass('selected');
@@ -124,7 +98,8 @@ $(document).ready(function() {
         // 선택된 버튼의 값을 숨겨진 필드에 저장
         $('#condition').val($(this).val());
       }
-   
+    });
+    
     $('.categoryList > li > button').click(function(){
       var isSelected = $(this).parent().hasClass('selected2');
    
@@ -191,8 +166,6 @@ $(document).ready(function() {
         $('.writing-length').text(textLength + '/1000');
     });
    
-   });
-   
    const additionalBox = document.querySelector('.additionalBox');
    const customScrollbar = document.getElementById('custom-scrollbar');
    const customThumb = document.getElementById('custom-thumb');
@@ -236,4 +209,63 @@ $(document).ready(function() {
    
    updateThumb();
    // ---------------
+   
+});
+
+var originalColor = $('.price-container > span').css("color");
+var originalPlaceholder = $('#writing').attr('placeholder');
+
+function free(){
+   
+   
+    if($('#freeSharing').is(':checked')){
+      $('#price').attr('placeholder', '무료나눔').prop('disabled', true).addClass('disabled-input');
+      $('#price').val('무료나눔');
+      $('.price-container > span').css("color", "#DDB892");
+      //무료나눔 체크를 하면 카테고리에 selected2 클래스 추가
+      $('#category-13 > button').click();
+      $('#writing').attr('placeholder', '- 나눔 진행 사유\n- 상품 설명\n- 사용 기간\n- 나눔 장소\n* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.\n* 카카오톡 아이디 첨부 시 게시물 삭제 및 이용제재 처리될 수 있어요.\n안전하고 건전한 거래환경을 위해 과학기술정보통신부, 한국인터넷진흥원, 세컨드라이프가 함께합니다.');
+    }else{
+      $("input[name='price']").attr('placeholder', '판매가격').prop('disabled', false).removeClass('disabled-input');
+      $('.price-container > span').css("color", originalColor);
+      $('#category-13').removeClass('selected2');
+      $('#categoryNo').val('');
+      $('#writing').attr('placeholder', originalPlaceholder);
+      $('#price').val('');
+    }
+}
+
+$('#board-upload-form').on('submit', function(e) {
+	e.preventDefault();
+			
+	var form = document.querySelector('#board-upload-form');
+	
+	// 자바스크립트에서 form 태그 만들기(기존 html form 태그 값 가져옴)
+	var formData = new FormData(form);
+
+	console.log("form - ", formData);
+	console.log("biList = ", biList);
+	for(var bi of biList) {
+		formData.append("upfile[]", bi);
+	}
+
+	$.ajax({
+		url: '/secondlife/board/insert',
+		type: 'POST',
+		data: formData,
+		contentType: false,
+		processData: false,
+		success: function(response) {
+			console.log(response);
+			if(response > 0) {
+				alert("게시물 등록 성공");
+				location.href = "/secondlife/board/list";
+			} else {
+				alert("! 게시물 등록 실패 !");
+			}
+		},
+		error: function(xhr) {
+			console.log(xhr);
+		}
+	});
 });

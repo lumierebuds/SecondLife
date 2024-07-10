@@ -1,5 +1,7 @@
 package com.kh.secondLife.board.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,7 @@
 package com.kh.secondLife.board.model.service;
 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	@Transactional(rollbackFor = {Exception.class}) // 어떤 예외든 발생시 rollback처리
-	public int insertBoard(Board b, BoardImg bi) throws Exception {
+	public int insertBoard(Board b, List<BoardImg> biList) throws Exception {
 		// 0) 게시글 삽입전 , xss파싱처리 , 개행처리 수행
 				String productName = b.getProductName();
 				String content = b.getContent();
@@ -36,16 +38,17 @@ public class BoardServiceImpl implements BoardService {
 				
 				// 1) INSERT BOARD 후
 				int result = boardDao.insertBoard(b); // 수행완료시 b에는 boardNo저장 -> selectKey확인
+				log.debug("boardDao.insertBoard 실행 완료");
 				
 				int boardNo = b.getBoardNo();
 				// 2) INSERT BOARD_IMG -> bi != null 등록
-				if(bi != null) {
-					bi.setBoardImgNo(boardNo);
-					result *= boardDao.insertBoardImg(bi); // (메모) result가 둘중 하나라도 0이면 0이나오게 곱하기( ex)0x1=0 )
-				}
-				
-				if(result == 0) {
-					throw new Exception("예외 발생");
+				if(biList.size() > 0) {
+					for(BoardImg bi : biList) {
+						bi.setBoardNo(boardNo);
+						log.debug("작업 직전 이미지 - {}", bi);
+						result *= boardDao.insertBoardImg(bi); // (메모) result가 둘중 하나라도 0이면 0이나오게 곱하기( ex)0x1=0 )
+					}
+					
 				}
 				
 				// 1-2)의 수행결과는 항상 동일하게 처리해야함

@@ -4,15 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
 
-	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true" >
-		<!-- selectkey 태그 내용은 위의 select 태그 내용을 미리 실행한 것과 같다 -->
+	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true">
+	
 		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
-			SELECT SEQ_BNO.NEXTVAL FROM DUAL <!-- 이거 대신 SEQ_BOARD_NO를 아래에 넣어야 하는가? -->
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
 		</selectKey>
 	
 		INSERT INTO BOARD
 		VALUES(
-			#{boardNo} ,
+			SEQ_BOARD_NO.CURRVAL,
 			#{categoryNo},
 			#{boardWriter},
 			#{tradeCategoryNo},
@@ -34,18 +34,13 @@
 			BOARD_IMG_NO,
 			BOARD_NO,
 			CHANGE_NAME,
-			IMG_PATH,
-			STATUS,
-			CREATE_DATE,
-			MODIFY_DATE
-		) VALUES (
+			IMG_PATH
+		) VALUES
+		(
 			SEQ_BOARD_IMG_NO.NEXTVAL,
 			#{boardNo},
 			#{changeName},
-			#{imgPath},
-			DEFAULT,
-			DEFAULT,
-			DEFAULT
+			#{imgPath}
 		)
 	</insert>
 

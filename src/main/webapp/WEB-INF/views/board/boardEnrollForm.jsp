@@ -9,7 +9,6 @@
 <link rel="stylesheet"
 	href="/secondlife/resources/css/board/boardEnrollForm.css">
 <script src="https://code.jquery.com/jquery-latest.js"></script>
-<script src="/secondlife/resources/js/board/boardEnrollForm.js"></script>
 </head>
 
 <body>
@@ -24,13 +23,13 @@
 				<div class="board-upload">
 
 					<form id="board-upload-form" action="/secondlife/board/list"
-						method="post">
+						method="post" enctype="multipart/form-data">
 
 						<div class="imgUpload-container">
 							<!--이미지 관련-->
 
 							<div class="imgUpload">
-								<img src="../resources/images/board/free-icon-camera.png" alt=""
+								<img src="../resources/images/free-icon-camera.png" alt=""
 									width="50px">
 								<p>0/10</p>
 							</div>
@@ -56,67 +55,67 @@
 								<!-- ul이 들어가있는 정사각형div -->
 								<ul class="categoryList">
 									<li id="category-1">
-										<button name="category" value="0" onclick="return false">
+										<button name="category" value="1" onclick="return false">
 											<p>수입명품</p>
 										</button>
 									</li>
 									<li id="category-2">
-										<button name="category" value="1" onclick="return false">
+										<button name="category" value="2" onclick="return false">
 											<p>패션의류</p>
 										</button>
 									</li>
 									<li id="category-3">
-										<button name="category" value="2" onclick="return false">
+										<button name="category" value="3" onclick="return false">
 											<p>패션잡화</p>
 										</button>
 									</li>
 									<li id="category-4">
-										<button name="category" value="3" onclick="return false">
+										<button name="category" value="4" onclick="return false">
 											<p>도서/음반/문구</p>
 										</button>
 									</li>
 									<li id="category-5">
-										<button name="category" value="4" onclick="return false">
+										<button name="category" value="5" onclick="return false">
 											<p>출산/유아동</p>
 										</button>
 									</li>
 									<li id="category-6">
-										<button name="category" value="5" onclick="return false">
+										<button name="category" value="6" onclick="return false">
 											<p>모바일/태블릿</p>
 										</button>
 									</li>
 									<li id="category-7">
-										<button name="category" value="6" onclick="return false">
+										<button name="category" value="7" onclick="return false">
 											<p>가전제품</p>
 										</button>
 									</li>
 									<li id="category-8">
-										<button name="category" value="7" onclick="return false">
+										<button name="category" value="8" onclick="return false">
 											<p>노트북/PC</p>
 										</button>
 									</li>
 									<li id="category-9">
-										<button name="category" value="8" onclick="return false">
+										<button name="category" value="9" onclick="return false">
 											<p>가구/인테리어</p>
 										</button>
 									</li>
 									<li id="category-10">
-										<button name="category" value="9" onclick="return false">
+										<button name="category" value="10" onclick="return false">
 											<p>리빙/생활</p>
 										</button>
 									</li>
 									<li id="category-11">
-										<button name="category" value="10" onclick="return false">
+										<button name="category" value="11" onclick="return false">
 											<p>게임</p>
 										</button>
 									</li>
 									<li id="category-12">
-										<button name="category" value="11" onclick="return false">
+										<button name="category" value="12" onclick="return false">
 											<p>오토바이</p>
 										</button>
 									</li>
 									<li id="category-13">
-										<button name="category" value="12" onclick="return false">
+										<button name="category" value="13" onclick="return false">
 											<p>무료나눔</p>
 										</button>
 									</li>
@@ -157,13 +156,13 @@
 							</div>
 							<div class="tradingMethod">
 								<div>
-									<input type="checkbox" name="tradeCategoryNo" value="0"
+									<input type="checkbox" name="tradeCategoryNo" value="1"
 										id="deliveryTransaction"> <label
 										for="deliveryTransaction" class="custom-checkbox"></label> <label
 										for="deliveryTransaction">택배거래</label>
 								</div>
 								<div>
-									<input type="checkbox" name="tradeCategoryNo" value="1"
+									<input type="checkbox" name="tradeCategoryNo" value="2"
 										id="directTransaction"> <label for="directTransaction"
 										class="custom-checkbox"></label> <label
 										for="directTransaction">직거래</label>
@@ -181,5 +180,6 @@
 		</main>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
+	<script src="/secondlife/resources/js/board/boardEnrollForm.js"></script>
 </body>
 </html>

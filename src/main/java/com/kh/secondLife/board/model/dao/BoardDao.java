@@ -1,5 +1,7 @@
 package com.kh.secondLife.board.model.dao;
 
+import java.util.List;
+
 import com.kh.secondLife.board.model.vo.Board;
 import com.kh.secondLife.board.model.vo.BoardImg;
 
