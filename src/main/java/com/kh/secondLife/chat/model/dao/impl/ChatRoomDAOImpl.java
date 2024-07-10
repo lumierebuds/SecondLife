@@ -32,7 +32,6 @@ public class ChatRoomDAOImpl implements ChatRoomDAO {
         Map<String, Object> params = new HashMap<>();
         params.put("chatRoomNo", chatRoomNo);
         params.put("memberNo", memberNo);
-        
         sqlSession.delete("chatMapper.deleteChatRoomMember", params);
     }
 
@@ -44,5 +43,10 @@ public class ChatRoomDAOImpl implements ChatRoomDAO {
     @Override
     public void deleteChatRoom(int chatRoomNo) {
         sqlSession.delete("chatMapper.deleteChatRoom", chatRoomNo);
+    }
+
+    @Override
+    public List<ChatRoom> selectChatRoomsByMemberNo(int memberNo) {
+        return sqlSession.selectList("chatMapper.selectChatRoomsByMemberNo", memberNo);
     }
 }

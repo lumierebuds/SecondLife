@@ -10,4 +10,5 @@ public interface ChatRoomService {
     void leaveChatRoom(int chatRoomNo, int memberNo);
     boolean isChatRoomEmpty(int chatRoomNo);
     void deleteChatRoom(int chatRoomNo);
+    List<ChatRoom> getChatRoomsByMemberNo(int memberNo);  // 추가된 메서드
 }

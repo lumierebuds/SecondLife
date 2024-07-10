@@ -3,36 +3,32 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="chat">
+<mapper namespace="chatMapper">
 
-  <select id="getChatRoomList" resultType="chatRoom">
-    SELECT * FROM chat_room WHERE user_id = #{userId}
+   <select id="selectAllChatRooms" resultType="com.kh.secondLife.chat.model.vo.ChatRoom">
+    SELECT * FROM chat_room
   </select>
   
-  <insert id="createChatRoom">
-    INSERT INTO chat_room (name, user_id) VALUES (#{name}, #{userId})
-  </insert>
-
-  <select id="getChatMessages" parameterType="int" resultType="chatMessage">
-    SELECT * FROM chat_message WHERE chat_room_id = #{chatRoomId}
+  <select id="selectChatRoomsByMemberNo" parameterType="int" resultType="com.kh.secondLife.chat.model.vo.ChatRoom">
+    SELECT * FROM chat_room
+    WHERE first_member_no = #{memberNo} OR second_member_no = #{memberNo}
   </select>
 
-  <insert id="insertChatMessage">
-    INSERT INTO chat_message (chat_room_id, user_id, message)
-    VALUES (#{chatRoomId}, #{userId}, #{message})
+  <insert id="insertChatRoom">
+    INSERT INTO chat_room (board_no, first_member_no, second_member_no, create_date, status, notice)
+    VALUES (#{boardNo}, #{firstMemberNo}, #{secondMemberNo}, #{createDate}, #{status}, #{notice})
   </insert>
-
-  <delete id="leaveChatRoom">
-    DELETE FROM chat_room_user WHERE chat_room_id = #{chatRoomId} AND user_id = #{userId}
-  </delete>
-
-  <select id="isChatRoomEmpty" parameterType="int" resultType="boolean">
-    SELECT COUNT(*) = 0 FROM chat_room_user WHERE chat_room_id = #{chatRoomId}
-  </select>
 
   <delete id="deleteChatRoomMember" parameterType="map">
-    DELETE FROM ChatRoomMembers
-    WHERE chatRoomNo = #{chatRoomNo}
-      AND memberNo = #{memberNo}
-</delete>
+    DELETE FROM chat_room_user 
+    WHERE chat_room_no = #{chatRoomNo} AND member_no = #{memberNo}
+  </delete>
+
+  <select id="countChatRoomMembers" parameterType="int" resultType="int">
+    SELECT COUNT(*) FROM chat_room_user WHERE chat_room_no = #{chatRoomNo}
+  </select>
+
+  <delete id="deleteChatRoom" parameterType="int">
+    DELETE FROM chat_room WHERE chat_room_no = #{chatRoomNo}
+  </delete>
 </mapper>

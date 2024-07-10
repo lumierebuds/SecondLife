@@ -40,4 +40,9 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     public void deleteChatRoom(int chatRoomNo) {
         chatRoomDAO.deleteChatRoom(chatRoomNo);
     }
+
+    @Override
+    public List<ChatRoom> getChatRoomsByMemberNo(int memberNo) {
+        return chatRoomDAO.selectChatRoomsByMemberNo(memberNo);
+    }
 }

@@ -10,19 +10,17 @@
     <link rel="stylesheet" href="../resources/css/chat/chatRoom.css">
 </head>
 
-<body>
-   
+<body id="body" style="overflow: auto;">
     <header>
         <div class="secondlifeLogo-url">
             <a href="https://secondlife.com">
-                <img src="../resources/images/secondLifeLogo.png" alt="SecondLife Logo" onclick="mainPage()">세컨드라이프
+                <img class="logoimg"src="../resources/images/defaultImg.png" alt="SecondLife Logo" onclick="mainPage()">
             </a>
         </div>
         <div></div>
         <div class="user-profile">
             <button class="rightbtn" onclick="myFunction()">
-                
-                <img class="profile-img" src="../resources/images/default_png.png" alt="${loginUser.nickname}">
+                <img class="profile-img" src="../resources/images/defaultImg.png" alt="${loginUser.nickname}">
                 <div class="nickname-area">
                     <span class="menu-icon">
                         <svg width="12" height="7" viewbox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,43 +31,48 @@
                 </div>
             </button>
             <div id="myDropdown" class="user-profile-content">
-                <a href="#chat-alarm" class="chat-alert-toggle" id="chatAlertToggle">채팅켜기   🔔</a>
-                <a href="#logout">로그아웃</a>                    
+                <a href="#chat-alarm" class="chat-alert-toggle" id="chatAlertToggle">채팅켜기 🔔</a>
+                <a href="#logout">로그아웃</a>
             </div>
         </div>
     </header>
     <div class="main-content">
         <nav class="sidebar">
             <ul>
-                <li class="nav-item"><span class="nav-icon"></span>${loginUser.nickname}</li>
-                <li class="nav-item active"><span class="nav-icon"></span>${loginUser.nickname}</li>
-                <li class="nav-item"><span class="nav-icon"></span>${loginUser.nickname}</li>
+                <!-- 채팅방 목록을 foreach 문을 통해 렌더링 -->
+                <c:forEach var="chatRoom" items="${chatRoomList}">
+                    <li class="nav-item">
+                        <div class="chat-room-info">
+                            <img class="profile-img" src="../resources/images/defaultImg.png" alt="${loginUser.nickname}">
+                            <div class="more-options">
+                                <button class="more-options-btn" onclick="toggleDeleteButton(this)">
+                                    &#8942; <!-- 미트볼 아이콘 (⋮) -->
+                                </button>
+                                <button class="delete-btn" style="display: none;" onclick="deleteChatRoom(${chatRoom.chatRoomNo})">삭제</button>
+                            </div>
+                        </div>
+                    </li>
+                </c:forEach>
             </ul>
         </nav>
         <div class="chat-window">
             <div class="message-collect">
-                <!-- 메시지 내용들 -->
-                <div class="message received">
-                    <span class="message-icon">🐻</span>
-                    <span class="message-text"></span>
-                </div>
-                <!-- 추가 메시지들... -->
-                <div class="message sent">
-                    <span class="message-text">아직 판매중입니다.</span>
-                </div>
-                <div class="message received">
-                    <span class="message-icon">🐻</span>
-                    <span class="message-text"></span>
+                <div class="empty-box">
+                    <svg width="96" height="81" viewBox="0 0 96 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M33.0004 0C15.0185 0 0 13.0729 0 29.6567C0 40.358 6.27606 49.642 15.5279 54.8364L13.8397 64.5305C13.7353 65.1299 13.928 65.7446 14.3535 66.1751L14.3573 66.179L14.3724 66.1939C14.3853 66.2066 14.4061 66.2267 14.4326 66.2506C14.4869 66.2995 14.568 66.3668 14.6744 66.435C14.9082 66.5849 15.1569 66.6709 15.3962 66.7073C15.7666 66.7637 16.0661 66.6901 16.1358 66.673L16.1413 66.6716C16.3174 66.6287 16.5003 66.558 16.6232 66.51C16.9302 66.3901 17.5014 66.1524 18.5787 65.6955C20.7218 64.7866 24.9636 62.9696 33.3799 59.3641C51.1931 59.1817 66.0008 46.1763 66.0008 29.7093C66.0008 13.1297 50.987 0 33.0004 0Z"
+                            fill="#DCDEE3"></path>
+                        <path d="M72.2312 29.4385C72.2312 48.2002 56.7085 62.679 37.8858 64.8408C44.0168 70.067 52.3818 73.2792 61.479 73.3633C70.2216 76.9749 74.6257 78.7941 76.8498 79.7036C77.9674 80.1606 78.5583 80.3977 78.8749 80.517C79.0036 80.5654 79.1863 80.6333 79.3599 80.6741L79.3652 80.6754C79.4339 80.6917 79.7238 80.7604 80.0821 80.7078C80.313 80.6739 80.5564 80.5935 80.7883 80.4501C80.8943 80.3846 80.9756 80.3195 81.0307 80.2717C81.0459 80.2585 81.0593 80.2464 81.0704 80.2362C81.0789 80.2284 81.0861 80.2217 81.0918 80.2163L81.1071 80.2017L81.111 80.1978C81.5557 79.764 81.7577 79.1325 81.6467 78.5179L79.9012 68.8524C89.4699 63.674 96 54.3943 96 43.6557C96 29.1206 84.0984 17.353 68.7254 14.6059C70.9682 19.0808 72.2312 24.0881 72.2312 29.4385Z"
+                            fill="#DCDEE3"></path>
+                    </svg>
+                    <div class="empty-description">채팅할 상대를 선택해주세요.</div>
                 </div>
             </div>
             <div class="message-input" style="border: 1px solid">
                 <textarea class="chat-message-area" placeholder="메시지를 입력하세요."></textarea>
                 <div class="message-option">
                     <label class="option-wrapper">
-                        <span class="option-tooltip">
-                            📎
-                        </span>
-                        <input type="file" multiple accept="image/png, image/jpeg, image/gif">                       
+                        <span class="option-tooltip">📎</span>
+                        <input type="file" multiple accept="image/png, image/jpeg, image/gif">
                     </label>
                     <span class="text-length">0/1000</span>
                     <button type="submit">전송</button>
@@ -77,50 +80,7 @@
             </div>
         </div>
     </div>
-    </div>
     <script src="../resources/js/chat.js"></script>
-
-    <script>
-    function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-      }
-      
-      // Close the dropdown if the user clicks outside of it
-      window.onclick = function (event) {
-        if (!event.target.matches('.rightbtn')) {
-          var dropdowns = document.getElementsByClassName("user-profile-content");
-          var i;
-          for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-              openDropdown.classList.remove('show');
-            }
-          }
-        }
-      }
-      
-      const chatAlertToggle = document.getElementById('chatAlertToggle');
-      let alertOn = true;
-      
-      chatAlertToggle.addEventListener('click', () => {
-          alertOn = !alertOn;
-          if (alertOn) {
-              chatAlertToggle.textContent = '채팅 켜기 🔔';
-              chatAlertToggle.classList.remove('active');
-          } else {
-              chatAlertToggle.textContent = '채팅 끄기 🔕';
-              chatAlertToggle.classList.add('active');
-          }
-      });
-      
-      const fileInput = document.querySelector('.option-wrapper input[type="file"]');
-      fileInput.addEventListener('change', (event) => {
-          const fileName = event.target.files[0]?.name;
-          if (fileName) {
-              alert(`선택된 파일: ${fileName}`);
-          }
-      });
-    </script>
 </body>
 
 </html>
