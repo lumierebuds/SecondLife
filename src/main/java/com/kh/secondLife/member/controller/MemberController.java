@@ -148,7 +148,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	
+//	@GetMapping("/review/insert")
 	
 	
 	
