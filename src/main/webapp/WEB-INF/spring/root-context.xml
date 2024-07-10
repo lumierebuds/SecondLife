@@ -14,8 +14,8 @@
 	 -->
 	 
 	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="realDataSource" destroy-method="close">
-	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-	 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
 	 	<property name="username" value="C##SECONDLIFE" />
 	 	<property name="password" value="SECONDLIFE" />	 	
 	 </bean>
