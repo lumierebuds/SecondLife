@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="chat">
+
+  <select id="getChatRoomList" resultType="chatRoom">
+    SELECT * FROM chat_room WHERE user_id = #{userId}
+  </select>
+  
+  <insert id="createChatRoom">
+    INSERT INTO chat_room (name, user_id) VALUES (#{name}, #{userId})
+  </insert>
+
+  <select id="getChatMessages" parameterType="int" resultType="chatMessage">
+    SELECT * FROM chat_message WHERE chat_room_id = #{chatRoomId}
+  </select>
+
+  <insert id="insertChatMessage">
+    INSERT INTO chat_message (chat_room_id, user_id, message)
+    VALUES (#{chatRoomId}, #{userId}, #{message})
+  </insert>
+
+  <delete id="leaveChatRoom">
+    DELETE FROM chat_room_user WHERE chat_room_id = #{chatRoomId} AND user_id = #{userId}
+  </delete>
+
+  <select id="isChatRoomEmpty" parameterType="int" resultType="boolean">
+    SELECT COUNT(*) = 0 FROM chat_room_user WHERE chat_room_id = #{chatRoomId}
+  </select>
+
+  <delete id="deleteChatRoomMember" parameterType="map">
+    DELETE FROM ChatRoomMembers
+    WHERE chatRoomNo = #{chatRoomNo}
+      AND memberNo = #{memberNo}
+</delete>
+</mapper>
