@@ -1,21 +1,8 @@
 package com.kh.secondLife.board.controller;
 
-import java.io.File;
-
-import javax.servlet.ServletContext;
-
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
@@ -31,12 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SessionAttributes({"loginUser"})
 @RequestMapping("/board")
-@RequiredArgsConstructor
 public class BoardController {
-
-	private final BoardService boardService;
-	private final ServletContext application;
-	private final ResourceLoader resourceLoader;
 	
 	// 게시글 목록 페이지
 	@GetMapping("/list")

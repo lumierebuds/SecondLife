@@ -106,6 +106,16 @@
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	</div>
+	
+	<script>
+        $(document).ready(function() {
+        	if('${alertMsg}'){
+            	alert("${alertMsg}")
+            }
+        });
+        
+        
+    </script>
 
 	<script src="/secondlife/resources/js/main.js">
     </script>

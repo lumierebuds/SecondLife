@@ -29,17 +29,33 @@
                     </div>
                 </div>
                 <div class="header-user-menu">
+					<div class="header-user-menu-item login-menu">
+                        <button onclick="return false">
+                            <img src="/secondlife/resources/images/찜목록 아이콘.png" alt="찜목록 아이콘">
+                            찜 목록
+                        </button>
+                    </div>
                     <div class="header-user-menu-item">
                         <button onclick="return false">
                             <img src="/secondlife/resources/images/세라톡 아이콘.png" alt="세라톡 아이콘">
                             세라톡
                         </button>
                     </div>
-                    <div class="header-user-menu-item">
+                    <div class="header-user-menu-item logout-menu">
                         <button id="login" onclick="return false">
                             <img src="/secondlife/resources/images/로그인 아이콘.png" alt="로그인 아이콘">
                             로그인
                         </button>
+                    </div>
+					<div class="header-user-menu-item login-menu">
+                        <button id="drop-btn">
+                            <img src="/secondlife/resources/images/마이 아이콘.png" alt="마이 아이콘">
+                            마 이
+                        </button>
+						<div class="drop-box">
+							<button class="drop-item">마이페이지</button>
+							<button class="drop-item">로그아웃</button>
+						</div>
                     </div>
                 </div>
             </div>
@@ -51,18 +67,18 @@
 		<!-- 로그인 모달 -->
 		<div class="modal-content modal-login">
 			<img src="https://via.placeholder.com/50" alt="로고">
-			<form action="">
-				<input type="text" placeholder="아이디"> <input type="password"
-					placeholder="비밀번호">
+			<form action="/secondlife/member/login" method="post">
+				<input type="text" placeholder="아이디" name="id"> <input type="password"
+					placeholder="비밀번호" name="pwd">
 				<div class="additional-options">
 					<a id="find-id" onclick="return false">계정을 잊어버리셨나요?</a> <a
-						id="register" href="member/signup">회원 가입</a>
+						id="register" href="/secondlife/member/signup">회원 가입</a>
 				</div>
 				<div class="flex-right">
 					<input type="checkbox" id="rememberMe"> <label
 						for="rememberMe">로그인 유지</label>
 				</div>
-				<button class="submit-btn" onclick="return false">확 인</button>
+				<button class="submit-btn" >확 인</button>
 			</form>
 		</div>
 		<!-- 계정 찾기 모달(아이디/비밀번호) -->
