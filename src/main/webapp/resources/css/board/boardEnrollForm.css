@@ -1,111 +1,7 @@
-@charset "UTF-8";
-
-body{
-  display: flex;
-  /* background-color: #ede0d4; */
-}
-/* body *{
-  background-color: transparent;
-} */
-
-#container {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid red;
-  box-sizing: border-box;
-}
-
-.marginer {
-  width: 15%;
-  flex-grow: 1;
-  height: 100%;
-  border: 1px solid black;
-}
-
-/* 헤더 스타일 시작*/
-header {
-  width: 99.9vw;
-  height: 100px;
-  background-color: #f8f9fa;
-}
-
-.header-area {
-  flex-basis: 1024px;
-  flex-shrink: 0;
-  height: 100%;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-}
-
-.title {
-  display: flex;
-  margin: 0px 20px;
-  align-items: center;
-}
-
-header img {
-  width: 70px;
-  margin-right: 20px;
-}
-
-/* 헤더 스타일 끝*/
-
-/* 네비게이션 바 스타일 시작*/
-nav {
-  width: 99.9vw;
-  height: 80px;
-  border: 1px solid black;
-  display: flex;
-}
-
-.nav-area {
-  flex-basis: 1024px;
-  flex-shrink: 0;
-  height: 100%;
-  border: 1px solid black;
-  padding: 20px;
-  display: flex;
-}
-
-.category {
-  width: 150px;
-  height: 47px;
-  background-color: burlywood;
-  border-radius: 0.375rem; /* 중고나라에서 radius 값 복사해왔음*/
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 0% 1.5%;
-}
-
-.search-bar {
-  width: 800px;
-  height: 47px;
-  margin-left: 15px;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-#search-icon {
-  position: absolute;
-  margin: 0px 10px;
-}
-
-.search-input {
-  padding-left: 40px;
-  width: 100%;
-  height: 100%;
-  border: 1px solid #e8e8e8;
-  border-radius: 20px;
-  background-color: #f9f9f9;
-}
-
-/* 네비게이션 바 스타일 끝*/
 
 /* 메인 스타일 시작 */
+
+
 main {
   width: 99.9vw;
   flex-basis: 600px;
@@ -113,19 +9,25 @@ main {
   border-collapse: collapse;
 }
 
+main#main-container {
+    width: 99.9vw;
+    flex-basis: 600px;
+    display: flex;
+}
+
 .content {
   flex-basis: 1024px;
   flex-shrink: 0;
   height: 100%;
-  border: 1px solid black;
 }
+
+/* 메인 스타일 끝*/
 
 /* 게시물 등록/수정 스타일 시작 */
 .board-upload{
   /* display: none; */
   width: 768px;
   height: 1149px;
-  border: 1px solid red;
   margin:auto;
 }
 
@@ -522,21 +424,162 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
 
 /* 게시물 등록/수정 스타일 끝 */
 
-/* 메인 스타일 끝*/
-
-/* 푸터 스타일 시작 */
-footer {
-  width: 99.9vw;
-  margin: 0 auto;
-  height: 200px;
+/* 로그인 모달 스타일 시작 */
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* display: flex; */
+}
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+    background-color: #EDE0D4;
 }
 
-.footer-area {
-  flex-basis: 1024px;
-  flex-shrink: 0;
+.modal-content img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 40px;
+}
+.modal-content input[type="text"],
+.modal-content input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 0px 0px 10px 0px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.flex-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+
+.flex-right input {
+    margin-right: 3px;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #B08968;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.modal-content button:hover {
+    background: #7F5539;
+}
+
+.modal-content .additional-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.modal-content .submit-btn {
+    margin: 20px 0 0 0;
+}
+
+.modal-find-form {
+    display: none;
+}
+
+.modal-content .find-pwd-form {
+    display: none;
+}
+
+.modal-content form {
+    width: auto;
+    flex-direction: column;
+}
+
+.modal-content form label {
+    text-align: start;
+}
+
+.modal-content .tab-buttons {
+    display: flex;
+    background-color: #DDB892;
+    border-radius: 4px;
+    margin: 0px 0px 30px 0px;
+    padding: 0px 2px;
+}
+
+.modal-content .tab-buttons button {
+    flex: 1 0;
+    margin: 4px 2px 4px 2px;
+    background: #B08968;
+    color: #000;
+}
+
+.modal-content .tab-buttons button:hover {
+    background: #7F5539;
+}
+
+.modal-content .find-id-form #emailInput {
+    margin: 0px 0 20px 0;
+}
+
+.modal-content .find-pwd-form #id-submit {
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    padding: 0px;
+    margin: 0;
+}
+
+.modal-content .find-pwd-form .certi-area {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.certi-area label {
+    width: 100%;
+}
+.certi-area input {
+    flex-basis: 65%;
+}
+
+.modal-content .find-pwd-form #certi-num-btn {
+    width: 30%;
+    height: 45px;
+    padding: 0;
+    margin: 0 0px 10px 17px;
+}
+
+.result-form label {
+    text-align: start;
+}
+#id-result, #pwd-result {
+    margin-bottom: 50px;
+}
+/* 로그인 모달 스타일 끝 */
+  display: flex;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.marginer {
+  width: 15%;
+  flex-grow: 1;
   height: 100%;
-  border: 1px solid black;
-  padding: 20px;
 }
-
-/* 푸터 스타일 끝*/
