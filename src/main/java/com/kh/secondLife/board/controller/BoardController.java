@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
-import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.common.Pagenation;
 import com.kh.secondLife.common.model.vo.PageInfo;
-
 import lombok.RequiredArgsConstructor;
 
 
@@ -56,4 +54,37 @@ public class BoardController {
 		
 		return "board/boardListView";
 	}
+	
+	// 게시글 상세 페이지 
+	@GetMapping("/detail/{boardNo}")
+	public String detailBoard(
+			@PathVariable(name="boardNo", required = true) int boardNo,
+			@RequestParam Map<String, Object> paramMap,
+			Model model
+			) {
+		
+		// 1. 게시글의 내용을 조회하기 		
+		Board board = boardService.selectBoard(boardNo);
+		
+		// 2. 게시글을 작성한 판매자 정보를 조회하기 
+			
+		int boardWriter = board.getBoardWriter();
+		
+		
+		// 3. 해당 게시글이 참고하는 카테고리의 거래 게시글을 조회하기(최대 4개) 
+		int categoryNo = board.getCategoryNo();
+		String productName = board.getProductName();
+		
+		paramMap.put("productName", productName);
+		paramMap.put("categoryNo", categoryNo);
+			
+		List<Board> list = boardService.selectRecommendBoard(paramMap);
+		
+		// 4. 페이지 렌더링 
+		model.addAttribute("board", board);
+		model.addAttribute("list", list);
+
+		return "board/boardDetailView";
+	}
+	
 }

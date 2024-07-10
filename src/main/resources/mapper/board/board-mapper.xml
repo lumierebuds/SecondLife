@@ -33,6 +33,8 @@
 		<result column="PRODUCT_NAME" property="productName"/>
 		<result column="PRICE" property="price"/>
 		<result column="CREATE_DATE" property="createDate"/>
+		<result column="CONTENT" property="content"/>
+		<result column="BOARD_WRITER" property="boardWriter"/>
 		
 		<collection property="biList" javaType="List" ofType="boardImg">
 			<id column="BOARD_IMG_NO" property="boardImgNo"/>
@@ -68,5 +70,48 @@
 
 	</select>
 	
-		
+	<select id="selectBoard" resultMap="boardExtMap">
+		SELECT
+		  B.BOARD_NO AS BOARD_NO,
+		  PRODUCT_NAME,
+		  PRICE,
+		  CONTENT,
+		  B.CREATE_DATE AS CREATE_DATE,
+		  BOARD_WRITER,
+		  
+		  BOARD_IMG_NO,
+		  IMG_PATH,
+		  CHANGE_NAME
+		FROM BOARD "B" 
+		LEFT JOIN BOARD_IMG "BI"
+		ON (B.BOARD_NO = BI.BOARD_NO)
+		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{boardNo}
+	</select>
+	
+	<select id="selectRecommendBoard" resultMap="boardExtMap">
+		<!-- group by 절을 이용해서 추천 게시글의 이미지를 1개만 가져왔다. -->
+		SELECT * 
+			FROM (
+		        SELECT
+		            B.BOARD_NO AS BOARD_NO,
+		            PRODUCT_NAME,
+		            BOARD_WRITER,
+		            IMG_PATH,
+		            MIN(BOARD_IMG_NO) AS BOARD_IMG_NO,
+		            MIN(CHANGE_NAME) AS CHANGE_NAME
+		        FROM BOARD "B"
+		        LEFT JOIN BOARD_IMG "BI"
+		            ON (B.BOARD_NO = BI.BOARD_NO)
+		        WHERE 
+		            B.STATUS = 'Y' 
+		            AND (CATEGORY_NO = 0 OR PRODUCT_NAME LIKE '%' || #{productName} || '%')
+		            GROUP BY
+		            B.BOARD_NO,
+		            PRODUCT_NAME,
+		            BOARD_WRITER,
+		            IMG_PATH)
+		     WHERE ROWNUM <![CDATA[ <= ]]> 4
+	</select>
+	
+	
 </mapper>

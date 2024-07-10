@@ -17,5 +17,10 @@ public interface BoardService {
 
 	String selectCategoryName(Map<String, Object> paramMap);
 
+	Board selectBoard(int boardNo);
+
+	List<Board> selectRecommendBoard(Map<String, Object> paramMap);
+	
+	
 
 }

@@ -30,11 +30,22 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	
-	
 	@Override
 	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
 
 		return boardDao.selectBoardList(pi, paramMap);
+	}
+
+	@Override
+	public Board selectBoard(int boardNo) {
+		
+		return boardDao.selectBoard(boardNo);
+	}
+
+	@Override
+	public List<Board> selectRecommendBoard(Map<String, Object> paramMap) {
+		
+		return boardDao.selectRecommendBoard(paramMap);
 	}
 
 

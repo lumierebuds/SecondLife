@@ -43,6 +43,19 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectList("board.selectBoardList", paramMap, rowBounds);
 	}
 
+	@Override
+	public Board selectBoard(int boardNo) {
+		
+		return sqlSession.selectOne("board.selectBoard", boardNo);
+	}
+
+	@Override
+	public List<Board> selectRecommendBoard(Map<String, Object> paramMap) {
+		
+		return sqlSession.selectList("board.selectRecommendBoard", paramMap);
+	
+	}
+
 
 	
 	
