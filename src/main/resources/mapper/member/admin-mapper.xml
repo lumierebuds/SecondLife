@@ -18,4 +18,10 @@
 		WHERE STATUS = 'Y'
 	</select>
 	
+	<select id="selectBoardList" resultType="board">
+		SELECT *
+		FROM BOARD
+		LEFT JOIN MEMBER ON (BOARD_WRITER = MEMBER_NO)
+	</select>
+	
 </mapper>

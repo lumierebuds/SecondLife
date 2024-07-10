@@ -233,7 +233,7 @@ header {
 							<p>회원검색</p>
 						</div>
 						<form>
-							<input type="text" class="search-box"> <select
+							<input type="text" class="search-box" name="search"> <select
 								class="search-category">
 								<option value="none" selected>==선택==</option>
 								<option value="content-no">회원 번호</option>

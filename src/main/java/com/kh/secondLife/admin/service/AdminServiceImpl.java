@@ -1,12 +1,15 @@
 package com.kh.secondLife.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.secondLife.admin.dao.AdminDao;
+import com.kh.secondLife.board.model.vo.Board;
+import com.kh.secondLife.common.model.vo.PageInfo;
 import com.kh.secondLife.member.dao.MemberDao;
 import com.kh.secondLife.member.model.vo.Member;
 
@@ -39,6 +42,12 @@ public class AdminServiceImpl implements AdminService{
 		
 		
 		return adminDao.selectMemberAll();
+	}
+
+	@Override
+	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
+		
+		return adminDao.selectBoardList(pi, paramMap);
 	}
 	
 	

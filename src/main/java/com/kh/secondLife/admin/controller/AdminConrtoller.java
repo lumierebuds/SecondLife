@@ -1,15 +1,19 @@
 package com.kh.secondLife.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.secondLife.admin.service.AdminService;
+import com.kh.secondLife.board.model.service.BoardService;
+import com.kh.secondLife.board.model.vo.Board;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminConrtoller {
 	
 	private final AdminService aService;
+	
 	private final BCryptPasswordEncoder encoder;
 	
 	@GetMapping("/memberManage")
@@ -39,8 +44,14 @@ public class AdminConrtoller {
 	
 	
 	@GetMapping("/postManage")
-	public String postManage() {
+	public String postManage(
+			Model model,
+			@RequestParam Map<String, Object> paramMap
+			) {
 		
+		List<Board> bList = aService.selectBoardList(null, paramMap);
+		
+		model.addAttribute("aList", bList);
 		
 		return "admin/postManage";
 	}

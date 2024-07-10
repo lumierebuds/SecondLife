@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -247,6 +248,14 @@ header {
 							<th>상품명</th>
 							<th>작성일자</th>
 						</tr>
+						<c:forEach items="${bList}" var="board">
+						<tr>
+							<td>${board.boardNo}</td>
+							<td>${board.nickname}()</td>
+							<td></td>
+							<td></td>
+						</tr>
+						</c:forEach>
 						<tr class="더미">
 							<td>1</td>
 							<td>웃으면 복이 가요(user_id1)</td>
