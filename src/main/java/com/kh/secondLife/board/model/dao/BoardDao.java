@@ -15,6 +15,6 @@ public interface BoardDao {
 
 	List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap);
 
-	
+	String selectCategoryName(Map<String, Object> paramMap);
 
 }

@@ -31,6 +31,9 @@
               <c:if test="${not empty param.search and empty param.category}">
               	<span class="list-search">'${param.search }' 검색결과</span>
               </c:if>
+              <c:if test="${not empty param.category and empty param.search }">
+              	<span class="list-search">${categoryName} 검색결과</span>
+              </c:if>
               
               <span class="list-count">${listCount } 개</span>
             </div>
@@ -45,29 +48,34 @@
             </div>
           </div>
           <div class="list-mid">
-          <c:forEach items="${list }" var="board">
-          
-            <div class="board-card">
-              <a href="/secondlife/board/detail/${board.boardNo}" class="card-anchor">
-                <div class="board-thumbnail">
-                  <c:if test="${board.biList.size() ne 0 }">
-                  	<img src="/secondlife/${board.biList.get(0).imgPath}/${board.biList.get(0).changeName}" alt="${board.productName}" />
-                  </c:if>
-				  <c:if test="${board.biList.size() eq 0 }"> <!-- 이미지가 존재하지 않을때 (사이트 로고) -->
-				  	<img src="/secondlife/resources/images/사이트 로고.png" alt="${board.productName}" />
-				  </c:if>
-                </div>
-
-                <div class="board-description">
-                  <div class="board-title">${board.productName}</div>
-                  <div class="board-information">
-                    <div class="board-price"><fmt:formatNumber value="${board.price}" pattern="#,###" />원</div>
-                    <div class="board-writed">${board.createDate}</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            </c:forEach>
+          <c:if test="${not empty list }">
+	          <c:forEach items="${list }" var="board">
+	          
+	            <div class="board-card">
+	              <a href="/secondlife/board/detail/${board.boardNo}" class="card-anchor">
+	                <div class="board-thumbnail">
+	                  <c:if test="${board.biList.size() ne 0 }">
+	                  	<img src="/secondlife/${board.biList.get(0).imgPath}/${board.biList.get(0).changeName}" alt="${board.productName}" />
+	                  </c:if>
+					  <c:if test="${board.biList.size() eq 0 }"> <!-- 이미지가 존재하지 않을때 (사이트 로고) -->
+					  	<img src="/secondlife/resources/images/사이트 로고.png" alt="${board.productName}" />
+					  </c:if>
+	                </div>
+	
+	                <div class="board-description">
+	                  <div class="board-title">${board.productName}</div>
+	                  <div class="board-information">
+	                    <div class="board-price"><fmt:formatNumber value="${board.price}" pattern="#,###" />원</div>
+	                    <div class="board-writed">${board.createDate}</div>
+	                  </div>
+	                </div>
+	              </a>
+	            </div>
+	            </c:forEach>
+            </c:if>
+            <c:if test="${empty list }">
+            	<h2 style="margin-left: 300px; font-weight: bold">게시글이 존재하지 않습니다.</h2>
+            </c:if>
           </div>
 		  
 		  
@@ -78,7 +86,15 @@
 		  		<c:set var="url" value="?search=${param.search}&pageNo="/>
 		  	</c:when>
 		  	<c:when test="${not empty param.category and empty param.search}">
-		  		<c:set var="url" value="?category=${param.category}&pageNo="/>
+		  		<c:if test="${param.category >= 0 and param.category <= 12}">
+		  			<c:set var="url" value="?category=${param.category}&pageNo="/>
+		  		</c:if>
+		  		
+		  		<c:if test="${param.category < 0 or param.category > 12}">
+		  			<script>
+		  				location.href = "/secondlife/board/list?pageNo=1"
+		  			</script>
+		  		</c:if>
 		  	</c:when>
 		  	<c:when test="${not empty param.category and not empty param.search}">
 		  		<script>
@@ -103,13 +119,10 @@
               </c:if>
               
               <c:forEach var="i" begin="${pi.startPage}" end="${pi.endPage }">
-             
               	<a href="${url }${i}" class="page-item ${i eq pi.currentPage ? 'page-on' : ''}">${i}</a>
-              
               </c:forEach>
               
-              
-              <c:if test="${pi.currentPage ne pi.maxPage}">
+              <c:if test="${pi.currentPage ne pi.maxPage }">
              	<a href="${url }${pi.currentPage + 1}" class="page-item">
                 	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 	<path d="M8.83984 7.41L13.4198 12L8.83984 16.59L10.2498 18L16.2498 12L10.2498 6L8.83984 7.41Z" fill="black"/>

@@ -17,7 +17,13 @@ import lombok.RequiredArgsConstructor;
 public class BoardDaoImpl implements BoardDao{
 	
 	private final SqlSession sqlSession;
-
+	
+	@Override
+	public String selectCategoryName(Map<String, Object> paramMap) {
+		
+		return sqlSession.selectOne("board.selectCategoryName", paramMap);
+	}
+	
 	@Override
 	public int selectListCount(Map<String, Object> paramMap) {
 		
@@ -36,6 +42,8 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return sqlSession.selectList("board.selectBoardList", paramMap, rowBounds);
 	}
+
+
 	
 	
 	

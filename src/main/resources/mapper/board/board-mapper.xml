@@ -4,6 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
 	
+	<select id="selectCategoryName" resultType="string">
+		SELECT CATEGORY_NAME
+		FROM CATEGORY
+		WHERE CATEGORY_NO = #{category}
+	</select>
+	
+	
 	<select id="selectListCount" resultType="int">
 		SELECT COUNT(*)
 		FROM BOARD
@@ -61,11 +68,5 @@
 
 	</select>
 	
-	<select id="selectCategoryName" parameterType="int" resultType="string">
-		SELECT 
-			CATEGORY_NAME
-		FROM CATEGORY
-		WHERE CATEGORY_NO = #{category} 
-	</select>
 		
 </mapper>

@@ -18,16 +18,26 @@ public class BoardServiceImpl implements BoardService{
 	private final BoardDao boardDao;
 
 	@Override
+	public String selectCategoryName(Map<String, Object> paramMap) {
+		
+		return boardDao.selectCategoryName(paramMap);
+	}
+	
+	@Override
 	public int selectListCount(Map<String, Object> paramMap) {
 		
 		return boardDao.selectListCount(paramMap);
 	}
 
+	
+	
 	@Override
 	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
 
 		return boardDao.selectBoardList(pi, paramMap);
 	}
+
+
 
 
 }
