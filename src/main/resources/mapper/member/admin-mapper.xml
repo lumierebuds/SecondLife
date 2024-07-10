@@ -12,4 +12,10 @@
 		  AND ADMIN_AUTH = 'Y'
 	</select>
 	
+	<select id="selectMemberAll" resultType="member">
+		SELECT *
+		FROM MEMBER
+		WHERE STATUS = 'Y'
+	</select>
+	
 </mapper>

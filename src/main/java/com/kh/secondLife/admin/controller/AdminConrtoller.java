@@ -1,12 +1,16 @@
 package com.kh.secondLife.admin.controller;
 
+import java.util.List;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.secondLife.admin.service.AdminService;
+import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +24,15 @@ public class AdminConrtoller {
 	private final BCryptPasswordEncoder encoder;
 	
 	@GetMapping("/memberManage")
-	public String memberManage() {
+	public String memberManage(Model model) {
+		// 업무 내용
+		// 1. 모든 회원 조회
+		List<Member> mList = aService.selectMemberAll();
+		
+		// 2. 조회한 모든 회원 정보 model에 넣기
+		model.addAttribute("mList", mList);
+		
+		// 3. jsp에게 페이지 생성 위임
 		return "admin/memberManage";
 	}
 	
@@ -28,6 +40,8 @@ public class AdminConrtoller {
 	
 	@GetMapping("/postManage")
 	public String postManage() {
+		
+		
 		return "admin/postManage";
 	}
 	

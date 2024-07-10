@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -251,14 +252,16 @@ header {
 							<th>이메일</th>
 							<th>가입일</th>
 						</tr>
-						<tr class="더미">
-							<td>1</td>
-							<td>user_id1</td>
-							<td>웃으면 복이 가요</td>
-							<td>빠끄껀</td>
-							<td>gungang123@life.com</td>
-							<td>2024-07-01</td>
+						<c:forEach items="${mList}" var="member">
+						<tr>
+							<td>${member.memberNo}</td>
+							<td>${member.id}</td>
+							<td>${member.nickname}</td>
+							<td>${member.name}</td>
+							<td>${member.email}</td>
+							<td>${member.createDate}</td>
 						</tr>
+						</c:forEach>
 					</table>
 					<div class="buttons">
 						<button class="post">

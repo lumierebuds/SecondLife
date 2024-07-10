@@ -1,5 +1,7 @@
 package com.kh.secondLife.admin.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,13 @@ public class AdminServiceImpl implements AdminService{
 	    } else {
 	        return null;
 	    }
+	}
+
+	@Override
+	public List<Member> selectMemberAll() {
+		
+		
+		return adminDao.selectMemberAll();
 	}
 	
 	
