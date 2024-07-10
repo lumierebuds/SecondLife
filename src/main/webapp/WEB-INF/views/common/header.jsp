@@ -36,7 +36,7 @@
                         </button>
                     </div>
                     <div class="header-user-menu-item">
-                        <button onclick="return false">
+                        <button onclick="location.href='/secondlife/chat/room'">
                             <img src="/secondlife/resources/images/세라톡 아이콘.png" alt="세라톡 아이콘">
                             세라톡
                         </button>
