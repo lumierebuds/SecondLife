@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardImg {
-	
+
 	private int boardImgNo;
 	private int boardNo;
 	private String changeName;
