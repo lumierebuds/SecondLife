@@ -12,18 +12,18 @@ import com.kh.secondLife.member.model.vo.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class MemberServiceImpl implements MemberService{
 	
+//	@Autowired
 	private final MemberDao dao;
 	private final BCryptPasswordEncoder encoder;
 	
 	@Override
 	public Member login(Member m) {
 	    Member loginUser = dao.login(m);
-	    log.debug("로그인 유저 - {}", loginUser);
+	    
 	    // 입력된 비밀번호와 데이터베이스의 비밀번호를 비교
 	    if (loginUser != null && encoder.matches(m.getPwd(), loginUser.getPwd())) {
 	        return loginUser;
@@ -44,10 +44,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int idCheck(String id) {
-		log.debug("조회할 id - {}", id);
-		int result = dao.idCheck(id);
-		log.debug("id 조회 결과 - {}", result);
-		return result;
+		return dao.idCheck(id);
 	}
 	
 }

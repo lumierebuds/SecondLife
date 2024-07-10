@@ -1,5 +1,7 @@
 package com.kh.secondLife.member.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,30 +12,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.secondLife.member.model.vo.Member;
 import com.kh.secondLife.member.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.clio.annotations.Debug;
 
 @Controller
 @RequestMapping("/member")
 @SessionAttributes({"loginUser"})
-@Slf4j
 @RequiredArgsConstructor
 public class MemberController {
 	
 	private final MemberService mService;
-	private final BCryptPasswordEncoder encoder;
+	private final BCryptPasswordEncoder encoder; 
+	
+
 	
 	@PostMapping("/login")
 	public String login(
 	        @ModelAttribute Member m,
 	        Model model,
-	        RedirectAttributes ra
+	        RedirectAttributes ra,
+	        HttpSession session
 	        ) {
 	    System.out.println("로그인 시도: " + m);
 	    
@@ -50,7 +53,8 @@ public class MemberController {
 	        ra.addFlashAttribute("alertMsg", "로그인 성공");
 	        model.addAttribute("loginUser", loginUser);
 	        
-	        viewName = "redirect:/";
+	        String nextUrl = (String) session.getAttribute("nextUrl");
+	        viewName = "redirect:" + (nextUrl != null ? nextUrl : "/");
 	    }
 	    return viewName;
 	}
@@ -102,8 +106,57 @@ public class MemberController {
 	
 	@GetMapping("/modify")
 	public String modify() {
-		return "modify";
+		return "/member/modify";
 	}
+	
+	
+	
+	@PostMapping
+	public String updateMember(
+			Member m ,
+			Model model,
+			RedirectAttributes ra,
+			HttpSession session
+			) {
+		
+		System.out.println("Changed member: " + m);
+		
+		
+		int result = mService.updateMember(m);
+		
+		System.out.println(result);
+		
+		String url = "";
+		
+		if(result > 0) {
+			Member loginUser = mService.login(m);
+			model.addAttribute("loginUser" , loginUser);
+			ra.addFlashAttribute("alertMsg","정보 수정 성공");
+			url = "redirect:/member/myPage";
+		}else {
+			model.addAttribute("alertMsg","정보 수정 실패...");
+			url = "redirect:/member/myPage";
+		}
+		return url;
+	}
+	
+	
+	@GetMapping("/logout")
+	@ResponseBody
+	public String logout(HttpSession session, SessionStatus status) {
+		System.out.println("로그아웃 시도");
+        session.invalidate();
+        status.setComplete();
+        System.out.println("세션 무효화 완료");
+        return "success";
+	}
+	
+	@GetMapping("/myPage")
+	public String myPage() {
+		return "/member/myPage";
+	}
+	
+	
 	
 	
 }

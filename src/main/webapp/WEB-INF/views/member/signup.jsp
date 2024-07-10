@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Second Life - 상품의 새 삶</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
 body {
@@ -28,7 +30,7 @@ body {
 
 
 
-main.main-content {
+main.centered-content {
     width: 99.9vw;
     flex-basis: 600px;
     display: flex;
@@ -202,19 +204,20 @@ form {
 	
     <div id="container">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+        
 
-        <main class="main-content">
+        <main class="centered-content">
             <div class="marginer"></div>
             <div class="content">
 
                 <div class="container">
                 <div><h2>회원가입</h2></div>
                 <div class="form-container">
-                    <form id="bodyform" action="/secondlife/member/signup" method="Post">
+                    <form name="bodyform" action="/secondlife/member/signup" method="post" id="enroll-form">
                         <div class="form-group">
                             <label for="id">*아이디</label>
-                            <input type="text" id="id" name="id" placeholder="아이디 입력(6~20자)" required />
-                            <button type="button" class="duplicate-check" onclick="idCheck();">아이디 중복체크</button>
+                            <input type="text" id="id" name="id" placeholder="아이디 입력(6~20자)" minlength="6" maxlength="20" required />
+                            <button type="button" class="duplicate-check" id="idCheckButton">아이디 중복체크</button>
                         </div>
                         <div class="form-group">
                             <label for="nickname">*닉네임</label>
@@ -222,11 +225,12 @@ form {
                         </div>
                         <div class="form-group">
                             <label for="password">*비밀번호</label>
-                            <input type="password" id="password" name="pwd" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)" required />
+                            <input type="password" id="pwd" name="pwd" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)" minlength="8" maxlength="20" required />
                         </div>
                         <div class="form-group">
                             <label for="confirm-password">*비밀번호 확인</label>
-                            <input type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호 재입력" required />
+                            <input type="password" id="confirm-pwd" name="confirm-pwd" placeholder="비밀번호 재입력" minlength="8" maxlength="20" required />
+                            <span id="pwd-message"></span>
                         </div>
                         <div class="form-group">
                             <label for="name">*이름</label>
@@ -242,7 +246,7 @@ form {
                         </div>
                         <div class="form-group email-group">
                             <label for="email">*이메일</label>
-                            <input type="text" id="email" name="email" placeholder="이메일주소" required />
+                            <input type="text" id="email"  placeholder="이메일주소" required />
                             <span>@</span>
                             <select id="email-domain" name="email-domain">
                                 <option value="naver.com">naver.com</option>
@@ -251,6 +255,8 @@ form {
                                 <option value="nate.com">nate.com</option>
                             </select>
                         </div>
+                        
+                        
                         <div class="form-group file-group">
                             <label for="profile-pic">프로필 사진</label>
                             <div class="file-input-container">
@@ -258,10 +264,11 @@ form {
                                 <button type="button" class="file-select">파일 선택</button>
                             </div>
                         </div>
-    
+    				
+    				
                         <div class="checkbox-container center">
                             <label for="agree-terms">
-                                <input type="checkbox" id="agree-terms" name="agree-terms" required>
+                                <input type="checkbox" id="agree-terms" name="agree-terms" >
                                 <span>개인정보 이용약관 동의(필수)</span>
                             </label>
                         </div>
@@ -281,36 +288,105 @@ form {
                 </div>
 
             </div>
-
+			
             </div>
             <div class="marginer"></div>
-        </main>
+
+			<script>
+				$(document).ready(function() {
+					$("#idCheckButton").click(function() {
+						var id = $("#id").val();
+						if (id.length < 6 || id.length > 20) {
+		                    alert("아이디는 6자에서 20자 사이여야 합니다.");
+		                    return;
+		                }
+						$.ajax({
+							url : "/secondlife/member/idCheck",
+							type : "GET",
+							data : {
+								id : id
+							},
+							success : function(response) {
+								if (response === "fail") {
+									alert("아이디가 중복됩니다.");
+								} else {
+									alert("사용 가능한 아이디입니다.");
+								}
+							},
+							error : function() {
+								alert("중복 체크 중 오류가 발생했습니다.");
+							}
+						});
+					});
+				});
+				
+				// 개인정보 필수 체크박스 선택 
+				function validateForm() {
+		            var agreeTerms = document.getElementById('agree-terms');
+		            if (!agreeTerms.checked) {
+		                alert('개인정보 이용약관에 동의해야 회원가입을 진행할 수 있습니다.');
+		                return false; // 폼 제출을 중지
+		            }
+		            return true;
+		        }
+				
+				
+				// 비밀번호입력과 재입력 값이 같은지 확인하기
+				$(document).ready(function() {
+            			
+		            $('#confirm-pwd').on('keyup', function() {
+		                var password = $('#pwd').val();
+		                var confirmPassword = $(this).val();
+		
+		                if (password === confirmPassword) {
+		                    $('#pwd-message').html('비밀번호가 일치합니다.').css('color', '#DDB892');
+		                }else{
+		                	$('#pwd-message').html('비밀번호가 다릅니다.').css('color', 'red');
+		                }
+		                
+		            });
+		        });
+				
+				
+				// 이메일 도메인 값 받아오기
+				$(document).ready(function() {
+			        $('#enroll-form').submit(function(event) {
+			            event.preventDefault(); // 기본 폼 제출 동작을 막음
+			            
+						if(!validateForm()) {
+				            return false;
+			            }
+			            
+			            var email = $('#email').val(); // 사용자가 입력한 이메일
+			            var domain = $('#email-domain').val(); // 사용자가 선택한 도메인
+			            
+			            console.log("이메일 : ", email, ", 이메일 주소 뒷부분 : ", domain);
+			            
+			            var completeEmail = email + '@' + domain; // 완전한 이메일 주소
+			            
+			            // hidden input을 생성하여 데이터 전송
+			            $('<input>').attr({
+			                type: 'hidden',
+			                name: 'email',
+			                value: completeEmail
+			            }).appendTo('#enroll-form');
+			            
+						this.submit();
+			        });
+			    });
+				
+				
+				
+				
+				
+				
+				
+			</script>
+
+		</main>
         
         
         <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
     </div>
 
 </html>
-
-<script>
-      function idCheck(){
-         const $id = $("#bodyform input[name=id]");
-         
-         $.ajax({
-            url : "idCheck" ,
-            data : {
-               id : $id.val()
-            },
-            success : function(result){
-               if(result == "fail"){ // 이미 사용중일때
-                  alert("이미 사용중입니다.");
-                  $id.val("");
-                  $id.focus();
-               }else{ // 중복 아이디가 없을때
-                  alert("사용가능한 아이디 입니다.");
-               }
-            }
-         })
-         
-      }
-   </script>

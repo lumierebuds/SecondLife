@@ -8,9 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Second Life - 상품의 새 삶</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/secondLife/resources/css/main.css">
-
-<style>
+    <style>
       .content {
         display: flex;
         background-color: #EDE0D4;
@@ -152,8 +150,8 @@
 
 
 <body>
-    <div id="container">
-      <jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<div id="container">
+      <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
       <main class="centered-content">
         <div class="marginer"></div>
@@ -198,23 +196,23 @@
                 <table class="table">
                   <tr>
                     <th>이름</th>
-                    <td>홍길동</td>
+                    <td>${loginUser.name}</td>
                   </tr>
                   <tr>
                     <th>전화번호</th>
-                    <td>010-XXXX-XXXX</td>
+                    <td>${loginUser.phone}</td>
                   </tr>
                   <tr>
                     <th>주소</th>
-                    <td>서울특별시 강남구</td>
+                    <td>${loginUser.address}</td>
                   </tr>
                   <tr>
                     <th>이메일</th>
-                    <td>hong33@gmail.com</td>
+                    <td>${loginUser.email}</td>
                   </tr>
                   <tr>
                     <th>닉네임</th>
-                    <td>웃으면 복이 가요</td>
+                    <td>${loginUser.nickname}</td>
                   </tr>
                 </table>
                 <img src="/빠끄껀.jpg" alt="" width="180px" height="200px">
@@ -229,11 +227,8 @@
         <div class="marginer"></div>
       </main>
 
-      <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+      <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
     </div>
-    
-    
-    
 </body>
 
 

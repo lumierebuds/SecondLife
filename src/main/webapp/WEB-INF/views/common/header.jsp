@@ -15,12 +15,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-	<c:if test="${ not empty alertMsg }">
-      <script>   
-         alertify.alert("서비스 요청 성공" , '${alertMsg}');
-      </script>
-      <c:remove var="alertMsg"/>
-   </c:if>
     <div class="border-container">
         <header>
             <div class="marginer"></div>
@@ -59,8 +53,8 @@
                             마 이
                         </button>
 						<div class="drop-box">
-							<button class="drop-item">마이페이지</button>
-							<button class="drop-item">로그아웃</button>
+							<a class="drop-item" href="/secondlife/member/myPage">마이페이지</a>
+							<button class="drop-item" id="logout-button">로그아웃</button>
 						</div>
                     </div>
                 </div>
@@ -73,18 +67,18 @@
 		<!-- 로그인 모달 -->
 		<div class="modal-content modal-login">
 			<img src="https://via.placeholder.com/50" alt="로고">
-			<form action="/secondlife/member/login" method="Post">
-				<input type="text" name="id" placeholder="아이디"> <input type="password" name="pwd"
-					placeholder="비밀번호">
+			<form action="/secondlife/member/login" method="post">
+				<input type="text" placeholder="아이디" name="id"> <input type="password"
+					placeholder="비밀번호" name="pwd">
 				<div class="additional-options">
-					<a id="find-id" onclick="return false">계정을 잊어버리셨나요?</a>
-					<a id="register" href="member/signup">회원 가입</a>
+					<a id="find-id" onclick="return false">계정을 잊어버리셨나요?</a> <a
+						id="register" href="/secondlife/member/signup">회원 가입</a>
 				</div>
 				<div class="flex-right">
 					<input type="checkbox" id="rememberMe"> <label
 						for="rememberMe">로그인 유지</label>
 				</div>
-				<button class="submit-btn">확 인</button>
+				<button class="submit-btn" >확 인</button>
 			</form>
 		</div>
 		<!-- 계정 찾기 모달(아이디/비밀번호) -->
@@ -115,12 +109,12 @@
 				<button class="submit-btn">확 인</button>
 			</form>
 		</div>
-		<div class="modal-content result-form">
+		<div class="modal-content result-form" style="display: flex;">
 			<img src="https://via.placeholder.com/50" alt="로고"> <label
 				for="pwd-result">임시 비밀번호가 발급되었습니다</label> <input type="text"
 				id="pwd-result" value="" placeholder="아이디 찾기 결과" disabled>
 		</div>
-		<div class="modal-content result-form">
+		<div class="modal-content result-form" style="display: flex;">
 			<img src="https://via.placeholder.com/50" alt="로고"> <label
 				for="id-result">아이디 찾기 결과</label> <input type="text" id="id-result"
 				value="" placeholder="아이디 찾기 결과" disabled>
@@ -128,11 +122,13 @@
 	</div>
 	
 	<script src="/secondlife/resources/js/common.js"></script>
-	
-	<c:if test="${not empty loginUser}">
+
+	<c:if test="${not empty fn:trim(loginUser)}">
 		<script>
+			console.log('${loginUser}');
 			loginView();
 		</script>
 	</c:if>
+	
 </body>
 </html>
