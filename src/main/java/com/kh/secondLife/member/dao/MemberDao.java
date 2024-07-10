@@ -11,5 +11,5 @@ public interface MemberDao {
 	int updateMember(Member m);
 	
 	int idCheck(String id);
-	
+
 }

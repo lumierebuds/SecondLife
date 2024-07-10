@@ -18,10 +18,11 @@
     <div class="border-container">
         <header>
             <div class="marginer"></div>
+            
             <div class="header-area">
                 <div class="header-title">
                     <img src="/secondlife/resources/images/사이트 로고.png" alt="사이트로고">
-                    <h3>SecondLife</h3>
+                    <a href="/secondlife"><h3>SecondLife</h3></a>
                 </div>
                 <div class="header-menu">
                     <div class="header-menu-item">
@@ -30,9 +31,9 @@
                 </div>
                 <div class="header-user-menu">
 					<div class="header-user-menu-item login-menu">
-                        <button onclick="return false">
+                        <button>
                             <img src="/secondlife/resources/images/찜목록 아이콘.png" alt="찜목록 아이콘">
-                            찜 목록
+                            <a href="/secondlife/member/basket">찜 목록</a>
                         </button>
                     </div>
                     <div class="header-user-menu-item">
@@ -60,6 +61,9 @@
                 </div>
             </div>
             <div class="marginer"></div>
+            
+            
+            
         </header>
     </div>
     

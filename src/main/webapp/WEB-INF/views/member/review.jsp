@@ -2,15 +2,14 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Second Life - 상품의 새 삶</title>
-<link rel="stylesheet" href="/secondlife/resources/css/myPage.css">
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="/secondlife/resources/css/myPage.css">
 <style>
 .centered-content {
 	display: flex;
@@ -51,93 +50,102 @@
 	color: #7F5539;
 }
 
-.main .빈공간 {
+/* 여기서 스타일 작업 */
+.빈공간 {
 	width: 817px;
-	height: 60px;
+	height: 50px;
 }
 
-.main .main-title {
-	text-align: center;
+.semi-title {
+	display: flex;
 }
 
-.main .main-title p {
-	font-size: 25px;
+.title-title p {
+	margin-left: 30px;
+	font-size: 30px;
 	font-weight: bold;
-	margin-bottom: 20px;
 	color: #7F5539;
 }
 
-.main .card {
-	margin-left: 110px;
-	width: 600px;
-	height: 400px;
-	background-color: #B08968;
-	border-radius: 10px;
-	color: #EDE0D4;
-}
-
-.card-content {
-	display: flex;
-}
-
-.card-content .table {
-	margin-top: 80px;
-	margin-left: 100px;
-}
-
-.card-content .table th {
-	font-size: 15px;
-	padding: 8px;
-	border: 0;
-	text-align: right;
-	color: #EDE0D4;
-}
-
-.card-content .table td {
-	border: 0;
-	padding: 8px;
-	text-align: center;
-	color: #EDE0D4;
-}
-
-.card-content img {
+.star {
+	margin-left: 210px;
+	width: 390px;
+	height: 50px;
+	background-color: #DDB892;
+	color: #7F5539;
 	border-radius: 5px;
-	margin-right: 40px;
-	margin-top: 80px;
-}
-
-.buttons {
 	display: flex;
-	margin-left: 180px;
-	margin-top: 30px;
 }
 
-.buttons .수정, .buttons .탈퇴 {
-	height: 30px;
-	margin-left: 20px;
-	border: none;
-	color: #EDE0D4;
+.star .star-score p {
+	font-size: 20px;
 	font-weight: bold;
-	border-radius: 5px;
+	margin-top: 10px;
+	margin-left: 40px;
 }
 
-.buttons .수정 {
-	width: 120px;
+.star .star-star p {
+	margin-left: 25px;
+	font-size: 30px;
+}
+
+.profile-info {
+	display: flex;
+}
+
+.profile-info .profile-picture {
+	width: 70px;
+	height: 70px;
 	background-color: #7F5539;
-	text-align: center;
+	margin-left: 30px;
+	border-radius: 40px;
 }
 
-.buttons .탈퇴 {
-	width: 80px;
-	background-color: #9C6644;
+.profile-info p {
+	margin-top: 20px;
+	color: #7F5539;
 }
 
-.buttons .수정 p {
-	margin-top: 2px;
+.profile-info .nick {
+	font-size: 15px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-left: 15px;
+	margin-bottom: 5px;
 }
 
-.buttons .탈퇴 p {
-	margin-top: 2px;
+.profile-info .person {
+	margin-top: 0px;
+	margin-left: 15px;
+	font-size: 15px;
+}
+
+.reviews .box {
+	display: flex;
+	margin-left: 30px;
+	width: 750px;
+	height: 80px;
+	background-color: #DDB892;
+	border-radius: 10px;
+}
+
+.reviews .box .star2 {
+	margin-top: 0px;
+}
+
+.reviews .box .star2 p {
+	margin-top: 15px;
+	margin-left: 30px;
+	font-size: 30px;
+	color: #7F5539;
+}
+
+.reviews .box .review {
+	margin-top: 30px;
+	margin-left: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #7F5539;
 }
 
 header {
@@ -163,14 +171,20 @@ header {
 }
 </style>
 </head>
-
-
 <body>
 	<div id="container">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
+
+
 		<main class="centered-content">
 			<div class="marginer"></div>
+
+
+
+
+
+
 
 
 
@@ -207,48 +221,62 @@ header {
 					</div>
 				</div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				<div class="main">
-					<div class="빈공간"></div>
-					<div class="main-title">
-						<p>내 정보</p>
-					</div>
-					<div class="card">
-						<div class="card-content">
-							<table class="table">
-								<tr>
-									<th>이름</th>
-									<td>${loginUser.name}</td>
-								</tr>
-								<tr>
-									<th>전화번호</th>
-									<td>${loginUser.phone}</td>
-								</tr>
-								<tr>
-									<th>주소</th>
-									<td>${loginUser.address}</td>
-								</tr>
-								<tr>
-									<th>이메일</th>
-									<td>${loginUser.email}</td>
-								</tr>
-								<tr>
-									<th>닉네임</th>
-									<td>${loginUser.nickname}</td>
-								</tr>
-							</table>
-							<img src="/빠끄껀.jpg" alt="프로필사진" width="180px" height="200px">
+					<!-- 여기서 작업 -->
+					<div class="title">
+						<div class="빈공간"></div>
+						<div class="semi-title">
+							<div class="title-title">
+								<p>받은 리뷰</p>
+							</div>
 						</div>
-						<div class="buttons">
-							<a class="수정" href=""><p>회원정보수정</p></a>
-							<!-- <button class="수정"><p>회원정보수정</p></button> -->
-							<button class="탈퇴">
-								<p>회원탈퇴</p>
-							</button>
+						<div class="star">
+							<div class="star-score">
+								<p>평균 별점</p>
+							</div>
+							<div class="star-star">
+								<p>5.0 ★★★★★</p>
+							</div>
 						</div>
 					</div>
+					<div class="reviews">
+						<div class="profile-info">
+							<div class="profile-picture"></div>
+							<div class="info">
+								<p class="nick">준씨샵</p>
+								<p class="person">구매자 2024-06-12</p>
+							</div>
+						</div>
+						<div class="box">
+							<div class="star2">
+								<p>★★★★★</p>
+							</div>
+							<div class="review">
+								<p>빠른 쿨거래 감사합니다. 잘 사용하겠습니다. 정말 감사합니다.</p>
+							</div>
+						</div>
+
+					</div>
+
+
 				</div>
 			</div>
-
 
 
 
@@ -258,8 +286,4 @@ header {
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
-</body>
-
-
-
 </html>

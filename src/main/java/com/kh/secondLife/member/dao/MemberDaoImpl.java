@@ -31,6 +31,6 @@ public class MemberDaoImpl implements MemberDao{
 	public int idCheck(String id) {
 		return sqlSession.selectOne("member.idCheck", id);
 	}
-	
+
 	
 }
