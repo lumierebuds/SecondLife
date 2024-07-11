@@ -14,6 +14,9 @@ import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
 import com.kh.secondLife.common.Pagenation;
 import com.kh.secondLife.common.model.vo.PageInfo;
+import com.kh.secondLife.member.model.service.MemberService;
+import com.kh.secondLife.member.model.vo.Member;
+
 import lombok.RequiredArgsConstructor;
 
 
@@ -23,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 	
 	private final BoardService boardService;
+	private final MemberService memberService;
 	
 	// 게시글 목록 페이지
 	@GetMapping("/list")
@@ -68,10 +72,12 @@ public class BoardController {
 		int	favCount = boardService.selectBoardFavCount(boardNo);
 		
 		// 2. 게시글을 작성한 판매자 정보를 조회하기 
-			
 		int boardWriter = board.getBoardWriter();
+		Member member = memberService.selectMemberInfo(boardWriter);
+		Map<String, Integer> salesCount = boardService.getSalesCount(boardWriter);
+		int reviewCount = boardService.getReviewCount(boardWriter);
 		
-		
+		System.out.println(salesCount);
 		// 3. 해당 게시글이 참고하는 카테고리의 거래 게시글을 조회하기(최대 4개) 
 		int categoryNo = board.getCategoryNo();
 		String productName = board.getProductName();
@@ -85,7 +91,10 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("list", list);
 		model.addAttribute("favCount", favCount);
-
+		model.addAttribute("member", member);
+		model.addAttribute("salesCount", salesCount);
+		model.addAttribute("reviewCount", reviewCount);
+		
 		return "board/boardDetailView";
 	}
 	
