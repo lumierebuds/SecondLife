@@ -16,6 +16,7 @@ body {
     height: 100%;
     font-family: 'Arial', sans-serif;
     background-color: #f2f2f2;
+    overflow: hidden;
 }
 
 /* 헤더 스타일 */
@@ -26,11 +27,21 @@ header {
     background-color: #8B5E3C;
     color: #fff;
     padding: 10px 20px;
+    border: 1px solid;
+    border-color: #EDE0D4;
 }
 
 .secondlifeLogo-url {
+	position: relative;
     padding-left: 15%;
-    
+    font-size: 20px;
+    font-style: inherit;
+}
+	
+.logoText{
+	padding-left: 10px;
+	font-color: #EDE0D4;
+	position: absolute;
 }
 
 .user-profile {
@@ -44,18 +55,29 @@ header {
 
 .rightbtn {
     display: flex;
-    width: 120px;
+    width: 150px;
     height: 50px;
     align-items: center;
     border-radius: 5px;
     cursor: pointer;
     border: none;
-
+    justify-content: space-between;
+    text-overflow: ellipsis;
+    background-color: #EDE0D4;
 }
 
 .rightbtn:hover {
     background-color: #ddd;
-    
+}
+
+
+
+.logout-toggle:hover {
+	background-color: #ddd;
+}
+
+.menu-icon{
+	margin-right: 10px;
 }
 
 
@@ -83,28 +105,31 @@ header {
 
 
 .profile-img {
-    width: 40px;
-    min-height: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    padding-left: 10px;
-    
+    margin-left: 10px;
+    margin-right: 10px; /* 프로필 이미지와 닉네임 사이 간격 조절 */
+}
+
+.nav-item .nickname {
+    flex: 1; /* 닉네임이 공간을 채우도록 설정 */
+    margin-right: 10px; /* 닉네임과 미트볼 아이콘 사이 간격 조절 */
 }
 
 .logoimg{
-	width: 40px;
-    min-height: 40px;
-    height: 40px;
-    border-radius: 50%;
+	width: 64.5px;
+    height: 36px;
 }
 
 /* 메인 컨텐츠 레이아웃 */
 .main-content {
     display: flex;
     flex: 1;
-    height: 1000px;
+    height: 1075px;
     padding-left: 15%;
     padding-right: 15%;
+    
 
 }
 
@@ -112,26 +137,39 @@ header {
 .sidebar {
     width: 200px;
     background-color: #D2B48C;
-    padding: 10px;
     display: flex;
     flex-direction: column;
-    height: 800px;
+    height: 900px;
     overflow: auto;
 }
 
 .nav-item {
     display: flex;
     align-items: center;
-    padding: 30px;
+    padding: 15px;
     cursor: pointer;
     white-space: nowrap;
-    /* 한 줄로 표시 */
     overflow: hidden;
-    /* 넘친 텍스트를 숨김 */
     text-overflow: ellipsis;
-    /* 넘친 텍스트를 '...'로 표시 */
-    border: 1px solid;
-    
+    border-bottom: 1px solid;
+    border-color: #EDE0D4;
+}
+
+
+.chat-room-info {
+    display: flex;
+    align-items: center;
+}
+
+.chat-room-info .profile-img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chat-room-info .nickname {
+    font-size: 16px;
 }
 
 .nav-item.active {
@@ -179,19 +217,30 @@ header {
 }
 
 .more-options-btn {
-	display: flex;
+    position: relative;
+    width: 40px; /* 원하는 넓이로 설정 */
+    height: 40px; /* 원하는 높이로 설정 */
     background: none;
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1.5rem;
     margin-left: 10px;
 }
 
+/* 미트볼 아이콘 자체의 크기는 그대로 유지 */
+.more-options-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
 .delete-btn {
     display: none;
-    background-color: #ff4d4d;
+    background-color: #f2f2f2;
     border: none;
-    color: white;
+    color: black;
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
@@ -201,6 +250,7 @@ header {
 .more-options-btn:hover + .delete-btn,
 .delete-btn:hover {
     display: inline-block;
+    background-color: #ddd;
 }
 
 .chat-alert-toggle {
@@ -322,6 +372,8 @@ header {
 .text-length {
     margin-left: auto;
     margin-right: 10px;
+    width: 60px; /* 초기 너비를 설정 (필요에 따라 조정 가능) */
+    transition: width 0.2s ease; /* 크기 변경 애니메이션 */
 }
 
 .message-input .message-option {
@@ -330,19 +382,23 @@ header {
 }
 
 .option-wrapper {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    font-size: 24px; /* 이모티콘 크기 조절 */
-    padding: 5px;
+   cursor: pointer;
+    font-size: 0px;
 }
 
 .option-wrapper input[type="file"] {
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
+    appearance: none;
+    background-color: initial;
+    color: inherit;
+    text-overflow: ellipsis;
+    text-align: start !important;
+    border: initial;
+    border-color: initial;
+    white-space: pre;
+    overflow: hidden !important;
+    border-radius: initial;
+}
+
+.file-input {
+    display: none;
 }

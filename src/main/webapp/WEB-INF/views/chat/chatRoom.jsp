@@ -10,29 +10,30 @@
     <link rel="stylesheet" href="../resources/css/chat/chatRoom.css">
 </head>
 
-<body id="body" style="overflow: auto;">
+<body>
     <header>
-        <div class="secondlifeLogo-url">
+        <div class="secondlifeLogo-url"> 
             <a href="https://secondlife.com">
-                <img class="logoimg"src="../resources/images/defaultImg.png" alt="SecondLife Logo" onclick="mainPage()">
+                <img class="logoimg" src="../resources/images/defaultImg.png" alt="SecondLife Logo" onclick="mainPage()">
             </a>
+            <span class="logoText">Second Life</span>
         </div>
         <div></div>
         <div class="user-profile">
             <button class="rightbtn" onclick="myFunction()">
-                <img class="profile-img" src="../resources/images/defaultImg.png" alt="${loginUser.nickname}">
+                <img class="profile-img" src="../resources/images/defaultImg.png" alt="Profile Image">
+                <span class="nickname">${loginUser.nickname}</span>
                 <div class="nickname-area">
                     <span class="menu-icon">
                         <svg width="12" height="7" viewbox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round"></path>
+                            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                     </span>
                 </div>
             </button>
             <div id="myDropdown" class="user-profile-content">
                 <a href="#chat-alarm" class="chat-alert-toggle" id="chatAlertToggle">채팅켜기 🔔</a>
-                <a href="#logout">로그아웃</a>
+                <a href="#logout" class="logout-toggle">로그아웃</a>
             </div>
         </div>
     </header>
@@ -71,11 +72,20 @@
                 <textarea class="chat-message-area" placeholder="메시지를 입력하세요."></textarea>
                 <div class="message-option">
                     <label class="option-wrapper">
-                        <span class="option-tooltip">📎</span>
-                        <input type="file" multiple accept="image/png, image/jpeg, image/gif">
+                        <span class="option-tooltip">사진</span>
+                        <svg width="27" height="24" viewBox="0 0 27 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_27_1494" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="27" height="24">
+<path d="M27 0H0V24H27V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_27_1494)">
+<path d="M10.125 3H16.875L19.125 5H23.625C24.2463 5 24.75 5.44772 24.75 6V20C24.75 20.5523 24.2463 21 23.625 21H3.375C2.75368 21 2.25 20.5523 2.25 20V6C2.25 5.44772 2.75368 5 3.375 5H7.875L10.125 3ZM13.5 19C17.2279 19 20.25 16.3137 20.25 13C20.25 9.68629 17.2279 7 13.5 7C9.77208 7 6.75 9.68629 6.75 13C6.75 16.3137 9.77208 19 13.5 19ZM13.5 17C11.0147 17 9 15.2091 9 13C9 10.7909 11.0147 9 13.5 9C15.9853 9 18 10.7909 18 13C18 15.2091 15.9853 17 13.5 17Z" fill="#A8A8A8"/>
+</g>
+</svg>
+                        
+                        <input type="file" class="file-input" multiple accept="image/png, image/jpeg, image/gif">
                     </label>
                     <span class="text-length">0/1000</span>
-                    <button type="submit">전송</button>
+                    <button class="send-message-btn" onclick="sendMessage()">전송</button>
                 </div>
             </div>
         </div>
