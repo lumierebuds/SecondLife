@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,11 +12,10 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter
-@ToString
+@Data
 @Builder
 public class Member {
-	private int memberNO;
+	private int memberNo;
 	private String id;
 	private String pwd;
 	private String nickname;

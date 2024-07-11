@@ -11,4 +11,7 @@ public interface MemberService {
 	int updateMember(Member m);
 
 	int idCheck(String id);
+	
+	int deleteMember(String id);
+
 }

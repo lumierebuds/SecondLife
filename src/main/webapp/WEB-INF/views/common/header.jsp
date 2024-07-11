@@ -53,9 +53,9 @@
                             마 이
                         </button>
 						<div class="drop-box">
-							<button class="drop-item">마이페이지</button>
-							<button class="drop-item">로그아웃</button>
-						</div>
+		                   <a class="drop-item" href="/secondlife/member/myPage">마이페이지</a>
+		                   <button class="drop-item" id="logout-button">로그아웃</button>
+		                </div>
                     </div>
                 </div>
             </div>
@@ -122,5 +122,13 @@
 	</div>
 	
 	<script src="/secondlife/resources/js/common.js"></script>
+
+	<c:if test="${not empty fn:trim(loginUser)}">
+		<script>
+			console.log('${loginUser}');
+			loginView();
+		</script>
+	</c:if>
+	
 </body>
 </html>
