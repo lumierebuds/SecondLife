@@ -48,21 +48,18 @@ public class MemberController {
 	    String viewName = "";
 	    
 	    if (loginUser == null || !encoder.matches(m.getPwd(), loginUser.getPwd())) {
-	        model.addAttribute("alertMsg", "아이디 또는 비밀번호가 올바르지 않습니다.");
-	        viewName = "main";
-	    } else {
-	        ra.addFlashAttribute("alertMsg", "로그인 성공");
-	        model.addAttribute("loginUser", loginUser);
+			model.addAttribute("alertMsg", "아이디 또는 비밀번호가 올바르지 않습니다.");
+			viewName = "main";
+		} else {
+			ra.addFlashAttribute("alertMsg", "로그인 성공");
+			model.addAttribute("loginUser", loginUser);
+			viewName = "redirect:/";
 
-	        
-	        String nextUrl = (String) session.getAttribute("nextUrl");
-	        viewName = "redirect:" + (nextUrl != null ? nextUrl : "/");
-
-          log.debug("로그인 한 유저 정보 - {}", loginUser);
-	        viewName = "redirect:/";
-	        if(loginUser.getAdminAuth().equals("Y")) {
-	        	viewName += "admin/memberManage";
-	        }
+			log.debug("로그인 한 유저 정보 - {}", loginUser);
+			viewName = "redirect:/";
+			if (loginUser.getAdminAuth().equals("Y")) {
+				viewName += "admin/memberManage";
+			}
 
 	    }
 	    return viewName;
@@ -207,7 +204,10 @@ public class MemberController {
 	public String review() {
 		return "member/review";
 	}
-
 	
+	@GetMapping("/review/insert")
+	public String insertReview() {
+		return "review/insertReview";
+	}
 	
 }
