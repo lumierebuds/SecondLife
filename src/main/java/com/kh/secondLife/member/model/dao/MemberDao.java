@@ -15,5 +15,7 @@ public interface MemberDao {
 	int deleteMember(String id);
 
 	String findIdByEmail(String email);
+
+	String getMemberById(String id);
 	
 }

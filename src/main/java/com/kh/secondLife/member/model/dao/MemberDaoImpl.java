@@ -41,5 +41,10 @@ public class MemberDaoImpl implements MemberDao{
 	public String findIdByEmail(String email) {
 		return sqlSession.selectOne("member.findIdByEmail", email);
 	}
+
+	@Override
+	public String getMemberById(String id) {
+		return sqlSession.selectOne("member.getMemberById" ,id);
+	}
 	
 }

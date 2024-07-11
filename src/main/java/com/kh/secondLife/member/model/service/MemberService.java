@@ -16,4 +16,6 @@ public interface MemberService {
 
 	String findIdByEmail(String email);
 
+	String getMemberById(String id);
+
 }
