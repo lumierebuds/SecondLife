@@ -167,6 +167,5 @@
 			loginView();
 		</script>
 	</c:if>
-	
 </body>
 </html>

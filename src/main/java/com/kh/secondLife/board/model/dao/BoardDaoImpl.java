@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.secondLife.board.model.vo.Board;
+import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.model.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
@@ -60,6 +61,16 @@ public class BoardDaoImpl implements BoardDao{
 	public int selectBoardFavCount(int boardNo) {
 		
 		return sqlSession.selectOne("board.selectBoardFavCount",boardNo);
+	}
+	
+	@Override
+	public int insertBoard(Board b) {
+		return sqlSession.insert("board.insertBoard", b);
+	}
+
+	@Override
+	public int insertBoardImg(BoardImg bi) {
+		return sqlSession.insert("board.insertBoardImg", bi);
 	}
 
 }

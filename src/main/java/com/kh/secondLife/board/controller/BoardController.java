@@ -1,27 +1,43 @@
 package com.kh.secondLife.board.controller;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
-import com.kh.secondLife.common.Pagenation;
-import com.kh.secondLife.common.model.vo.PageInfo;
+import com.kh.secondLife.board.model.vo.BoardExt;
+import com.kh.secondLife.board.model.vo.BoardImg;
+import com.kh.secondLife.common.Utils;
+import com.kh.secondLife.member.model.vo.Member;
+
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-
-@Controller
-@RequiredArgsConstructor
+@Controller // 이게 있어야 bean객체로 등록
+@Slf4j
+@SessionAttributes({"loginUser"})
 @RequestMapping("/board")
+@RequiredArgsConstructor
 public class BoardController {
 	
+	private final ServletContext application;
 	private final BoardService boardService;
 	
 	// 게시글 목록 페이지
@@ -89,4 +105,78 @@ public class BoardController {
 		return "board/boardDetailView";
 	}
 	
+	/*------------------------------게시글 등록/수정------------------------------*/
+	// 게시글 등록 페이지
+	@GetMapping("/insert")
+	public String enrollBoard() {
+		return "board/boardEnrollForm";
+	}
+	
+	// 게시글 등록 페이지 -> 게시글 등록 버튼 눌렀을 때
+	@ResponseBody
+	@PostMapping("/insert")
+	public int insertBoard(
+			Board b ,
+			@ModelAttribute("loginUser") Member loginUser,
+			Model model , // errorMsg
+			RedirectAttributes ra, // alertMsg
+			//첨부파일
+			@RequestParam(value="upfile[]", required=false) MultipartFile[] upfile // 항상 객체 생성
+			) {
+		// 넘어온 값 확인
+		log.debug("loginUser - {}", loginUser);
+		log.debug("업로드 파일 정보 - {}", upfile);
+		
+		// 업무로직
+		// 1) 웹서버에 클라이언트가 전달한 FILE저장
+		List<BoardImg> biList = new ArrayList<>();
+		// MultipartFile 객체들을 담은 배열을 리스트로 변환
+		List<MultipartFile> upfileList = Arrays.asList(upfile);
+		
+		if(upfileList != null && !upfileList.isEmpty()) {
+			//첨부파일, 이미지등을 저장할 저장경로 얻어오기.
+			String webPath = "/resources/images/board/";
+			String serverFolderPath = application.getRealPath(webPath);
+			
+			//디렉토리가 존재하지 않는다면 생성하는 코드 추가
+			File dir = new File(serverFolderPath);
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			
+			// 사용자가 등록한 첨부파일의 이름을 수정
+			for(MultipartFile image : upfileList) {
+				
+				String changeName = Utils.saveFile(image, serverFolderPath);
+				
+				BoardImg bi = new BoardImg();
+				bi.setChangeName(changeName);
+				log.debug("이미지의 원본명 - {}", image.getOriginalFilename());
+				bi.setOriginName(image.getOriginalFilename());
+				bi.setImgPath(serverFolderPath);
+				
+				biList.add(bi);
+			}
+			
+		}
+		
+		// 2) 저장 완료시 파일이 저장된 경로를 BOARD_IMG에 등록후 테이블에 추가
+		// -> 1) Board INSERT
+		// -> 2) BOARD_IMG INSERT -> 클라이언트가 upfile에 데이터를 작성했을때만.
+		//log.debug("board : {}" , b); // Board(boardNo=0, categoryNo=0, boardWriter=홍길동, ...)
+		// boardWriter 추가
+		b.setBoardWriter(loginUser.getMemberNo());
+		log.debug("거래글 정보 - {}", b);
+		int result = 0;
+		try {
+			result = boardService.insertBoard(b, biList);
+		} catch (Exception e) {
+			ra.addFlashAttribute("errorMsg", e.getMessage());
+		}
+		
+		// 3) 응답 전송
+		return result;
+	}
+	
+
 }

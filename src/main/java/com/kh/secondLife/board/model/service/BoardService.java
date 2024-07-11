@@ -22,5 +22,7 @@ public interface BoardService {
 	List<Board> selectRecommendBoard(Map<String, Object> paramMap);
 
 	int selectBoardFavCount(int boardNo);
+
+	int insertBoard(Board b, List<BoardImg> bi) throws Exception;
 	
 }

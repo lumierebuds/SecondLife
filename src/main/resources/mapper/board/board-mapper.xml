@@ -122,4 +122,48 @@
 	</select>
 	
 	
+
+	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true">
+	
+		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO BOARD
+		VALUES(
+			SEQ_BOARD_NO.CURRVAL,
+			#{categoryNo},
+			#{boardWriter},
+			#{tradeCategoryNo},
+			#{productName},
+			#{price},
+			#{condition},
+			#{content},
+			DEFAULT,
+			DEFAULT,
+			DEFAULT,
+			DEFAULT,
+			DEFAULT
+		)
+	
+	</insert>
+	
+	<insert id="insertBoardImg">
+		INSERT INTO BOARD_IMG
+		(
+			BOARD_IMG_NO,
+			BOARD_NO,
+			ORIGIN_NAME,
+			CHANGE_NAME,
+			IMG_PATH
+		) VALUES
+		(
+			SEQ_BOARD_IMG_NO.NEXTVAL,
+			#{boardNo},
+			#{originName},
+			#{changeName},
+			#{imgPath}
+		)
+	</insert>
+
 </mapper>

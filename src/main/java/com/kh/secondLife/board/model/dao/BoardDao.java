@@ -22,4 +22,8 @@ public interface BoardDao {
 	List<Board> selectRecommendBoard(Map<String, Object> paramMap);
 
 	int selectBoardFavCount(int boardNo);
+
+	int insertBoard(Board b);
+
+	int insertBoardImg(BoardImg bi);
 }
