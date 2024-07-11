@@ -10,6 +10,26 @@
 		</layout>
 	</appender>
 	
+	<appender name="sqlLogger" class="org.apache.log4j.ConsoleAppender">
+			
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p : %m%n" />
+			
+		</layout>
+		
+	</appender>
+	<!-- sql문 출력을 위한 logger -->
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="sqlLogger"/>
+	</logger>
+	
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="sqlLogger"/>
+	</logger>
+	
+	
 	<!-- Application Loggers -->
 	<logger name="com.kh.secondLife">
 		<level value="info" />
@@ -31,11 +51,16 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	
 
+	
+	
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
+	
+	
 	
 </log4j:configuration>

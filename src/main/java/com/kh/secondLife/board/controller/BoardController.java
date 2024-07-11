@@ -65,6 +65,7 @@ public class BoardController {
 		
 		// 1. 게시글의 내용을 조회하기 		
 		Board board = boardService.selectBoard(boardNo);
+		int	favCount = boardService.selectBoardFavCount(boardNo);
 		
 		// 2. 게시글을 작성한 판매자 정보를 조회하기 
 			
@@ -83,6 +84,7 @@ public class BoardController {
 		// 4. 페이지 렌더링 
 		model.addAttribute("board", board);
 		model.addAttribute("list", list);
+		model.addAttribute("favCount", favCount);
 
 		return "board/boardDetailView";
 	}
