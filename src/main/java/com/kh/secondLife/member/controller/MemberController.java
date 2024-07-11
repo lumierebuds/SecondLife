@@ -1,0 +1,182 @@
+package com.kh.secondLife.member.controller;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.service.MemberService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/member")
+@SessionAttributes({"loginUser"})
+@RequiredArgsConstructor
+public class MemberController {
+	
+	private final MemberService mService;
+	private final BCryptPasswordEncoder encoder; 
+	
+	@PostMapping("/login")
+	public String login(
+	        @ModelAttribute Member m,
+	        Model model,
+	        RedirectAttributes ra,
+	        HttpSession session
+	        ) {
+	    System.out.println("로그인 시도: " + m);
+	    
+	    Member loginUser = mService.login(m);
+	    
+	    System.out.println("로그인 유저: " + loginUser);
+	    
+	    String viewName = "";
+	    
+	    if (loginUser == null || !encoder.matches(m.getPwd(), loginUser.getPwd())) {
+	        model.addAttribute("alertMsg", "아이디 또는 비밀번호가 올바르지 않습니다.");
+	        viewName = "main";
+	    } else {
+	        ra.addFlashAttribute("alertMsg", "로그인 성공");
+	        model.addAttribute("loginUser", loginUser);
+	        log.debug("로그인 한 유저 정보 - {}", loginUser);
+	        viewName = "redirect:/";
+	        if(loginUser.getAdminAuth().equals("Y")) {
+	        	viewName += "admin/memberManage";
+	        }
+	    }
+	    return viewName;
+	}
+	
+	
+	
+	@GetMapping("/signup") 
+	public String enrollForm() {
+		return "/member/signup";
+	}
+	
+
+	@PostMapping("/signup")
+	public String insertMember(
+	        @ModelAttribute Member m,
+	        RedirectAttributes ra,
+	        Model model
+	        ) {
+
+	    System.out.println("Received member: " + m);
+
+	    if (m.getPwd() == null || m.getPwd().isEmpty()) {
+	        model.addAttribute("alertMsg", "비밀번호를 입력하세요.");
+	        return "signup";
+	    }
+
+	    String encPwd = encoder.encode(m.getPwd());
+	    m.setPwd(encPwd);
+
+	    int result = mService.insertMember(m);
+	    System.out.println(result);
+
+	    if(result > 0) {
+	        ra.addFlashAttribute("alertMsg", "회원가입 성공");
+	        return "redirect:/"; // 회원가입 성공 시 메인 페이지로 리다이렉트
+	    } else {
+	        model.addAttribute("alertMsg", "회원가입 실패");
+	        return "signup";
+	    }
+	}
+	
+	@GetMapping("/idCheck")
+    @ResponseBody
+    public String idCheck(@RequestParam("id") String id) {
+        int result = mService.idCheck(id);
+        return result > 0 ? "fail" : "success";
+    }
+	
+	
+	@GetMapping("/modify")
+	public String modify() {
+		return "/member/modify";
+	}
+	
+	
+	
+	@PostMapping
+	public String updateMember(
+			Member m ,
+			Model model,
+			RedirectAttributes ra,
+			HttpSession session
+			) {
+		
+		System.out.println("Changed member: " + m);
+		
+		
+		int result = mService.updateMember(m);
+		
+		System.out.println(result);
+		
+		String url = "";
+		
+		if(result > 0) {
+			Member loginUser = mService.login(m);
+			model.addAttribute("loginUser" , loginUser);
+			ra.addFlashAttribute("alertMsg","정보 수정 성공");
+			url = "redirect:/member/myPage";
+		}else {
+			model.addAttribute("alertMsg","정보 수정 실패...");
+			url = "redirect:/member/myPage";
+		}
+		return url;
+	}
+	
+	
+	@GetMapping("/logout")
+	@ResponseBody
+	public String logout(HttpSession session, SessionStatus status) {
+		System.out.println("로그아웃 시도");
+        session.invalidate();
+        status.setComplete();
+        System.out.println("세션 무효화 완료");
+        return "success";
+	}
+	
+	@GetMapping("/myPage")
+	public String myPage() {
+		return "/member/myPage";
+	}
+	
+	@GetMapping("/sell")
+	public String sell() {
+		return "/member/sell";
+	}
+	
+	@GetMapping("/basket")
+	public String basket() {
+		return "member/basket";
+	}
+	
+	@GetMapping("/buy")
+	public String buy() {
+		return "member/buy";
+	}
+	
+	@GetMapping("/review")
+	public String review() {
+		return "member/review";
+	}
+	
+	
+}
