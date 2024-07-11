@@ -11,5 +11,7 @@ public interface MemberDao {
 	int updateMember(Member m);
 	
 	int idCheck(String id);
-
+	
+	int deleteMember(String id);
+	
 }

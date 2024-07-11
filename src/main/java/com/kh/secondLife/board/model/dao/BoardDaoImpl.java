@@ -1,6 +1,12 @@
 package com.kh.secondLife.board.model.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -18,6 +24,16 @@ public class BoardDaoImpl implements BoardDao{
 	
 	private final SqlSession sqlSession;
 	
+	@Override
+	public int insertBoard(Board b) {
+		return sqlSession.insert("board.insertBoard", b);
+	}
+
+	@Override
+	public int insertBoardImg(BoardImg bi) {
+		return sqlSession.insert("board.insertBoardImg", bi);
+	}
+
 	@Override
 	public String selectCategoryName(Map<String, Object> paramMap) {
 		
@@ -56,8 +72,9 @@ public class BoardDaoImpl implements BoardDao{
 	
 	}
 
-
-	
-	
-	
+	@Override
+	public int selectBoardFavCount(int boardNo) {
+		
+		return sqlSession.selectOne("board.selectBoardFavCount",boardNo);
+	}
 }

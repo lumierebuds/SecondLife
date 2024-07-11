@@ -10,7 +10,6 @@ import com.kh.secondLife.member.model.dao.MemberDao;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
@@ -46,5 +45,11 @@ public class MemberServiceImpl implements MemberService{
 	public int idCheck(String id) {
 		return dao.idCheck(id);
 	}
+	
+	@Override
+    public int deleteMember(String id) {
+        return dao.deleteMember(id);
+    }
+
 	
 }

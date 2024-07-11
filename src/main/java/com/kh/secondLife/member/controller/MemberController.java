@@ -31,6 +31,7 @@ public class MemberController {
 	private final MemberService mService;
 	private final BCryptPasswordEncoder encoder; 
 	
+
 	@PostMapping("/login")
 	public String login(
 	        @ModelAttribute Member m,
@@ -52,11 +53,17 @@ public class MemberController {
 	    } else {
 	        ra.addFlashAttribute("alertMsg", "로그인 성공");
 	        model.addAttribute("loginUser", loginUser);
-	        log.debug("로그인 한 유저 정보 - {}", loginUser);
+
+	        
+	        String nextUrl = (String) session.getAttribute("nextUrl");
+	        viewName = "redirect:" + (nextUrl != null ? nextUrl : "/");
+
+          log.debug("로그인 한 유저 정보 - {}", loginUser);
 	        viewName = "redirect:/";
 	        if(loginUser.getAdminAuth().equals("Y")) {
 	        	viewName += "admin/memberManage/1";
 	        }
+
 	    }
 	    return viewName;
 	}
@@ -105,43 +112,44 @@ public class MemberController {
         return result > 0 ? "fail" : "success";
     }
 	
-	
 	@GetMapping("/modify")
 	public String modify() {
 		return "/member/modify";
 	}
 	
 	
-	
-	@PostMapping
+	@PostMapping("/modify")
 	public String updateMember(
-			Member m ,
-			Model model,
-			RedirectAttributes ra,
-			HttpSession session
-			) {
-		
-		System.out.println("Changed member: " + m);
-		
-		
-		int result = mService.updateMember(m);
-		
-		System.out.println(result);
-		
-		String url = "";
-		
-		if(result > 0) {
-			Member loginUser = mService.login(m);
-			model.addAttribute("loginUser" , loginUser);
-			ra.addFlashAttribute("alertMsg","정보 수정 성공");
-			url = "redirect:/member/myPage";
-		}else {
-			model.addAttribute("alertMsg","정보 수정 실패...");
-			url = "redirect:/member/myPage";
-		}
-		return url;
+	        @ModelAttribute Member m,
+	        @RequestParam(name = "newPwd", required = false) String newPwd,
+	        Model model,
+	        RedirectAttributes ra,
+	        SessionStatus status
+	) {
+	    // 비밀번호 변경 여부 확인
+	    if (newPwd != null && !newPwd.isEmpty()) {
+	        // 새 비밀번호를 암호화하여 설정
+	        String encPwd = encoder.encode(newPwd);
+	        m.setPwd(encPwd);
+	    } else {
+	        // 비밀번호 변경하지 않을 경우 기존 비밀번호 유지
+	        Member loginUser = (Member) model.getAttribute("loginUser");
+	        m.setPwd(loginUser.getPwd());
+	    }
+
+	    int result = mService.updateMember(m);
+
+	    if (result > 0) {
+	        // 성공 시 로그인 정보 갱신
+	        status.setComplete(); // model의 session 영역 삭제
+	        ra.addFlashAttribute("alertMsg", "회원정보 수정 성공, 다시 로그인해주세요.");
+	        return "redirect:/";
+	    } else {
+	        model.addAttribute("alertMsg", "정보 수정 실패...");
+	        return "redirect:/member/myPage";
+	    }
+
 	}
-	
 	
 	@GetMapping("/logout")
 	@ResponseBody
@@ -153,6 +161,28 @@ public class MemberController {
         return "success";
 	}
 	
+
+	@PostMapping("/delete")
+    public String deleteMember(@RequestParam("id") String id, HttpSession session, SessionStatus status, RedirectAttributes ra) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser != null && loginUser.getId().equals(id)) {
+            int result = mService.deleteMember(id);
+            if (result > 0) {
+                session.invalidate(); // 세션 무효화
+                status.setComplete(); // @SessionAttributes 해제
+                ra.addFlashAttribute("alertMsg", "회원탈퇴가 완료되었습니다.");
+                return "redirect:/";
+            } else {
+                ra.addFlashAttribute("alertMsg", "회원탈퇴 실패");
+                return "redirect:/member/myPage";
+            }
+        } else {
+            ra.addFlashAttribute("alertMsg", "잘못된 접근입니다.");
+            return "redirect:/member/myPage";
+        }
+    }
+	
+
 	@GetMapping("/myPage")
 	public String myPage() {
 		return "/member/myPage";
@@ -177,6 +207,7 @@ public class MemberController {
 	public String review() {
 		return "member/review";
 	}
+
 	
 	
 }

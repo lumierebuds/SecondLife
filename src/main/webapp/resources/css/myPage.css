@@ -14,7 +14,6 @@ body {
   .container {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
     box-sizing: border-box;
     flex-shrink: 0;
     flex-basis: 1024px;
@@ -24,8 +23,6 @@ body {
     width: 15%;
     flex-grow: 1;
     height: 100%;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
   }
   
   header {
@@ -40,8 +37,6 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
   }
   
   .header-title {
@@ -166,7 +161,6 @@ body {
     flex-basis: 1024px;
     flex-shrink: 0;
     height: 100%;
-    border: 1px solid black;
   }
   /* 메인 스타일 끝*/
   

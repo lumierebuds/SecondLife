@@ -3,6 +3,50 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
+
+	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true">
+	
+		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO BOARD
+		VALUES(
+			SEQ_BOARD_NO.CURRVAL,
+			#{categoryNo},
+			#{boardWriter},
+			#{tradeCategoryNo},
+			#{productName},
+			#{price},
+			#{condition},
+			#{content},
+			DEFAULT,
+			DEFAULT,
+			DEFAULT,
+			DEFAULT,
+			DEFAULT
+		)
+	
+	</insert>
+	
+	<insert id="insertBoardImg">
+		INSERT INTO BOARD_IMG
+		(
+			BOARD_IMG_NO,
+			BOARD_NO,
+			ORIGIN_NAME,
+			CHANGE_NAME,
+			IMG_PATH
+		) VALUES
+		(
+			SEQ_BOARD_IMG_NO.NEXTVAL,
+			#{boardNo},
+			#{originName},
+			#{changeName},
+			#{imgPath}
+		)
+	</insert>
+
 	
 	<select id="selectCategoryName" resultType="string">
 		SELECT CATEGORY_NAME
@@ -87,6 +131,14 @@
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{boardNo}
 	</select>
+	
+	<select id="selectBoardFavCount" resultType="int">
+		SELECT 
+			COUNT(BOARD_NO)
+		FROM FAVORITE_LIST
+		WHERE BOARD_NO = ${boardNo}
+	</select>
+	
 	
 	<select id="selectRecommendBoard" resultMap="boardExtMap">
 		<!-- group by 절을 이용해서 추천 게시글의 이미지를 1개만 가져왔다. -->

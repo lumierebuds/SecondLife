@@ -69,7 +69,7 @@
                 <div class="detail-viewers">
                   <span>${board.createDate }</span>
                   <span>조회&nbsp;13</span>
-                  <span>찜&nbsp;2</span>
+                  <span>찜&nbsp;${favCount }</span>
                   <div class="dropdown-category">
                     <button class="user-menu-btn" type="button" id="userDropdownBtn">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

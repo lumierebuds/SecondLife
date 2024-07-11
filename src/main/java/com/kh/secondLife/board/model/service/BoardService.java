@@ -1,5 +1,6 @@
 package com.kh.secondLife.board.model.service;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import com.kh.secondLife.common.model.vo.PageInfo;
 @Service
 public interface BoardService {
 
+	int insertBoard(Board b, List<BoardImg> bi) throws Exception;
+
 	int selectListCount(Map<String, Object> paramMap);
 
 	List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap);
@@ -20,7 +23,7 @@ public interface BoardService {
 	Board selectBoard(int boardNo);
 
 	List<Board> selectRecommendBoard(Map<String, Object> paramMap);
-	
-	
 
+	int selectBoardFavCount(int boardNo);
+	
 }
