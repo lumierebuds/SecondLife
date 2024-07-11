@@ -1,8 +1,6 @@
 package com.kh.secondLife.board.model.dao;
 
 
-public interface BoardDao {
-
 
 import java.util.List;
 import java.util.Map;

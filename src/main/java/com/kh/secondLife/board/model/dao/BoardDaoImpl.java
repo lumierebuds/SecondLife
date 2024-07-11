@@ -2,9 +2,6 @@ package com.kh.secondLife.board.model.dao;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class BoardDaoImpl implements BoardDao {
-
 
 import java.util.List;
 import java.util.Map;

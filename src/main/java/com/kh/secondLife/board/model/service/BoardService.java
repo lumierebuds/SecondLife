@@ -1,6 +1,5 @@
 package com.kh.secondLife.board.model.service;
 
-public interface BoardService {
 
 import java.util.List;
 import java.util.Map;

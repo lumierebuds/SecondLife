@@ -16,7 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.secondLife.member.model.vo.Member;
-import com.kh.secondLife.member.service.MemberService;
+import com.kh.secondLife.member.model.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -149,7 +149,7 @@ public class MemberController {
 	        return "redirect:/member/myPage";
 	    }
 
-	
+	}
 	
 	@GetMapping("/logout")
 	@ResponseBody

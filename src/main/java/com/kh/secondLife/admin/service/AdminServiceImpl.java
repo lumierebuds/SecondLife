@@ -11,7 +11,6 @@ import com.kh.secondLife.admin.dao.AdminDao;
 import com.kh.secondLife.board.model.vo.Board;
 import com.kh.secondLife.common.model.vo.PageInfo;
 import com.kh.secondLife.member.model.dao.MemberDao;
-import com.kh.secondLife.member.dao.MemberDao;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
