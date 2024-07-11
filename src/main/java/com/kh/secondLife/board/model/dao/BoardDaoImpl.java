@@ -14,6 +14,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.secondLife.board.model.vo.Board;
+import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.model.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
