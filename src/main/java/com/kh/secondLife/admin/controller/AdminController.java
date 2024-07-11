@@ -7,7 +7,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.kh.secondLife.admin.service.AdminService;
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
+
 import com.kh.secondLife.common.Pagenation;
 import com.kh.secondLife.common.model.vo.PageInfo;
+
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -28,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 	
 	private final AdminService aService;
+
 	private final BoardService bService;
 	
 	private final BCryptPasswordEncoder encoder;
@@ -69,14 +74,17 @@ public class AdminController {
 	}
 	
 	
+
 	// 게시글 관리
 	@GetMapping("/postManage/{pageNo}")
 	public String postManage(
 			@PathVariable /* (name = "pageNo") */ int pageNo,
+
 			Model model,
 			@RequestParam Map<String, Object> paramMap
 			) {
 		
+
 		int listCount = aService.selectMemberAllCount(paramMap);
 		int pageLimit = 10;
 		int boardLimit = 10;
@@ -90,10 +98,12 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		model.addAttribute("searchCategory", paramMap.get("searchCategory"));
 		model.addAttribute("searchKeyword", paramMap.get("searchKeyword"));
+
 		
 		return "admin/postManage";
 	}
 	
+
 	
 	// 신고 관리
 	@GetMapping("/reportManage")

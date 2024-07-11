@@ -509,4 +509,11 @@ h6 {
 #id-result, #pwd-result {
     margin-bottom: 50px;
 }
+
+.success-message {
+    font-size: 12px;
+    padding: 0px;
+    margin: 0;
+}
+
 /* 로그인 모달 스타일 끝 */
