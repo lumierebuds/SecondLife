@@ -13,5 +13,7 @@ public interface MemberDao {
 	int idCheck(String id);
 	
 	int deleteMember(String id);
+
+	String findIdByEmail(String email);
 	
 }

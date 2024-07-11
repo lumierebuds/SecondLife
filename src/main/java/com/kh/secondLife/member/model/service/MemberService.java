@@ -14,4 +14,6 @@ public interface MemberService {
 	
 	int deleteMember(String id);
 
+	String findIdByEmail(String email);
+
 }

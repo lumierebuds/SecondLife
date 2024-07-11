@@ -64,5 +64,12 @@
         SET STATUS = 'N'
         WHERE ID = #{id}
    </update>
+   
+   <!-- 아이디 찾기 기능 -->
+   <select id="findIdByEmail" parameterType="String" resultType="String">
+        SELECT id
+        FROM Member
+        WHERE email = #{email}
+    </select>
 	
 </mapper>
