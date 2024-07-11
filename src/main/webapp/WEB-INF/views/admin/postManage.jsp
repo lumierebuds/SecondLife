@@ -143,6 +143,28 @@ header {
 	text-align: center;
 }
 
+#pageArea {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+#pageArea .pagination {
+	margin-bottom: 0px;
+}
+
+.pageLink {
+	color: #B08968;
+	position: relative;
+	display: block;
+	padding: .5rem .75rem;
+	margin-left: -1px;
+	line-height: 1.25;
+	background-color: #fff;
+	border: 1px solid #dee2e6;
+}
+
 .main .buttons {
 	margin: 20px 40px;
 	display: flex;
@@ -194,7 +216,7 @@ header {
 						</div>
 						<div class="choices">
 							<div class="선택들">
-								<a href="/secondlife/admin/postManage"><p>거래글관리</p></a>
+								<a href="/secondlife/admin/postManage/1"><p>거래글관리</p></a>
 							</div>
 						</div>
 						<div class="choices">
@@ -263,6 +285,35 @@ header {
 							</c:forEach>
 						</table>
 					</div>
+
+					<div id="pageArea">
+						<ul class="pagination">
+							<c:if test="${pi.currentPage eq 1}">
+								<li class='page-item'><a class="pageLink">이전</a></li>
+							</c:if>
+							<c:if test="${pi.currentPage ne 1}">
+								<li class='page-item'><a class="pageLink"
+									href="/secondlife/admin/postManage/${pi.currentPage - 1}">이전</a></li>
+							</c:if>
+
+							<c:forEach var='i' begin="${pi.startPage}" end="${pi.endPage}">
+								<li class="page-link ${i eq pi.currentPage ? 'on' : ''}"
+									href="/secondlife/admin/postManage/${i}">
+									
+									<a href="/secondlife/admin/postManage/${i}">${i}</a>
+								</li>
+							</c:forEach>
+							<c:if test="${pi.currentPage eq pi.maxPage}">
+								<li class='page-item'><a class="pageLink">다음</a></li>
+							</c:if>
+							<c:if test="${pi.currentPage ne pi.maxPage}">
+								<li class='page-item'><a class="pageLink"
+									href="/secondlife/admin/postManage/${pi.currentPage + 1}">다음</a></li>
+							</c:if>
+						</ul>
+					</div>
+
+
 					<div class="buttons">
 						<button class="post">
 							<p>알림 전송</p>
