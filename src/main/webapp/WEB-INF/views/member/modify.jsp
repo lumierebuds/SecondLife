@@ -13,7 +13,6 @@ body {
 #container {
 	display: flex;
 	flex-direction: column;
-	border: 1px solid red;
 	box-sizing: border-box;
 }
 
@@ -21,7 +20,6 @@ body {
 	width: 15%;
 	flex-grow: 1;
 	height: 100%;
-	border: 1px solid black;
 }
 
 header {
@@ -36,8 +34,6 @@ header {
 	height: 100%;
 	display: flex;
 	align-items: center;
-	border-bottom: 1px solid black;
-	border-top: 1px solid black;
 }
 
 .title {
@@ -108,7 +104,6 @@ main.centered-content {
 	flex-basis: 1024px;
 	flex-shrink: 0;
 	height: 100%;
-	border: 1px solid black;
 	background-color: #E6CCB2;
 }
 
@@ -272,41 +267,39 @@ form {
 						<h2>회원정보수정</h2>
 					</div>
 					<div class="form-container">
-						<form>
+
+						<form action="/secondlife/member/modify" method="post" id="enroll-form">
 							<div class="form-group">
-								<label for="id">아이디</label> <input type="text" id="id" name="id"
-									readonly>
+								<label for="id">아이디</label> 
+								<input type="text" id="id" name="id" value="${loginUser.id}" readonly>
 							</div>
 
 							<div class="form-group">
-								<label for="nickname">닉네임</label> <input type="text"
-									id="nickname" name="nickname" placeholder="수정하실 닉네임을 입력하세요">
+								<label for="nickname">닉네임</label>
+								<input type="text" id="nickname" name="nickname" placeholder="수정하실 닉네임을 입력하세요" value="${loginUser.nickname}">
 							</div>
 							<div class="form-group">
-								<label for="password">비밀번호</label> <input type="password"
-									id="password" name="password" placeholder="수정하실 비밀번호를 입력하세요">
+								<label for="new-pwd">새 비밀번호</label>
+								<input type="password" id="new-pwd" name="newPwd" placeholder="수정하실 비밀번호를 입력하세요" >
 							</div>
 							<div class="form-group">
-								<label for="confirm-password">비밀번호 확인</label> <input
-									type="password" id="confirm-password" name="confirm-password"
-									placeholder="비밀번호를 재입력하세요">
+								<label for="confirm-password">새 비밀번호 확인</label>
+								<input type="password" id="confirm-password" name="confirmPwd" placeholder="비밀번호를 재입력하세요">
 							</div>
 							<div class="form-group">
-								<label for="name">이름</label> <input type="text" id="name"
-									name="name" readonly>
+								<label for="name">이름</label> <input type="text" id="name" name="name" value="${loginUser.name}" readonly>
 							</div>
 							<div class="form-group">
-								<label for="address">주소</label> <input type="text" id="address"
-									name="address">
+								<label for="address">주소</label> <input type="text" id="address" name="address" value="${loginUser.address}">
 							</div>
 							<div class="form-group">
-								<label for="phone">전화번호</label> <input type="text" id="phone"
-									name="phone" placeholder='휴대폰번호 입력("-"제외 11자리 입력)'>
+								<label for="phone">전화번호</label> <input type="text" id="phone" name="phone" value="${loginUser.phone}" placeholder='휴대폰번호 입력("-"제외 11자리 입력)'>
 							</div>
 							<div class="form-group email-group">
-								<label for="email">이메일</label> <input type="text" id="email"
-									name="email" placeholder="이메일주소"> <span>@</span> <select
-									id="email-domain" name="email-domain">
+								<label for="email">이메일</label>
+								<input type="text" id="email" placeholder="이메일주소"> 
+								<span>@</span> 
+								<select id="email-domain" name="email-domain">
 									<option value="naver.com">naver.com</option>
 									<option value="gmail.com">gmail.com</option>
 									<option value="daum.net">daum.net</option>
@@ -325,8 +318,8 @@ form {
 
 
 							<div class="button-group">
-								<button type="submit">수정하기</button>
-								<button type="reset">취소</button>
+								<button id="submitbutton" type="submit">수정하기</button>
+								<button type="reset" onclick="history.back();">취소</button>
 							</div>
 						</form>
 					</div>
@@ -335,6 +328,33 @@ form {
 
 			</div>
 			<div class="marginer"></div>
+			<script>
+			
+			// 이메일 도메인 값 받아오기
+			$(document).ready(function() {
+		        $('#enroll-form').submit(function(event) {
+		            event.preventDefault(); // 기본 폼 제출 동작을 막음
+		            
+		            var email = $('#email').val(); // 사용자가 입력한 이메일
+		            var domain = $('#email-domain').val(); // 사용자가 선택한 도메인
+		            
+		            console.log("이메일 : ", email, ", 이메일 주소 뒷부분 : ", domain);
+		            
+		            var completeEmail = email + '@' + domain; // 완전한 이메일 주소
+		            
+		            // hidden input을 생성하여 데이터 전송
+		            $('<input>').attr({
+		                type: 'hidden',
+		                name: 'email',
+		                value: completeEmail
+		            }).appendTo('#enroll-form');
+		            
+					      this.submit();
+		        });
+		    });
+			
+			</script>
+
 		</main>
 
 

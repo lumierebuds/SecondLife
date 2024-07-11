@@ -22,6 +22,10 @@
 		
 		<main id="main-container">
 			<div class="marginer"></div>
+			
+			
+			
+			
 			<div class="content">
 				<div class="intro">
 					<div class="section-divider">
@@ -101,6 +105,10 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			
+			
 			<div class="marginer"></div>
 		</main>
 
@@ -116,10 +124,9 @@
         
         
     </script>
-
 	<script src="/secondlife/resources/js/main.js">
     </script>
-
+	
 </body>
 
 </html>

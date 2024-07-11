@@ -12,4 +12,6 @@ public interface MemberDao {
 	
 	int idCheck(String id);
 	
+	int deleteMember(String id);
+	
 }
