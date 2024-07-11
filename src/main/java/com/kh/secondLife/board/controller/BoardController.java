@@ -114,7 +114,7 @@ public class BoardController {
 		
 		if(upfileList != null && !upfileList.isEmpty()) {
 			//첨부파일, 이미지등을 저장할 저장경로 얻어오기.
-			String webPath = "/resources/images/board/";
+			String webPath = "resources/images/board/";
 			String serverFolderPath = application.getRealPath(webPath);
 			
 			//디렉토리가 존재하지 않는다면 생성하는 코드 추가
@@ -132,7 +132,7 @@ public class BoardController {
 				bi.setChangeName(changeName);
 				log.debug("이미지의 원본명 - {}", image.getOriginalFilename());
 				bi.setOriginName(image.getOriginalFilename());
-				bi.setImgPath(serverFolderPath);
+				bi.setImgPath(webPath);
 				
 				biList.add(bi);
 			}
