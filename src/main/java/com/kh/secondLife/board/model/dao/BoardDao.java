@@ -1,5 +1,7 @@
 package com.kh.secondLife.board.model.dao;
 
+
+
 import java.util.List;
 import java.util.Map;
 
@@ -20,5 +22,6 @@ public interface BoardDao {
 	Board selectBoard(int boardNo);
 
 	List<Board> selectRecommendBoard(Map<String, Object> paramMap);
+
 
 }

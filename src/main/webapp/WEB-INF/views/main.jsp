@@ -119,14 +119,13 @@
         $(document).ready(function() {
             /* if test=${not empty alertMsg}
                 alert("${alertMsg}"); */
-           if(test=${not empty alertMsg}){
-               alert("${alertMsg}")
+        	if(test=${not empty alertMsg}){
+            	alert("${alertMsg}")
             }
         });
         
         
     </script>
-	
 	<script src="/secondlife/resources/js/main.js">
     </script>
 	

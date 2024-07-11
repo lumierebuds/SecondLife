@@ -311,8 +311,6 @@ footer {
     flex-basis: 1024px;
     flex-shrink: 0;
     height: 100%;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
     display: flex;
     flex-direction: column;
 }

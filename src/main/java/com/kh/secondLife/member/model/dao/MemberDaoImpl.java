@@ -1,4 +1,4 @@
-package com.kh.secondLife.member.dao;
+package com.kh.secondLife.member.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,10 @@ public class MemberDaoImpl implements MemberDao{
 	public int idCheck(String id) {
 		return sqlSession.selectOne("member.idCheck", id);
 	}
-
+	
+	@Override
+    public int deleteMember(String id) {
+        return sqlSession.update("member.deleteMember", id);
+    }
 	
 }

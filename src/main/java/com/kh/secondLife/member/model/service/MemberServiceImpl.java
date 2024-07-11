@@ -1,16 +1,13 @@
-package com.kh.secondLife.member.service;
-
-import java.util.List;
+package com.kh.secondLife.member.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.kh.secondLife.member.dao.MemberDao;
+import com.kh.secondLife.member.model.dao.MemberDao;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
@@ -46,5 +43,11 @@ public class MemberServiceImpl implements MemberService{
 	public int idCheck(String id) {
 		return dao.idCheck(id);
 	}
+	
+	@Override
+    public int deleteMember(String id) {
+        return dao.deleteMember(id);
+    }
+
 	
 }

@@ -1,5 +1,6 @@
 package com.kh.secondLife.board.model.service;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,4 @@ public interface BoardService {
 
 	List<Board> selectRecommendBoard(Map<String, Object> paramMap);
 	
-	
-
 }
