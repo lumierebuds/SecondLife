@@ -3,12 +3,14 @@ package com.kh.secondLife.board.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -94,7 +96,7 @@ public class BoardController {
 	// 게시글 등록 페이지 -> 게시글 등록 버튼 눌렀을 때
 	@ResponseBody
 	@PostMapping("/insert")
-	public int insertBoard(
+	public Map<String, Object> insertBoard(
 			Board b ,
 			@ModelAttribute("loginUser") Member loginUser,
 			Model model , // errorMsg
@@ -149,9 +151,15 @@ public class BoardController {
 		int result = 0;
 		try {
 			result = boardService.insertBoard(b, biList);
+			log.debug("거래글 정보(등록 후) - {}", b);
 		} catch (Exception e) {
 			ra.addFlashAttribute("errorMsg", e.getMessage());
 		}
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		resultMap.put("result", result);
+		resultMap.put("boardNo", b.getBoardNo());
 		
 		// 3) 반환값을 통해 메세지 등록
 //		String url = "";
@@ -164,7 +172,7 @@ public class BoardController {
 //			url = "common/errorPage";
 //		}
 		// 4) 응답페이지 설정
-		return result;
+		return resultMap;
 	}
 	
 //	// 게시글 수정 페이지
