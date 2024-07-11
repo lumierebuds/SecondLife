@@ -165,5 +165,24 @@
 		     WHERE ROWNUM <![CDATA[ <= ]]> 4
 	</select>
 	
+	<!-- 판매자의 판매중, 판매완료한 거래글의 개수 -->
+	<select id="getSalesCount" resultType="map">
+		SELECT 
+		    COUNT(CASE WHEN (SALE_CONDITION ='Y') THEN 1 ELSE NULL END) AS SOLD_COUNT,
+		    COUNT(CASE WHEN (SALE_CONDITION ='N') THEN 1 ELSE NULL END) AS SALE_COUNT
+		FROM BOARD WHERE BOARD_WRITER = #{boardWriter}
+	</select>
 	
+	<!-- 판매자가 받은 리뷰글의 개수 -->
+	<select id="getReviewCount" resultType="int">
+		SELECT COUNT(*)
+        FROM
+        (
+	        SELECT MEMBER_NO, NICKNAME, B.BOARD_NO, PRODUCT_NAME, REVIEW_NO, R.BOARD_NO, REVIEW_MEMBER_NO
+	            FROM MEMBER "M"
+	        JOIN BOARD "B" ON (MEMBER_NO = BOARD_WRITER)
+	        JOIN REVIEW "R" ON (B.BOARD_NO = R.BOARD_NO)
+	        WHERE MEMBER_NO = #{boardWriter}
+        )
+	</select>
 </mapper>
