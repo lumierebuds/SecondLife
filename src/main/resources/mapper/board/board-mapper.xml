@@ -23,6 +23,7 @@
 			DEFAULT,
 			DEFAULT,
 			DEFAULT,
+			DEFAULT,
 			DEFAULT
 		)
 	
@@ -33,12 +34,14 @@
 		(
 			BOARD_IMG_NO,
 			BOARD_NO,
+			ORIGIN_NAME,
 			CHANGE_NAME,
 			IMG_PATH
 		) VALUES
 		(
 			SEQ_BOARD_IMG_NO.NEXTVAL,
 			#{boardNo},
+			#{originName},
 			#{changeName},
 			#{imgPath}
 		)

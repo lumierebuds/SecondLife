@@ -71,9 +71,10 @@ public class BoardController {
 		// 업무로직
 		// 1) 웹서버에 클라이언트가 전달한 FILE저장
 		List<BoardImg> biList = new ArrayList<>();
+		// MultipartFile 객체들을 담은 배열을 리스트로 변환
 		List<MultipartFile> upfileList = Arrays.asList(upfile);
 		
-		if(upfileList != null && upfile.length != 0) {
+		if(upfileList != null && !upfileList.isEmpty()) {
 			//첨부파일, 이미지등을 저장할 저장경로 얻어오기.
 			String webPath = "/resources/images/board/";
 			String serverFolderPath = application.getRealPath(webPath);
@@ -91,6 +92,8 @@ public class BoardController {
 				
 				BoardImg bi = new BoardImg();
 				bi.setChangeName(changeName);
+				log.debug("이미지의 원본명 - {}", image.getOriginalFilename());
+				bi.setOriginName(image.getOriginalFilename());
 				bi.setImgPath(serverFolderPath);
 				
 				biList.add(bi);
@@ -109,7 +112,7 @@ public class BoardController {
 		try {
 			result = boardService.insertBoard(b, biList);
 		} catch (Exception e) {
-			e.printStackTrace();
+			ra.addFlashAttribute("errorMsg", e.getMessage());
 		}
 		
 		// 3) 반환값을 통해 메세지 등록
