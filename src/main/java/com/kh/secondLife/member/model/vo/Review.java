@@ -14,6 +14,7 @@ public class Review {
 	private int boardNo;
 	private int reviewMemberNo;
 	private String content;
+	private int score;
 	private Date createDate;
 	private Date modifyDate;
 	private String status;

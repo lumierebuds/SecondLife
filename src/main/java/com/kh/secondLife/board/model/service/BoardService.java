@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.kh.secondLife.board.model.vo.Board;
+import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.model.vo.PageInfo;
 
 @Service

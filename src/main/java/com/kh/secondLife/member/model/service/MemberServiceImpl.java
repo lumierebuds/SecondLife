@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.secondLife.member.model.dao.MemberDao;
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.model.vo.Review;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,6 +54,11 @@ public class MemberServiceImpl implements MemberService{
     public String findIdByEmail(String email) {
         return dao.findIdByEmail(email);
     }
+
+	@Override
+	public int insertReview(Review review) {
+		return dao.insertReview(review);
+	}
 
 	
 }

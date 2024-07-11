@@ -1,5 +1,7 @@
 package com.kh.secondLife.member.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.model.vo.Review;
 import com.kh.secondLife.member.model.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -214,8 +217,26 @@ public class MemberController {
 	}
 	
 	@GetMapping("/review/insert")
-	public String insertReview() {
-		return "review/insertReview";
+	public String reviewEnrollForm(
+			@RequestParam Map<String, Object> paramMap,
+			Model model
+			) {
+		model.addAttribute("boardNo", paramMap.get("boardNo"));
+		
+		return "review/insertReviewForm";
+	}
+	
+	@PostMapping("/review/insert")
+	public String insertReview(
+			Model model,
+			Review review,
+			RedirectAttributes ra
+			) {
+		// 업무로직
+		// 1. 받아온 review 정보 등록 요청
+		int result = mService.insertReview(review);
+		
+		return "";
 	}
 	
 }

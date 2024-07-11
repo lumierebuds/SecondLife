@@ -3,14 +3,21 @@ package com.kh.secondLife.board.model.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.secondLife.board.model.dao.BoardDao;
 import com.kh.secondLife.board.model.vo.Board;
+import com.kh.secondLife.board.model.vo.BoardImg;
+import com.kh.secondLife.common.Utils;
 import com.kh.secondLife.common.model.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService{
