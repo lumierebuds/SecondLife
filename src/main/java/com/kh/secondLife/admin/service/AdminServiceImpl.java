@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.secondLife.admin.dao.AdminDao;
 import com.kh.secondLife.board.model.vo.Board;
 import com.kh.secondLife.common.model.vo.PageInfo;
-import com.kh.secondLife.member.dao.MemberDao;
+import com.kh.secondLife.member.model.dao.MemberDao;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -38,16 +38,19 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<Member> selectMemberAll() {
-		
-		
-		return adminDao.selectMemberAll();
-	}
-
-	@Override
 	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
 		
 		return adminDao.selectBoardList(pi, paramMap);
+	}
+
+	@Override
+	public List<Member> selectMemberAll(PageInfo pi, Map<String, Object> paramMap) {
+		return adminDao.selectMemberAll(pi, paramMap);
+	}
+
+	@Override
+	public int selectMemberAllCount(Map<String, Object> paramMap) {
+		return adminDao.selectMemberAllCount(paramMap);
 	}
 	
 	

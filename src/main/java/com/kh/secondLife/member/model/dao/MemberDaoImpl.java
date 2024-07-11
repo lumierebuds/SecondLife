@@ -1,4 +1,4 @@
-package com.kh.secondLife.member.dao;
+package com.kh.secondLife.member.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

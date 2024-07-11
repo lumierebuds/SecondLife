@@ -1,4 +1,4 @@
-package com.kh.secondLife.member.dao;
+package com.kh.secondLife.member.model.dao;
 
 import com.kh.secondLife.member.model.vo.Member;
 

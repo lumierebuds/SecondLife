@@ -194,7 +194,7 @@ header {
 					<div class="choice">
 						<div class="choices">
 							<div class="선택들">
-								<a href="/secondlife/admin/memberManage"><p>회원관리</p></a>
+								<a href="/secondlife/admin/memberManage/1"><p>회원관리</p></a>
 							</div>
 						</div>
 						<div class="choices">

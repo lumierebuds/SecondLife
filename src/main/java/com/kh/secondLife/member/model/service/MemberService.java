@@ -1,4 +1,4 @@
-package com.kh.secondLife.member.service;
+package com.kh.secondLife.member.model.service;
 
 import com.kh.secondLife.member.model.vo.Member;
 

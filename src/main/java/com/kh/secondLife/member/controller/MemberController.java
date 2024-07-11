@@ -16,7 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.secondLife.member.model.vo.Member;
-import com.kh.secondLife.member.service.MemberService;
+import com.kh.secondLife.member.model.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +55,7 @@ public class MemberController {
 	        log.debug("로그인 한 유저 정보 - {}", loginUser);
 	        viewName = "redirect:/";
 	        if(loginUser.getAdminAuth().equals("Y")) {
-	        	viewName += "admin/memberManage";
+	        	viewName += "admin/memberManage/1";
 	        }
 	    }
 	    return viewName;
