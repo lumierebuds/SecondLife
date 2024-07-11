@@ -49,5 +49,10 @@ public class MemberServiceImpl implements MemberService{
         return dao.deleteMember(id);
     }
 
+	@Override
+    public String findIdByEmail(String email) {
+        return dao.findIdByEmail(email);
+    }
+
 	
 }

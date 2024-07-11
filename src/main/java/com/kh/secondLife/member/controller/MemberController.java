@@ -179,6 +179,14 @@ public class MemberController {
         }
     }
 	
+	@GetMapping("/findId")
+	@ResponseBody
+	public String findId(@RequestParam("email") String email) {
+	    String id = mService.findIdByEmail(email);
+	    System.out.println(id);
+	    return id != null ? id : "fail";
+	}
+	
 
 	@GetMapping("/myPage")
 	public String myPage() {

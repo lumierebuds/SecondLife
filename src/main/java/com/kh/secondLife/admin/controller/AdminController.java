@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/admin")
 @SessionAttributes({"loginAdmin"})
 @RequiredArgsConstructor
-public class AdminConrtoller {
+public class AdminController {
 	
 	private final AdminService aService;
 	

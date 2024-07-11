@@ -9,6 +9,7 @@ $(document).ready(function() {
             $(e.currentTarget).css('display', 'none');
             $('.modal-login').css('display', 'flex');
             $('.modal-find-form').css('display', 'none');
+            $('.result-form').css('display', 'none');
         }
     });
 
