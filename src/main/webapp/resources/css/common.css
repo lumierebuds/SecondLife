@@ -38,7 +38,7 @@ button:focus {
 	position: sticky;
 	top: 0;
 	left: 0;
-	z-index: 2;
+	z-index: 3;
 }
 
 /* 헤더 스타일 시작 */
@@ -136,7 +136,7 @@ header img {
     left: 65%;
     background-color: white;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 3;
+    z-index: 4;
     border-radius: 5px;
     overflow: hidden;
     width: 30%;
@@ -160,6 +160,10 @@ header img {
 
 .login-menu {
     display: none;
+}
+
+.admin-menu {
+	display: none;
 }
 
 /* 헤더 스타일 끝*/

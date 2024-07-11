@@ -30,6 +30,12 @@
                     </div>
                 </div>
                 <div class="header-user-menu">
+                	<div class="header-user-menu-item admin-menu">
+                        <button>
+                            <img src="/secondlife/resources/images/관리 아이콘.png" alt="관리 아이콘">
+                            <a href="/secondlife/admin/memberManage/1">관 리</a>
+                        </button>
+                    </div>
 					<div class="header-user-menu-item login-menu">
                         <button>
                             <img src="/secondlife/resources/images/찜목록 아이콘.png" alt="찜목록 아이콘">
@@ -48,7 +54,7 @@
                             로그인
                         </button>
                     </div>
-					<div class="header-user-menu-item login-menu">
+					<div class="header-user-menu-item login-menu admin-menu">
                         <button id="drop-btn">
                             <img src="/secondlife/resources/images/마이 아이콘.png" alt="마이 아이콘">
                             마 이
@@ -130,6 +136,9 @@
 		<script>
 			console.log('${loginUser}');
 			loginView();
+			if('${loginUser.adminAuth}' == 'Y') {
+				adminView();
+			}
 		</script>
 	</c:if>
 </body>

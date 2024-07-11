@@ -28,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 	
 	private final AdminService aService;
+	private final BoardService bService;
 	
 	private final BCryptPasswordEncoder encoder;
 	
@@ -54,6 +55,7 @@ public class AdminController {
 		// 1-1 모든 회원 조회
 		List<Member> mList = aService.selectMemberAll(pi, paramMap);
 		
+		
 		// 3 - 응답 view페이지에 회원 데이터 삽입
 		// 3-1 조회한 모든 회원 정보 model에 넣기
 		model.addAttribute("mList", mList);
@@ -68,15 +70,26 @@ public class AdminController {
 	
 	
 	// 게시글 관리
-	@GetMapping("/postManage")
+	@GetMapping("/postManage/{pageNo}")
 	public String postManage(
+			@PathVariable /* (name = "pageNo") */ int pageNo,
 			Model model,
 			@RequestParam Map<String, Object> paramMap
 			) {
 		
-		List<Board> bList = aService.selectBoardList(null, paramMap);
+		int listCount = aService.selectMemberAllCount(paramMap);
+		int pageLimit = 10;
+		int boardLimit = 10;
 		
-		model.addAttribute("aList", bList);
+		PageInfo pi = Pagenation.getPageInfo(listCount, pageNo, pageLimit, boardLimit);
+		
+		List<Board> bList = bService.selectBoardList(pi, paramMap);
+		
+		model.addAttribute("bList", bList);
+		model.addAttribute("boardCount", listCount);
+		model.addAttribute("pi", pi);
+		model.addAttribute("searchCategory", paramMap.get("searchCategory"));
+		model.addAttribute("searchKeyword", paramMap.get("searchKeyword"));
 		
 		return "admin/postManage";
 	}

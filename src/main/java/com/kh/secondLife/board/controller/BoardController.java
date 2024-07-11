@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -22,10 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
-import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.board.model.vo.BoardImg;
-import com.kh.secondLife.common.Utils;
 import com.kh.secondLife.common.Pagenation;
+import com.kh.secondLife.common.Utils;
 import com.kh.secondLife.common.model.vo.PageInfo;
 import com.kh.secondLife.member.model.service.MemberService;
 import com.kh.secondLife.member.model.vo.Member;
@@ -45,6 +45,7 @@ public class BoardController {
 	private final MemberService memberService;
 	
 	// 게시글 목록 페이지
+	@GetMapping("/list")
 	public String listBoard(
 			@RequestParam(value="pageNo", defaultValue="1") int pageNo,
 			@RequestParam Map<String, Object> paramMap,

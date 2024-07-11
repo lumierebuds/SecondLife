@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -233,36 +233,36 @@ header {
 							<p>거래글검색</p>
 						</div>
 						<form>
-							<input type="text" class="search-box"> <select
-								class="search-category">
-								<option value="none" selected>==선택==</option>
-								<option value="content-no">게시글 번호</option>
+							<select class="search-category" name="searchCategory">
+								<option value="none"
+									${searchCategory == 'none' ? 'selected' : ''}>==선택==</option>
+								<option value="boardNo"
+									${searchCategory == 'boardNo' ? 'selected' : ''}>게시글
+									번호</option>
+								<option value="nickname"
+									${searchCategory == 'nickname' ? 'selected' : ''}>작성자</option>
 								<option value="content-writer">작성자</option>
-							</select>
+							</select> <input type="text" class="search-box">
 						</form>
 					</div>
-					<table class="member-content">
-						<tr class="table-title">
-							<th>게시글 번호</th>
-							<th>작성자</th>
-							<th>상품명</th>
-							<th>작성일자</th>
-						</tr>
-						<c:forEach items="${bList}" var="board">
-						<tr>
-							<td>${board.boardNo}</td>
-							<td>${board.nickname}()</td>
-							<td></td>
-							<td></td>
-						</tr>
-						</c:forEach>
-						<tr class="더미">
-							<td>1</td>
-							<td>웃으면 복이 가요(user_id1)</td>
-							<td>호크아이 골프용 연습채</td>
-							<td>2024-07-01</td>
-						</tr>
-					</table>
+					<div>
+						<table class="member-content">
+							<tr class="table-title">
+								<th>게시글 번호</th>
+								<th>작성자</th>
+								<th>상품명</th>
+								<th>작성일자</th>
+							</tr>
+							<c:forEach items="${bList}" var="board">
+								<tr>
+									<td>${board.boardNo}</td>
+									<td>${board.nickname}(${board.id})</td>
+									<td>${board.productName}</td>
+									<td>${board.createDate}</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
 					<div class="buttons">
 						<button class="post">
 							<p>알림 전송</p>

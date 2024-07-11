@@ -1,6 +1,7 @@
 package com.kh.secondLife.board.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -11,6 +12,7 @@ import com.kh.secondLife.board.model.dao.BoardDao;
 import com.kh.secondLife.board.model.vo.Board;
 import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.Utils;
+import com.kh.secondLife.common.model.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,8 +65,6 @@ public class BoardServiceImpl implements BoardService {
 		// 처리결과값 반환
 		return result;
 	}
-
-	private final BoardDao boardDao;
 
 	@Override
 	public String selectCategoryName(Map<String, Object> paramMap) {
