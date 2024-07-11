@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/secondlife/resources/css/common.css">
 </head>
 <body>
-    <div>
+    <div class="border-container">
         <footer>
             <div class="marginer"></div>
             <div class="footer-area">

@@ -32,7 +32,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.kh.secondLife">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

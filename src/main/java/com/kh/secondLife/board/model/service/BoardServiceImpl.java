@@ -1,5 +1,9 @@
 package com.kh.secondLife.board.model.service;
 
+
+import org.springframework.stereotype.Service;
+
+
 import java.util.List;
 import java.util.Map;
 
@@ -53,5 +57,5 @@ public class BoardServiceImpl implements BoardService{
 		
 		return boardDao.selectBoardFavCount(boardNo);
 	}
-	
+
 }

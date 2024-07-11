@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $('#login').on('click', function () {
         $('#modalBackground').css('display', 'flex');
+
     });
 
     $('#modalBackground').on('mousedown', function (e) {
@@ -48,10 +49,36 @@ $(document).ready(function() {
         } else {
             $('.drop-box').css('display', 'none');
         }
-    })
-})
+    });
+    
+    $('#logout-button').on('click', function() {
+        $.ajax({
+            url: '/secondlife/member/logout',
+            type: 'GET',
+            success: function(response) {
+                if (response === 'success') {
+                	console.log('로그아웃 성공');
+                    window.location.href = '/secondlife';
+                } else {
+                	console.log('로그아웃 실패');
+                    alert('로그아웃 실패');
+                }
+            },
+            error: function() {
+            	console.log('로그아웃 요청 중 오류');
+                alert('로그아웃 요청 중 오류가 발생했습니다.');
+            }
+        });
+    });
+    
+    
+    
+    
+});
 
 function loginView() {
     $('.login-menu').css('display', 'flex');
     $('.logout-menu').css('display', 'none');
 }
+
+

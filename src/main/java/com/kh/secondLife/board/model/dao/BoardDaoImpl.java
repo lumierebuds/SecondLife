@@ -1,5 +1,8 @@
 package com.kh.secondLife.board.model.dao;
 
+import org.springframework.stereotype.Repository;
+
+
 import java.util.List;
 import java.util.Map;
 
@@ -62,8 +65,4 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectOne("board.selectBoardFavCount",boardNo);
 	}
 
-
-	
-	
-	
 }

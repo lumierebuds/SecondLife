@@ -22,6 +22,10 @@
 		
 		<main id="main-container">
 			<div class="marginer"></div>
+			
+			
+			
+			
 			<div class="content">
 				<div class="intro">
 					<div class="section-divider">
@@ -101,15 +105,30 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			
+			
 			<div class="marginer"></div>
 		</main>
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	</div>
-
+	
+	<script>
+        $(document).ready(function() {
+            /* if test=${not empty alertMsg}
+                alert("${alertMsg}"); */
+        	if(test=${not empty alertMsg}){
+            	alert("${alertMsg}")
+            }
+        });
+        
+        
+    </script>
 	<script src="/secondlife/resources/js/main.js">
     </script>
-
+	
 </body>
 
 </html>
