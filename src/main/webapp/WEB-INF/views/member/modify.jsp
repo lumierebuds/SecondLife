@@ -267,6 +267,7 @@ form {
 						<h2>회원정보수정</h2>
 					</div>
 					<div class="form-container">
+
 						<form action="/secondlife/member/modify" method="post" id="enroll-form">
 							<div class="form-group">
 								<label for="id">아이디</label> 
@@ -348,11 +349,12 @@ form {
 		                value: completeEmail
 		            }).appendTo('#enroll-form');
 		            
-					this.submit();
+					      this.submit();
 		        });
 		    });
 			
 			</script>
+
 		</main>
 
 

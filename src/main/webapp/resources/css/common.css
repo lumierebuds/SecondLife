@@ -18,6 +18,14 @@ button:focus {
     outline: none;
 }
 
+#container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-basis: 1024px;
+}
+
 .marginer {
     flex: 1;
 }
@@ -30,6 +38,7 @@ button:focus {
 	position: sticky;
 	top: 0;
 	left: 0;
+	z-index: 1000;
 }
 
 /* 헤더 스타일 시작 */

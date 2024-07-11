@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.secondLife.member.model.service.MemberService;
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/member")
 @SessionAttributes({"loginUser"})
@@ -30,7 +32,6 @@ public class MemberController {
 	private final BCryptPasswordEncoder encoder; 
 	
 
-	
 	@PostMapping("/login")
 	public String login(
 	        @ModelAttribute Member m,
@@ -52,9 +53,17 @@ public class MemberController {
 	    } else {
 	        ra.addFlashAttribute("alertMsg", "로그인 성공");
 	        model.addAttribute("loginUser", loginUser);
+
 	        
 	        String nextUrl = (String) session.getAttribute("nextUrl");
 	        viewName = "redirect:" + (nextUrl != null ? nextUrl : "/");
+
+          log.debug("로그인 한 유저 정보 - {}", loginUser);
+	        viewName = "redirect:/";
+	        if(loginUser.getAdminAuth().equals("Y")) {
+	        	viewName += "admin/memberManage";
+	        }
+
 	    }
 	    return viewName;
 	}
@@ -103,12 +112,6 @@ public class MemberController {
         return result > 0 ? "fail" : "success";
     }
 	
-	
-	@GetMapping("/myPage")
-	public String myPage() {
-		return "/member/myPage";
-	}
-	
 	@GetMapping("/modify")
 	public String modify() {
 		return "/member/modify";
@@ -145,7 +148,7 @@ public class MemberController {
 	        model.addAttribute("alertMsg", "정보 수정 실패...");
 	        return "redirect:/member/myPage";
 	    }
-	}
+
 	
 	
 	@GetMapping("/logout")
@@ -158,6 +161,7 @@ public class MemberController {
         return "success";
 	}
 	
+
 	@PostMapping("/delete")
     public String deleteMember(@RequestParam("id") String id, HttpSession session, SessionStatus status, RedirectAttributes ra) {
         Member loginUser = (Member) session.getAttribute("loginUser");
@@ -178,9 +182,32 @@ public class MemberController {
         }
     }
 	
+
+	@GetMapping("/myPage")
+	public String myPage() {
+		return "/member/myPage";
+	}
 	
+	@GetMapping("/sell")
+	public String sell() {
+		return "/member/sell";
+	}
 	
+	@GetMapping("/basket")
+	public String basket() {
+		return "member/basket";
+	}
 	
+	@GetMapping("/buy")
+	public String buy() {
+		return "member/buy";
+	}
+	
+	@GetMapping("/review")
+	public String review() {
+		return "member/review";
+	}
+
 	
 	
 }

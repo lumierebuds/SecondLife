@@ -1,20 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Second Life - 상품의 새 삶</title>
-<link rel="stylesheet" href="/secondlife/resources/css/myPage.css">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      .centered-content {
-       display: flex;
-       justify-content: center;
-       align-items: center;
-     }
-    
+<link rel="stylesheet" href="/secondLife/resources/css/main.css">
+
+<style>
       .content {
         display: flex;
         background-color: #EDE0D4;
@@ -45,11 +40,7 @@
       .선택들 p{
         margin-top: 30px;
       }
-	  
-	  .main {
-	  	height: 100%;
-	  }
-	  
+
       .main .빈공간 {
         width: 817px;
         height: 60px;
@@ -119,7 +110,6 @@
       .buttons .수정 {
         width: 120px;
         background-color: #7F5539;
-        text-align: center;
       }
 
       .buttons .탈퇴 {
@@ -157,18 +147,39 @@
         color: #7F5539;
       }
     </style>
-
 </head>
 
 
 <body>
-   <div id="container">
-      <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+    <div id="container">
+      <header>
+        <div class="marginer"></div>
+        <div class="header-area">
+          <div class="header-title">
+            <img src="사이트 로고.png" alt="사이트로고">
+            <h3>SecondLife</h3>
+          </div>
+          <div class="header-menu">
+            <div class="header-menu-item">
+              <a href="">거래 장터</a>
+            </div>
+          </div>
+          <div class="header-user-menu">
+            <div class="header-user-menu-item">
+              <img src="세라톡 아이콘.png" alt="사이트로고">
+              <a href="">세라톡</a>
+            </div>
+            <div class="header-user-menu-item">
+              <img src="로그인 아이콘.png" alt="사이트로고">
+              <a href="">로그인</a>
+            </div>
+          </div>
+        </div>
+        <div class="marginer"></div>
+      </header>
 
       <main class="centered-content">
         <div class="marginer"></div>
-        
-        
         <div class="content">
           <div class="tap">
             <div class="choice">
@@ -210,58 +221,72 @@
                 <table class="table">
                   <tr>
                     <th>이름</th>
-                    <td>${loginUser.name}</td>
+                    <td>홍길동</td>
                   </tr>
                   <tr>
                     <th>전화번호</th>
-                    <td>${loginUser.phone}</td>
+                    <td>010-XXXX-XXXX</td>
                   </tr>
                   <tr>
                     <th>주소</th>
-                    <td>${loginUser.address}</td>
+                    <td>서울특별시 강남구</td>
                   </tr>
                   <tr>
                     <th>이메일</th>
-                    <td>${loginUser.email}</td>
+                    <td>hong33@gmail.com</td>
                   </tr>
                   <tr>
                     <th>닉네임</th>
-                    <td>${loginUser.nickname}</td>
+                    <td>웃으면 복이 가요</td>
                   </tr>
                 </table>
-                <img src="/빠끄껀.jpg" alt="프로필사진" width="180px" height="200px">
+                <img src="/빠끄껀.jpg" alt="" width="180px" height="200px">
               </div>
               <div class="buttons">
-                <a class="수정" href="/secondlife/member/modify"><p>회원정보수정</p></a>
-                <!-- <button class="수정"><p>회원정보수정</p></button> -->
-                <button class="탈퇴" onclick="confirmDelete()" ><p>회원탈퇴</p></button>
+                <button class="수정"><p>회원정보수정</p></button>
+                <button class="탈퇴"><p>회원탈퇴</p></button>
               </div>
             </div>
           </div>
         </div>
-        
         <div class="marginer"></div>
-        
-        <script>
-			function confirmDelete() {
-			    if (confirm("정말로 탈퇴하시겠습니까?")) {
-			        document.getElementById("deleteForm").submit();
-			    }
-			}
-		</script>
-        
-        
-        <form id="deleteForm" action="/secondlife/member/delete" method="post" style="display:none;">
-		    <!-- hidden field에 사용자의 ID를 전달할 수 있습니다 -->
-		    <input type="hidden" name="id" value="${loginUser.id}">
-		</form>
-        
-        
       </main>
 
-      <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+      <footer>
+        <div class="marginer"></div>
+        <div class="footer-area">
+          <div class="footer-info">
+            <h5>세컨드 라이프</h5>
+            <div>
+              <h6>전화</h6><p>1544-XXXX</p>
+            </div>
+            <div>
+              <h6>이메일</h6><p>second@life.com</p>
+            </div>
+            <div>
+              <h6>주소</h6><p>서울특별시 강남구 테헤란로 KH 강남1지원</p>
+            </div>
+          </div>
+          <hr>
+          <div class="footer-term">
+            <a href="">이용약관</a>
+            <a href="">개인정보처리방침</a>
+          </div>
+        </div>
+        <div class="marginer"></div>
+      </footer>
     </div>
+    
+    
+    
 </body>
+
+
+
+
+
+
+
 
 
 

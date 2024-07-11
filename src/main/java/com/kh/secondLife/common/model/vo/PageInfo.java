@@ -18,3 +18,4 @@ public class PageInfo {
    private int startPage; // 시작페이지
    private int endPage; // 끝페이지
 }
+

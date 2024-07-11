@@ -1,34 +1,28 @@
-package com.kh.secondLife.admin.service;
+package com.kh.secondLife.member.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.kh.secondLife.admin.dao.AdminDao;
-import com.kh.secondLife.board.model.vo.Board;
-import com.kh.secondLife.common.model.vo.PageInfo;
-import com.kh.secondLife.member.model.dao.MemberDao;
 import com.kh.secondLife.member.dao.MemberDao;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
-public class AdminServiceImpl implements AdminService{
+public class MemberServiceImpl implements MemberService{
 	
-	@Autowired
-	private final AdminDao adminDao;
+//	@Autowired
+	private final MemberDao dao;
 	private final BCryptPasswordEncoder encoder;
 	
 	@Override
 	public Member login(Member m) {
-		
-		
-		Member loginUser = adminDao.login(m);
+	    Member loginUser = dao.login(m);
 	    
 	    // 입력된 비밀번호와 데이터베이스의 비밀번호를 비교
 	    if (loginUser != null && encoder.matches(m.getPwd(), loginUser.getPwd())) {
@@ -39,19 +33,18 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<Member> selectMemberAll() {
-		
-		
-		return adminDao.selectMemberAll();
+	public int insertMember(Member m) {
+		return dao.insertMember(m);
 	}
 
 	@Override
-	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
-		
-		return adminDao.selectBoardList(pi, paramMap);
+	public int updateMember(Member m) {
+		return dao.updateMember(m);
 	}
-	
-	
-	
+
+	@Override
+	public int idCheck(String id) {
+		return dao.idCheck(id);
+	}
 	
 }
