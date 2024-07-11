@@ -54,6 +54,7 @@ public class BoardController {
 	private final MemberService memberService;
 	
 	// 게시글 목록 페이지
+	@GetMapping("/list")
 	public String listBoard(
 			@RequestParam(value="pageNo", defaultValue="1") int pageNo,
 			@RequestParam Map<String, Object> paramMap,
