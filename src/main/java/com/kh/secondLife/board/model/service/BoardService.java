@@ -20,5 +20,7 @@ public interface BoardService {
 	Board selectBoard(int boardNo);
 
 	List<Board> selectRecommendBoard(Map<String, Object> paramMap);
+
+	int selectBoardFavCount(int boardNo);
 	
 }

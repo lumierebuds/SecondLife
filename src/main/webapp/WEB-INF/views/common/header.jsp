@@ -18,10 +18,11 @@
     <div class="border-container">
         <header>
             <div class="marginer"></div>
+            
             <div class="header-area">
                 <div class="header-title">
                     <img src="/secondlife/resources/images/사이트 로고.png" alt="사이트로고">
-                    <h3>SecondLife</h3>
+                    <a href="/secondlife"><h3>SecondLife</h3></a>
                 </div>
                 <div class="header-menu">
                     <div class="header-menu-item">
@@ -30,9 +31,9 @@
                 </div>
                 <div class="header-user-menu">
 					<div class="header-user-menu-item login-menu">
-                        <button onclick="return false">
+                        <button>
                             <img src="/secondlife/resources/images/찜목록 아이콘.png" alt="찜목록 아이콘">
-                            찜 목록
+                            <a href="/secondlife/member/basket">찜 목록</a>
                         </button>
                     </div>
                     <div class="header-user-menu-item">
@@ -53,13 +54,16 @@
                             마 이
                         </button>
 						<div class="drop-box">
-							<button class="drop-item">마이페이지</button>
-							<button class="drop-item">로그아웃</button>
+							<a class="drop-item" href="/secondlife/member/myPage">마이페이지</a>
+							<button class="drop-item" id="logout-button">로그아웃</button>
 						</div>
                     </div>
                 </div>
             </div>
             <div class="marginer"></div>
+            
+            
+            
         </header>
     </div>
     
@@ -122,5 +126,13 @@
 	</div>
 	
 	<script src="/secondlife/resources/js/common.js"></script>
+
+	<c:if test="${not empty fn:trim(loginUser)}">
+		<script>
+			console.log('${loginUser}');
+			loginView();
+		</script>
+	</c:if>
+	
 </body>
 </html>

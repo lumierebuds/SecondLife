@@ -88,6 +88,14 @@
 		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{boardNo}
 	</select>
 	
+	<select id="selectBoardFavCount" resultType="int">
+		SELECT 
+			COUNT(BOARD_NO)
+		FROM FAVORITE_LIST
+		WHERE BOARD_NO = ${boardNo}
+	</select>
+	
+	
 	<select id="selectRecommendBoard" resultMap="boardExtMap">
 		<!-- group by 절을 이용해서 추천 게시글의 이미지를 1개만 가져왔다. -->
 		SELECT * 

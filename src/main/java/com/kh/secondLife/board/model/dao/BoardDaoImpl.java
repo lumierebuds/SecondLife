@@ -1,6 +1,5 @@
 package com.kh.secondLife.board.model.dao;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +54,12 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return sqlSession.selectList("board.selectRecommendBoard", paramMap);
 	
+	}
+
+	@Override
+	public int selectBoardFavCount(int boardNo) {
+		
+		return sqlSession.selectOne("board.selectBoardFavCount",boardNo);
 	}
 
 }

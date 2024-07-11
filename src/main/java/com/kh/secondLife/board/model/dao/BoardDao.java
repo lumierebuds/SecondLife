@@ -21,4 +21,5 @@ public interface BoardDao {
 
 	List<Board> selectRecommendBoard(Map<String, Object> paramMap);
 
+	int selectBoardFavCount(int boardNo);
 }

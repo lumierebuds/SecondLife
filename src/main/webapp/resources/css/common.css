@@ -18,6 +18,14 @@ button:focus {
     outline: none;
 }
 
+#container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-basis: 1024px;
+}
+
 .marginer {
     flex: 1;
 }
@@ -311,8 +319,6 @@ footer {
     flex-basis: 1024px;
     flex-shrink: 0;
     height: 100%;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
     display: flex;
     flex-direction: column;
 }

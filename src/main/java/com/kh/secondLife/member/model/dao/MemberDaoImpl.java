@@ -32,5 +32,9 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("member.idCheck", id);
 	}
 	
+	@Override
+    public int deleteMember(String id) {
+        return sqlSession.update("member.deleteMember", id);
+    }
 	
 }

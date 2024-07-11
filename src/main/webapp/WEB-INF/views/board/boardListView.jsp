@@ -139,9 +139,5 @@
     </main>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
   </div>
-<<<<<<< HEAD
-=======
-  
->>>>>>> origin/kjh
 	
 </html>
