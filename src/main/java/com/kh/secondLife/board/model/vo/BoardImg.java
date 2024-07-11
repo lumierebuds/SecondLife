@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BoardImg {
 
-	private int boardImgNo;
-	private int boardNo;
-	private String changeName;
-	private String imgPath;
-	private String status;
-	private Date createDate;
-	private Date modifyDate;
-	
+	private int boardImgNo; // 거래글 사진 번호
+	private int boardNo; // 거래글 번호
+	private String originName; // 원래 이름
+	private String changeName; // 저장된 이름
+	private String imgPath; // 저장된 공간의 상대주소
+	private String status; // 유효 여부 [기본값 : 'Y']
+	private Date createDate; // 생성 날짜 [기본값 : SYSDATE]
+	private Date modifyDate; // 수정 날짜 [기본값 : SYSDATE]
 }
 

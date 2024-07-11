@@ -75,9 +75,6 @@ $(document).ready(function() {
         });
     });
     
-    
-    
-    
 });
 
 function loginView() {
@@ -85,4 +82,9 @@ function loginView() {
     $('.logout-menu').css('display', 'none');
 }
 
+function adminView() {
+	$('.login-menu').css('display', 'none');
+    $('.logout-menu').css('display', 'none');
+	$('.admin-menu').css('display', 'flex');
+}
 

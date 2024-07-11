@@ -3,6 +3,50 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
+
+	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true">
+	
+		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO BOARD
+		VALUES(
+			SEQ_BOARD_NO.CURRVAL,
+			#{categoryNo},
+			#{boardWriter},
+			#{tradeCategoryNo},
+			#{productName},
+			#{price},
+			#{condition},
+			#{content},
+			DEFAULT,
+			DEFAULT,
+			DEFAULT,
+			DEFAULT,
+			DEFAULT
+		)
+	
+	</insert>
+	
+	<insert id="insertBoardImg">
+		INSERT INTO BOARD_IMG
+		(
+			BOARD_IMG_NO,
+			BOARD_NO,
+			ORIGIN_NAME,
+			CHANGE_NAME,
+			IMG_PATH
+		) VALUES
+		(
+			SEQ_BOARD_IMG_NO.NEXTVAL,
+			#{boardNo},
+			#{originName},
+			#{changeName},
+			#{imgPath}
+		)
+	</insert>
+
 	
 	<select id="selectCategoryName" resultType="string">
 		SELECT CATEGORY_NAME
@@ -35,6 +79,8 @@
 		<result column="CREATE_DATE" property="createDate"/>
 		<result column="CONTENT" property="content"/>
 		<result column="BOARD_WRITER" property="boardWriter"/>
+		<result column="NICKNAME" property="nickname"/>
+		<result column="ID" property="id"/>
 		
 		<collection property="biList" javaType="List" ofType="boardImg">
 			<id column="BOARD_IMG_NO" property="boardImgNo"/>
@@ -53,11 +99,18 @@
 		  
 		  BOARD_IMG_NO,
 		  IMG_PATH,
-		  CHANGE_NAME
+		  CHANGE_NAME,
+		  
+		  NICKNAME,
+		  ID
 		FROM BOARD "B" 
 		LEFT JOIN BOARD_IMG "BI"
 		ON (B.BOARD_NO = BI.BOARD_NO)
+		LEFT JOIN MEMBER "M" ON (BOARD_WRITER = MEMBER_NO)
 		WHERE B.STATUS = 'Y'
+		  AND ADMIN_AUTH = 'N'
+		  AND M.STATUS = 'Y'
+		  AND BI.STATUS = 'Y'
 		<!-- 카테고리 or 검색 결과 -->
 		<choose>
 			<when test="search != null and search !=''">
@@ -88,6 +141,15 @@
 		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{boardNo}
 	</select>
 	
+	
+	<select id="selectBoardFavCount" resultType="int">
+		SELECT 
+			COUNT(BOARD_NO)
+		FROM FAVORITE_LIST
+		WHERE BOARD_NO = ${boardNo}
+	</select>
+	
+	
 	<select id="selectRecommendBoard" resultMap="boardExtMap">
 		<!-- group by 절을 이용해서 추천 게시글의 이미지를 1개만 가져왔다. -->
 		SELECT * 
@@ -113,5 +175,24 @@
 		     WHERE ROWNUM <![CDATA[ <= ]]> 4
 	</select>
 	
+	<!-- 판매자의 판매중, 판매완료한 거래글의 개수 -->
+	<select id="getSalesCount" resultType="map">
+		SELECT 
+		    COUNT(CASE WHEN (SALE_CONDITION ='Y') THEN 1 ELSE NULL END) AS SOLD_COUNT,
+		    COUNT(CASE WHEN (SALE_CONDITION ='N') THEN 1 ELSE NULL END) AS SALE_COUNT
+		FROM BOARD WHERE BOARD_WRITER = #{boardWriter}
+	</select>
 	
+	<!-- 판매자가 받은 리뷰글의 개수 -->
+	<select id="getReviewCount" resultType="int">
+		SELECT COUNT(*)
+        FROM
+        (
+	        SELECT MEMBER_NO, NICKNAME, B.BOARD_NO, PRODUCT_NAME, REVIEW_NO, R.BOARD_NO, REVIEW_MEMBER_NO
+	            FROM MEMBER "M"
+	        JOIN BOARD "B" ON (MEMBER_NO = BOARD_WRITER)
+	        JOIN REVIEW "R" ON (B.BOARD_NO = R.BOARD_NO)
+	        WHERE MEMBER_NO = #{boardWriter}
+        )
+	</select>
 </mapper>

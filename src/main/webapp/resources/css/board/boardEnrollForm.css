@@ -1,0 +1,585 @@
+
+/* 메인 스타일 시작 */
+
+
+main {
+  width: 99.9vw;
+  flex-basis: 600px;
+  display: flex;
+  border-collapse: collapse;
+}
+
+main#main-container {
+    width: 99.9vw;
+    flex-basis: 600px;
+    display: flex;
+}
+
+.content {
+  flex-basis: 1024px;
+  flex-shrink: 0;
+  height: 100%;
+}
+
+/* 메인 스타일 끝*/
+
+/* 게시물 등록/수정 스타일 시작 */
+.board-upload{
+  /* display: none; */
+  width: 768px;
+  height: 1149px;
+  margin:auto;
+}
+
+.imgUpload-container{ /* 이미지들이 나열될 div + 첨부파일 버튼 포함 */
+  display: flex;
+  height: 86px;
+  margin: 100px 20px 6px;
+
+  align-items: center; /* 추가된 부분 */
+  position: relative; /* 추가된 부분 */
+}
+.additionalBox{ /* 이미지들이 나열될 div (첨부파일 버튼 미포함) */
+  display: flex;
+  overflow-x: hidden; /* 넘치는 이미지는 스크롤로 처리 */
+  height: 100%;
+  flex-shrink: 0;
+  max-width: calc(100% - 100px); /* 이미지가 container를 넘지 않도록 설정 */
+  box-sizing: border-box; /* padding과 border를 포함한 크기를 설정 */
+  position: relative;
+}
+
+
+/* 원래 스크롤바 관련 css */
+.additionalBox::-webkit-scrollbar {
+  height: 6px; 
+  /* 스크롤바 높이 */
+}
+/* 
+.additionalBox::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3); 
+  스크롤바 색상
+  border-radius: 3px; 
+  스크롤바 모서리 둥글게
+} */
+/* 원래 스크롤바 관련 css 끝 */
+
+/* 커스텀 스크롤바 */
+.custom-scrollbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  border: none;
+  z-index: 10;
+}
+
+.custom-thumb {
+  position: absolute;
+  bottom: 0;
+  left: 91px;
+  height: 100%;
+  background-color: #8888887e;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.custom-thumb:hover {
+  background-color: #555;
+}
+/* 커스텀 스크롤바 끝 */
+
+.additionalBox div:first-child{ /*처음올린 이미지만 썸네일로 테두리 색깔 있음*/
+  border: 2px solid #DDB892;
+}
+.additionalDiv{ /* 동적으로 올린 이미지를 감싸는 div가 갖게 될 css*/
+  border-radius: 10px;
+  margin-left: 5px;
+  height: 100%;
+  width: 86px;
+
+  position: relative; /* 추가된 부분 */
+  display: flex;
+  align-items: center; /* 이미지가 수직 중앙에 오도록 */
+  justify-content: center; /* 이미지가 수평 중앙에 오도록 */
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.imgUpload{ /* (첨부파일버튼)이미지가 들어가는 div박스 */
+  display: flex;
+  flex-direction: column;
+  background-color: #F1F4F6;
+  border-radius: 7px;
+  height: 100%;
+  width: 86px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.imgUpload > img{ /* div박스 안에 있는 (첨부파일 버튼)이미지 */
+  margin-top: 6px;
+  opacity: 0.3;
+}
+.imgUpload > p{ /* div박스 안에 0/10 */
+  margin: -4px;
+}
+
+.additionalDiv img{
+  width:100%;
+  height:100%;
+  object-fit : cover;
+}
+
+.removeButton {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background-color: rgba(255, 255, 255, 0.7); /* 배경을 투명하게 하기 위해 rgba 사용 */
+  border: none;
+  cursor: pointer;
+
+  font-weight: 900;
+  font-size: 10px;
+  /* line-height: 1; /* 버튼 텍스트 중앙 정렬 */
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* 동그란 버튼 모양 */
+}
+
+input[type="file"] {
+  display: none; /* 파일 입력 요소 숨기기 */
+}
+
+.productNameAndCategory-container{ /* 상품명, 카테고리 감싸는 큰 틀 div */
+  border: none;
+  margin: 32px 20px 0px;
+}
+.productName{
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.171);;
+  padding: 25px 20px;
+  height: 30px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 13px;
+}
+.productName::placeholder{
+  font-weight: 600;
+  font-size: 13px;
+}
+.productCategory { /* ul이 들어가있는 정사각형div */
+  margin-top: 20px;
+  overflow-y: scroll;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.171);;
+  height: 240px;
+  width: 240px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.productCategory::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+.categoryList{
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.categoryList > li{
+  padding: 10px;
+}
+
+/* .categoryList > li:focus-within{
+  background-color: #ddb89281;
+} */
+.categoryList > li.selected2{
+  background-color: #ddb89281;
+}
+
+.categoryList > li > button:focus{
+  outline: none;
+}
+
+.categoryList > li > button {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+.categoryList p {
+  font-weight: 600;
+  font-size: 13px;
+  margin: 0px;
+}
+
+.price-container{
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.171);
+  margin: 20px;
+  height: 48px;
+  display: flex;
+  align-items: center ;
+  position: relative;
+}
+.price-container > *{
+  font-weight: 600;
+  font-size: 13px;
+}
+.price-container > span{
+  margin-left: 10px;
+}
+.price-container > input[name='price']{
+  width: 45%;
+  height: 100%;
+  border: none;
+}
+.price-container > input[name='price']:focus{
+  outline: none;
+}
+
+.price-container > div {
+  position: absolute;
+  right: 10px;
+}
+.price-container > div > label {
+  margin: 0px;
+}
+
+ /* Hide the default checkbox */
+ input[type="checkbox"] {
+  display: none;
+}
+
+/* Create a custom checkbox */
+.custom-checkbox {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  vertical-align: middle; /* Align checkbox vertically with text */
+}
+
+/* Create the checkmark/indicator (hidden by default) */
+.custom-checkbox::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;  /* Smaller width */
+  height: 8px;  /* Smaller height */
+  border: solid white;  /* Change color to white */
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+  display: none;
+}
+
+/* Show the checkmark when checked */
+input[type="checkbox"]:checked + .custom-checkbox::before {
+  display: block;
+}
+
+/* Change background color when checked */
+input[type="checkbox"]:checked + .custom-checkbox {
+  background-color: #DDB892;
+  border-color: #DDB892;  /* Optional: match border color to background */
+}
+
+/* Show a faded checkmark when not checked */
+.custom-checkbox::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;  /* Same as the smaller width */
+  height: 8px;  /* Same as the smaller height */
+  border: solid gray;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Hide the faded checkmark when checked */
+input[type="checkbox"]:checked + .custom-checkbox::after {
+  display: none;
+}
+
+.freeSharing-box {
+  display: flex;
+  align-items: center;
+}
+.freeSharing-box > label.custom-checkbox {
+  margin-right: 5px; /* Adjust this value to move checkbox */
+}
+
+.disabled-input, .disabled-input::placeholder {
+  background-color: #ffffff;
+  color: #DDB892;
+}
+
+.product-condition-container{
+  position: relative;
+  /* border: 1px solid blue; */
+  margin: 0px 20px;
+  height: 496px;
+  position: relative;
+}
+#writing{
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.171);
+  resize: none;
+  padding: 16px;
+  width: 100%;
+  height: 186px;
+  font-weight: 600;
+  font-size: 13px;
+}
+#writing::placeholder{
+  color: rgba(0, 0, 0, 0.363);
+}
+
+.product-condition-font{
+  font-weight: 600;
+  margin: 20px 0px;
+  font-size: large;
+}
+.writing-length{
+  position: absolute;
+  right: 0;
+}
+.twotypebutton > button{ /*중고, 새상품 버튼*/
+  background-color: white;
+  font-weight: 600;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 80px;
+  height: 40px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.twotypebutton > :nth-child(2){
+  margin-left: 10px;
+}
+/* .twotypebutton > button:focus {
+  border: none;
+  outline: none;
+  background-color: #DDB892;
+  color: white;
+} */
+
+.twotypebutton button.selected {
+  border: none;
+  outline: none;
+  background-color: #DDB892;
+  color: white;
+}
+
+.twotypebutton button:focus {
+  outline: none; /* 포커스 표시 제거 */
+}
+
+/* 거래방법 */
+.tradingMethod-font{
+  font-weight: 600;
+  margin: 20px 0px;
+  font-size: large;
+}
+
+.tradingMethod{
+  display: flex;
+}
+.tradingMethod > div:nth-child(2){
+  margin-left: 15px;
+}
+.tradingMethod > div {
+  display: flex;
+}
+.tradingMethod > div > label:last-child{ /* 택배거래, 직거래 폰트*/
+  font-weight: 600;
+  font-size: 13px;
+  margin-left: 7px;
+}
+
+.uploadButton{ /*등록버튼*/
+  color: white;
+  font-weight: 600;
+  background-color: #9C6644;
+  position: absolute;
+  border-radius: 5px;
+  width: 150px;
+  height: 60px;
+  right: 0px;
+  bottom: 0px;
+  border: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+
+/* 게시물 등록/수정 스타일 끝 */
+
+/* 로그인 모달 스타일 시작 */
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* display: flex; */
+}
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+    background-color: #EDE0D4;
+}
+
+.modal-content img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 40px;
+}
+.modal-content input[type="text"],
+.modal-content input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 0px 0px 10px 0px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.flex-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+
+.flex-right input {
+    margin-right: 3px;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #B08968;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.modal-content button:hover {
+    background: #7F5539;
+}
+
+.modal-content .additional-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.modal-content .submit-btn {
+    margin: 20px 0 0 0;
+}
+
+.modal-find-form {
+    display: none;
+}
+
+.modal-content .find-pwd-form {
+    display: none;
+}
+
+.modal-content form {
+    width: auto;
+    flex-direction: column;
+}
+
+.modal-content form label {
+    text-align: start;
+}
+
+.modal-content .tab-buttons {
+    display: flex;
+    background-color: #DDB892;
+    border-radius: 4px;
+    margin: 0px 0px 30px 0px;
+    padding: 0px 2px;
+}
+
+.modal-content .tab-buttons button {
+    flex: 1 0;
+    margin: 4px 2px 4px 2px;
+    background: #B08968;
+    color: #000;
+}
+
+.modal-content .tab-buttons button:hover {
+    background: #7F5539;
+}
+
+.modal-content .find-id-form #emailInput {
+    margin: 0px 0 20px 0;
+}
+
+.modal-content .find-pwd-form #id-submit {
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    padding: 0px;
+    margin: 0;
+}
+
+.modal-content .find-pwd-form .certi-area {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.certi-area label {
+    width: 100%;
+}
+.certi-area input {
+    flex-basis: 65%;
+}
+
+.modal-content .find-pwd-form #certi-num-btn {
+    width: 30%;
+    height: 45px;
+    padding: 0;
+    margin: 0 0px 10px 17px;
+}
+
+.result-form label {
+    text-align: start;
+}
+#id-result, #pwd-result {
+    margin-bottom: 50px;
+}
+/* 로그인 모달 스타일 끝 */
+  display: flex;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.marginer {
+  width: 15%;
+  flex-grow: 1;
+  height: 100%;
+}

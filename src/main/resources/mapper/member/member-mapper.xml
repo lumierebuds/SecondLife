@@ -81,4 +81,31 @@
           AND STATUS = 'Y'
     </select>
 	
+	<!-- 게시글 상세조회시 판매자 정보 조회 -->
+	<select id="selectMemberInfo" resultMap="memberExtMap">
+		SELECT 
+			M.MEMBER_NO AS MEMBER_NO,
+			NICKNAME,
+			
+			PROFILE_NO,		
+			CHANGE_NAME,
+			PROFILE_PATH
+		FROM MEMBER "M"
+		LEFT JOIN PROFILE_IMG "PI" 
+		ON (M.MEMBER_NO = PI.MEMBER_NO)
+		WHERE M.MEMBER_NO = #{boardWriter}
+			
+	</select>
+	
+	<resultMap type="memberExt" id="memberExtMap">
+		<id column="MEMBER_NO" property="memberNo"/>
+		<result column="NICKNAME" property="nickname"/>
+		
+		<association property="profileImg">
+			<id column="PROFILE_NO" property="profileNo"/>
+			<result column="CHANGE_NAME" property="changeName"/>
+			<result column="PROFILE_PATH" property="profilePath"/>
+		</association>
+		
+	</resultMap>
 </mapper>

@@ -61,7 +61,7 @@ public class MemberController {
           log.debug("로그인 한 유저 정보 - {}", loginUser);
 	        viewName = "redirect:/";
 	        if(loginUser.getAdminAuth().equals("Y")) {
-	        	viewName += "admin/memberManage";
+	        	viewName += "admin/memberManage/1";
 	        }
 
 	    }

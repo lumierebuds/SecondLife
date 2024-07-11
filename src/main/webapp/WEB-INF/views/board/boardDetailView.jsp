@@ -69,7 +69,7 @@
                 <div class="detail-viewers">
                   <span>${board.createDate }</span>
                   <span>조회&nbsp;13</span>
-                  <span>찜&nbsp;2</span>
+                  <span>찜&nbsp;${favCount }</span>
                   <div class="dropdown-category">
                     <button class="user-menu-btn" type="button" id="userDropdownBtn">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -127,23 +127,25 @@
               </div>
               <div class="seller-detail">
                 <div class="seller-profile">
-                  <div class="seller-name">secondLife_user01</div>
+                  <div class="seller-name">${member.nickname }</div>
                   <div class="seller-img">
-                    <!-- <img src="./고양이.jpg" alt=""> -->
+                  	<c:if test="${member.profileImg eq null}">
+                 		<img src="/secondlife/resources/images/사이트 로고.png" alt=""> 
+                  	</c:if>
                   </div>
                 </div>
                 <div class="seller-specific">
                   <div class="selling">
                     <span>판매중</span>
-                    <span><a href="#">5</a></span>
+                    <span><a href="#">${salesCount.SALE_COUNT }</a></span>
                   </div>
                   <div class="sell-done">
                     <span>판매완료</span>
-                    <span><a href="#">5</a></span>
+                    <span><a href="#">${salesCount.SOLD_COUNT }</a></span>
                   </div>
                   <div class="sell-review">
                     <span>고객 후기</span>
-                    <span><a href="#">5</a></span>
+                    <span><a href="#">${reviewCount}</a></span>
                   </div>
 
                 </div>

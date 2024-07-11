@@ -30,6 +30,12 @@
                     </div>
                 </div>
                 <div class="header-user-menu">
+                	<div class="header-user-menu-item admin-menu">
+                        <button>
+                            <img src="/secondlife/resources/images/관리 아이콘.png" alt="관리 아이콘">
+                            <a href="/secondlife/admin/memberManage/1">관 리</a>
+                        </button>
+                    </div>
 					<div class="header-user-menu-item login-menu">
                         <button>
                             <img src="/secondlife/resources/images/찜목록 아이콘.png" alt="찜목록 아이콘">
@@ -48,7 +54,7 @@
                             로그인
                         </button>
                     </div>
-					<div class="header-user-menu-item login-menu">
+					<div class="header-user-menu-item login-menu admin-menu">
                         <button id="drop-btn">
                             <img src="/secondlife/resources/images/마이 아이콘.png" alt="마이 아이콘">
                             마 이
@@ -118,13 +124,15 @@
 				<button class="submit-btn">확 인</button>
 			</form>
 		</div>
-		
+      
 		<!-- 결과창 -->
 		<div class="modal-content result-form" id="pwdResultForm">
+
 			<img src="https://via.placeholder.com/50" alt="로고"> <label
 				for="pwd-result">임시 비밀번호가 발급되었습니다</label> <input type="text"
 				id="pwd-result" value="" placeholder="임시 비밀번호" disabled>
 		</div>
+
 		<div class="modal-content result-form" id="idResultForm">
 			<img src="https://via.placeholder.com/50" alt="로고"> <label
 				for="id-result">아이디 찾기 결과</label>
@@ -192,12 +200,15 @@
 		
 	</script>
 
+
 	<c:if test="${not empty fn:trim(loginUser)}">
 		<script>
 			console.log('${loginUser}');
 			loginView();
+			if('${loginUser.adminAuth}' == 'Y') {
+				adminView();
+			}
 		</script>
 	</c:if>
-	
 </body>
 </html>
