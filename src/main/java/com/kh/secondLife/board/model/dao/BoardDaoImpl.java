@@ -59,4 +59,10 @@ public class BoardDaoImpl implements BoardDao{
 	
 	}
 
+	@Override
+	public int selectBoardFavCount(int boardNo) {
+		
+		return sqlSession.selectOne("board.selectBoardFavCount",boardNo);
+	}
+
 }

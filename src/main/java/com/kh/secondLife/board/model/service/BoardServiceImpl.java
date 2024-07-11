@@ -52,5 +52,10 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectRecommendBoard(paramMap);
 	}
 
+	@Override
+	public int selectBoardFavCount(int boardNo) {
+		
+		return boardDao.selectBoardFavCount(boardNo);
+	}
 
 }
