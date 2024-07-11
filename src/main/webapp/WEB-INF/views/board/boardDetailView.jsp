@@ -57,6 +57,7 @@
                 </div>
                 <div class="detail-price">
                   <h2><fmt:formatNumber value="${board.price}" pattern="#,###" />원</h2>
+                  <c:if test="${not empty loginUser and loginUser.memberNo ne board.boardWriter}">
                   <button class="report-btn" id="openModalBtn">
                     <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -65,11 +66,13 @@
                     </svg>
                     신고하기
                   </button>
+                  </c:if>
                 </div>
                 <div class="detail-viewers">
                   <span>${board.createDate }</span>
                   <span>조회&nbsp;13</span>
                   <span>찜&nbsp;${favCount }</span>
+                  <c:if test="${not empty loginUser and loginUser.memberNo eq board.boardWriter}">
                   <div class="dropdown-category">
                     <button class="user-menu-btn" type="button" id="userDropdownBtn">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -83,8 +86,10 @@
                       <a class="dropdown-select" href="#">삭제하기</a>
                     </div>
                   </div>
+                  </c:if>
                 </div>
-
+				
+				<c:if test="${not empty loginUser and loginUser.memberNo ne board.boardWriter}">
                 <div class="detail-purchace">
                   <button class="like-btn">
                     <a href="#">
@@ -107,7 +112,7 @@
                     </a>
                   </button>
                 </div>
-
+				</c:if>
               </div>
 
             </div>
@@ -200,8 +205,12 @@
               	<div class="da-items">
                   <a href="/secondlife/board/detail/${board.boardNo }">
                     <div class="da-img">
-                      <!-- <img src="./가방1.jpg" alt=""> -->
-                      <img src="/secondlife/${board.biList.get(0).imgPath}/${board.biList.get(0).changeName}">
+                      <c:if test="${board.biList.size() ne 0 }">
+                      	<img src="/secondlife/${board.biList.get(0).imgPath}/${board.biList.get(0).changeName}">
+                      </c:if>
+                      <c:if test ="${board.biList.size() eq 0 }">
+                      	<img src="/secondlife/resources/images/사이트 로고.png">
+                      </c:if>
                     </div>
                     <div class="da-name">
                       <span> ${board.productName} </span>

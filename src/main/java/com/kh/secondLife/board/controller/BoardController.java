@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
@@ -18,11 +19,15 @@ import com.kh.secondLife.member.model.service.MemberService;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
+
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/board")
+@SessionAttributes({"loginUser"})
 public class BoardController {
 	
 	private final BoardService boardService;
@@ -77,14 +82,18 @@ public class BoardController {
 		Map<String, Integer> salesCount = boardService.getSalesCount(boardWriter);
 		int reviewCount = boardService.getReviewCount(boardWriter);
 		
-		System.out.println(salesCount);
+		// 3. 게시글을 작성한 판매자의 판매중인 게시글 조회(최대 3개) 
+		paramMap.put("boardWriter", boardWriter);
+		paramMap.put("boardNo", boardNo);
+		//	List<Board> sellerBoard = boardService.selectSellorBoard(paramMap);
+		
 		// 3. 해당 게시글이 참고하는 카테고리의 거래 게시글을 조회하기(최대 4개) 
 		int categoryNo = board.getCategoryNo();
 		String productName = board.getProductName();
 		
 		paramMap.put("productName", productName);
 		paramMap.put("categoryNo", categoryNo);
-			
+		System.out.println(paramMap);	
 		List<Board> list = boardService.selectRecommendBoard(paramMap);
 		
 		// 4. 페이지 렌더링 

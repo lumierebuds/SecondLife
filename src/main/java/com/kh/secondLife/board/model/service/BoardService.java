@@ -27,5 +27,7 @@ public interface BoardService {
 	Map<String, Integer> getSalesCount(int boardWriter);
 
 	int getReviewCount(int boardWriter);
+
+	List<Board> selectSellorBoard(Map<String, Object> paramMap);
 	
 }
