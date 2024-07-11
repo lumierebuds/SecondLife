@@ -102,4 +102,22 @@ public class BoardServiceImpl implements BoardService {
 		
 		return boardDao.selectBoardFavCount(boardNo);
 	}
+
+	@Override
+	public Map<String, Integer> getSalesCount(int boardWriter) {
+		
+		return boardDao.getSalesCount(boardWriter);
+	}
+
+	@Override
+	public int getReviewCount(int boardWriter) {
+		
+		return boardDao.getReviewCount(boardWriter);
+	}
+
+	@Override
+	public List<Board> selectSellorBoard(Map<String, Object> paramMap) {
+		
+		return boardDao.selectSellorBoard(paramMap);
+	}
 }

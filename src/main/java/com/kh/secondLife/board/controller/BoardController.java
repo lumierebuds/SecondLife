@@ -1,16 +1,13 @@
 package com.kh.secondLife.board.controller;
 
-<<<<<<< HEAD
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-=======
-import java.util.List;
+
 import java.util.Map;
->>>>>>> main
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,20 +17,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
 import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.board.model.vo.BoardImg;
+import com.kh.secondLife.common.Pagenation;
+import com.kh.secondLife.common.model.vo.PageInfo;
 import com.kh.secondLife.common.Utils;
+
+import com.kh.secondLife.member.model.service.MemberService;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
+
+
 
 @Controller // 이게 있어야 bean객체로 등록
 @Slf4j
@@ -44,8 +51,10 @@ public class BoardController {
 	
 	private final ServletContext application;
 	private final BoardService boardService;
+	private final MemberService memberService;
 	
 	// 게시글 목록 페이지
+	@GetMapping("/list")
 	public String listBoard(
 			@RequestParam(value="pageNo", defaultValue="1") int pageNo,
 			@RequestParam Map<String, Object> paramMap,
@@ -227,9 +236,15 @@ public class BoardController {
 		int	favCount = boardService.selectBoardFavCount(boardNo);
 		
 		// 2. 게시글을 작성한 판매자 정보를 조회하기 
-			
 		int boardWriter = board.getBoardWriter();
+		Member member = memberService.selectMemberInfo(boardWriter);
+		Map<String, Integer> salesCount = boardService.getSalesCount(boardWriter);
+		int reviewCount = boardService.getReviewCount(boardWriter);
 		
+		// 3. 게시글을 작성한 판매자의 판매중인 게시글 조회(최대 3개) 
+		paramMap.put("boardWriter", boardWriter);
+		paramMap.put("boardNo", boardNo);
+		//	List<Board> sellerBoard = boardService.selectSellorBoard(paramMap);
 		
 		// 3. 해당 게시글이 참고하는 카테고리의 거래 게시글을 조회하기(최대 4개) 
 		int categoryNo = board.getCategoryNo();
@@ -237,14 +252,17 @@ public class BoardController {
 		
 		paramMap.put("productName", productName);
 		paramMap.put("categoryNo", categoryNo);
-			
+		System.out.println(paramMap);	
 		List<Board> list = boardService.selectRecommendBoard(paramMap);
 		
 		// 4. 페이지 렌더링 
 		model.addAttribute("board", board);
 		model.addAttribute("list", list);
 		model.addAttribute("favCount", favCount);
-
+		model.addAttribute("member", member);
+		model.addAttribute("salesCount", salesCount);
+		model.addAttribute("reviewCount", reviewCount);
+		
 		return "board/boardDetailView";
 	}
 	
