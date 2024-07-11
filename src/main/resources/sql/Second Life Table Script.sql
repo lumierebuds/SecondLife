@@ -15,9 +15,7 @@ DROP TABLE BOARD;
 DROP TABLE MEMBER;
 DROP TABLE CATEGORY;
 DROP TABLE TRADE_CATEGORY;
-
 ---------------------------------------------------------------------
-
 
 DROP SEQUENCE SEQ_MEMBER_NO;
 DROP SEQUENCE SEQ_PROFILE_IMG_NO;

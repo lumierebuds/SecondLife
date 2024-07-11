@@ -1,7 +1,5 @@
 package com.kh.secondLife.board.model.dao;
 
-
-
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +10,10 @@ import com.kh.secondLife.common.model.vo.PageInfo;
 
 @Repository
 public interface BoardDao {
+
+	int insertBoard(Board b);
+
+	int insertBoardImg(BoardImg bi);
 
 	int selectListCount(Map<String, Object> paramMap);
 

@@ -2,6 +2,7 @@ package com.kh.secondLife.member.model.vo;
 
 import java.sql.Date;
 
+import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
 public class Member {
 	private int memberNo;

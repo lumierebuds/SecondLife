@@ -117,9 +117,7 @@
 	
 	<script>
         $(document).ready(function() {
-            /* if test=${not empty alertMsg}
-                alert("${alertMsg}"); */
-        	if(test=${not empty alertMsg}){
+        	if('${alertMsg}'){
             	alert("${alertMsg}")
             }
         });

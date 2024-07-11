@@ -113,12 +113,12 @@
 				<button class="submit-btn">확 인</button>
 			</form>
 		</div>
-		<div class="modal-content result-form" style="display: flex;">
+		<div class="modal-content result-form">
 			<img src="https://via.placeholder.com/50" alt="로고"> <label
 				for="pwd-result">임시 비밀번호가 발급되었습니다</label> <input type="text"
 				id="pwd-result" value="" placeholder="아이디 찾기 결과" disabled>
 		</div>
-		<div class="modal-content result-form" style="display: flex;">
+		<div class="modal-content result-form">
 			<img src="https://via.placeholder.com/50" alt="로고"> <label
 				for="id-result">아이디 찾기 결과</label> <input type="text" id="id-result"
 				value="" placeholder="아이디 찾기 결과" disabled>
@@ -126,13 +126,11 @@
 	</div>
 	
 	<script src="/secondlife/resources/js/common.js"></script>
-
 	<c:if test="${not empty fn:trim(loginUser)}">
 		<script>
 			console.log('${loginUser}');
 			loginView();
 		</script>
 	</c:if>
-	
 </body>
 </html>
