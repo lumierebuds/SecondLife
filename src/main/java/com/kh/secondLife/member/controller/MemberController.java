@@ -1,5 +1,7 @@
 package com.kh.secondLife.member.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.model.vo.Review;
 import com.kh.secondLife.member.model.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -240,6 +243,38 @@ public class MemberController {
 		return "member/review";
 	}
 
+	@GetMapping("/review/insert")
+	public String reviewEnrollForm(
+			@RequestParam Map<String, Object> paramMap,
+			Model model
+			) {
+		model.addAttribute("boardNo", paramMap.get("boardNo"));
+		
+		return "review/insertReviewForm";
+	}
 	
+	@PostMapping("/review/insert")
+	public String insertReview(
+			Model model,
+			Review review,
+			RedirectAttributes ra
+			) {
+		// 업무로직
+		// 1. 받아온 review 정보 등록 요청
+		int result = mService.insertReview(review);
+		log.debug("리뷰 등록 후 리뷰 객체 상태 - {}", review);
+		
+		// 2. 결과에 따라 메세지 등록
+		String url = "";
+		if(result == 1) {
+			ra.addAttribute("alertMsg", "리뷰가 등록되었습니다.");
+			url = "redirect:/"; // 일단 메인으로. 추후 해당 유저의 정보 중 받은 리뷰 메뉴로 이동
+		} else {
+			ra.addAttribute("alertMsg", "리뷰 등록 실패");
+			url = "redirect:/member/review/insert";
+		}
+		
+		return url;
+	}
 	
 }

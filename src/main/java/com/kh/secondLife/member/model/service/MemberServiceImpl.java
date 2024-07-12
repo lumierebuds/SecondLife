@@ -1,13 +1,11 @@
 package com.kh.secondLife.member.model.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.secondLife.member.model.dao.MemberDao;
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.model.vo.Review;
 
 import lombok.RequiredArgsConstructor;
 
@@ -57,9 +55,6 @@ public class MemberServiceImpl implements MemberService{
 		
 		return dao.selectMemberInfo(boardWriter);
 	}
-	
-	
-	
 
 	@Override
     public String findIdByEmail(String email) {
@@ -71,5 +66,8 @@ public class MemberServiceImpl implements MemberService{
 		return dao.getMemberById(id);
 	}
 
-	
+	@Override
+	public int insertReview(Review review) {
+		return dao.insertReview(review);
+	}
 }

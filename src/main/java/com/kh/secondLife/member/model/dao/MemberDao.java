@@ -1,6 +1,7 @@
 package com.kh.secondLife.member.model.dao;
 
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.model.vo.Review;
 
 public interface MemberDao {
 	
@@ -21,5 +22,5 @@ public interface MemberDao {
 	// 게시글 상세조회시 판매자 정보 조회
 	Member selectMemberInfo(int boardWriter);
 	
-	
+	int insertReview(Review review);
 }

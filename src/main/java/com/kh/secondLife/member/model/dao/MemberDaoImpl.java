@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.model.vo.Review;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
@@ -50,10 +51,12 @@ public class MemberDaoImpl implements MemberDao{
 	// 게시글 상세조회시 판매자 정보 조회
 	@Override
 	public Member selectMemberInfo(int boardWriter) {
-		
 		return sqlSession.selectOne("member.selectMemberInfo", boardWriter);
 	}
 	
-
+	@Override
+	public int insertReview(Review review) {
+		return sqlSession.insert("review.insertReview", review);
+	}
 	
 }
