@@ -80,6 +80,7 @@
 		<result column="CREATE_DATE" property="createDate"/>
 		<result column="CONTENT" property="content"/>
 		<result column="BOARD_WRITER" property="boardWriter"/>
+		<result column="TRADE_CATEGORY_NO" property="tradeCategoryNo"/>
 		<result column="NICKNAME" property="nickname"/>
 		<result column="ID" property="id"/>
 		
@@ -127,6 +128,7 @@
 		  CONTENT,
 		  B.CREATE_DATE AS CREATE_DATE,
 		  BOARD_WRITER,
+		  TRADE_CATEGORY_NO,
 		  
 		  BOARD_IMG_NO,
 		  IMG_PATH,

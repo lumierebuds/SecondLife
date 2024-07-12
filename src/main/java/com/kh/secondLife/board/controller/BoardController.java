@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
+import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.Pagenation;
 
@@ -132,7 +133,6 @@ public class BoardController {
 				BoardImg bi = new BoardImg();
 				bi.setChangeName(changeName);
 				log.debug("이미지의 원본명 - {}", image.getOriginalFilename());
-				bi.setOriginName(image.getOriginalFilename());
 				bi.setImgPath(webPath);
 				
 				biList.add(bi);
@@ -181,26 +181,28 @@ public class BoardController {
 			Model model
 			) {
 		// 작성했던 게시글 정보가 보이게 한후, 모델에 담아서 포워딩
-		Board board = boardService.selectBoard(boardNo);
-		BoardImg boardImg = boardService.selectBoardImg(boardNo);
+		BoardExt board = (BoardExt) boardService.selectBoard(boardNo);
+//		BoardImg boardImg = boardService.selectBoardImg(boardNo);
 		// 게시글 본문내용 변경 <br> -> \n
 		board.setContent(Utils.newLineClear(board.getContent()));
 		
+		log.debug("업데이트 시 거래글 내용 - {}", board);
 		model.addAttribute("board", board);
-		model.addAttribute("boardImg", boardImg);
 		
 		return "board/boardUpdateForm";
 	}
 	
 	// 게시글 수정 페이지 -> 게시글 수정 버튼 눌렀을 때
+	@ResponseBody
 	@PostMapping("/update/{boardNo}")
-	public String updateBoard2(
+	public Map<String, Object> updateBoard2(
 			@PathVariable("boardNo") int boardNo,
+			@ModelAttribute("loginUser") Member loginUser,
 			Model model,
 			Board board, // 저장할 게시판 데이터
 			RedirectAttributes ra,
 			// 첨부파일
-			@RequestParam(value="upfile", required = false) MultipartFile upfile,
+			@RequestParam(value="upfile[]", required = false) MultipartFile[] upfile,
 			int boardImgNo,
 			String deleteList // 일반게시판 1, 사진게시판 1,2,3
 			) {
@@ -220,7 +222,7 @@ public class BoardController {
 		if(result > 0) {
 			ra.addFlashAttribute("alertMsg", "게시글 수정 성공");
 			// 작업성공시 리다이렉트
-			return "redirect:/board/detail/" + boardCode + "/" + boardNo;
+			return "redirect:/board/detail/" + boardNo;
 		}else {
 			model.addAttribute("errorMsg", "게시글 수정 실패");
 			return "common/errorPage";

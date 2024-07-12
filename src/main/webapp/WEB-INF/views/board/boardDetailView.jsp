@@ -85,7 +85,7 @@
                       </svg>
                     </button>
                     <div class="dropdown-items" id="userDropdownMenu">
-                      <a class="dropdown-select" href="#">수정하기</a>
+                      <a class="dropdown-select" href="/secondlife/board/update/${board.boardNo}">수정하기</a>
                       <a class="dropdown-select" href="#">삭제하기</a>
                     </div>
                   </div>
