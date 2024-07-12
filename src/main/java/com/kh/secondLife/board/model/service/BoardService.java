@@ -35,5 +35,7 @@ public interface BoardService {
 
 	int increaseCount(int boardNo);
 	
+	int selectBoardListCount(Map<String, Object> paramMap);
+
 	
 }

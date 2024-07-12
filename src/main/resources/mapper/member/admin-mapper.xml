@@ -50,4 +50,50 @@
 		LEFT JOIN MEMBER ON (BOARD_WRITER = MEMBER_NO)
 	</select>
 	
+	<resultMap type="boardExt" id="boardExtMap">
+		<id column="BOARD_NO" property="boardNo"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="PRICE" property="price"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="CONTENT" property="content"/>
+		<result column="BOARD_WRITER" property="boardWriter"/>
+		<result column="NICKNAME" property="nickname"/>
+		<result column="ID" property="id"/>
+		
+		<collection property="biList" javaType="List" ofType="boardImg">
+			<id column="BOARD_IMG_NO" property="boardImgNo"/>
+			<result column="IMG_PATH" property="imgPath"/>
+			<result column="CHANGE_NAME" property="changeName"/>
+		</collection>
+		
+	</resultMap>
+	
+	<select id="selectManageBoardList" resultMap="boardExtMap">
+		SELECT
+		  B.BOARD_NO AS BOARD_NO,
+		  PRODUCT_NAME,
+		  PRICE,
+		  B.CREATE_DATE AS CREATE_DATE,
+		  
+		  NICKNAME,
+		  ID
+		FROM BOARD "B" 
+		LEFT JOIN MEMBER "M" ON (BOARD_WRITER = MEMBER_NO)
+		WHERE B.STATUS = 'Y'
+		  AND ADMIN_AUTH = 'N'
+		  AND M.STATUS = 'Y'
+		<!-- 카테고리 or 검색 결과 -->
+		<if test="searchCategory != null and searchCategory != 'none'">
+			<choose>
+				<when test="searchCategory == 'boardNo'">
+					AND BOARD_NO LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchCategory == 'nickname'">
+					AND NICKNAME LIKE '%' || #{searchKeyword} || '%'
+					OR ID LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</if>
+	</select>
+	
 </mapper>
