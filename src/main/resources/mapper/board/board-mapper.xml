@@ -99,17 +99,13 @@
 		  
 		  BOARD_IMG_NO,
 		  IMG_PATH,
-		  CHANGE_NAME,
+		  CHANGE_NAME
 		  
-		  NICKNAME,
-		  ID
 		FROM BOARD "B" 
 		LEFT JOIN BOARD_IMG "BI"
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		LEFT JOIN MEMBER "M" ON (BOARD_WRITER = MEMBER_NO)
 		WHERE B.STATUS = 'Y'
-		  AND ADMIN_AUTH = 'N'
-		  AND M.STATUS = 'Y'
 		  AND BI.STATUS = 'Y'
 		<!-- 카테고리 or 검색 결과 -->
 		<choose>

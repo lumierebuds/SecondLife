@@ -124,6 +124,11 @@ header {
 	margin-left: 7px;
 }
 
+.board-table {
+    width: 736px;
+    height: 299px;
+}
+
 .member-content {
 	margin-left: 40px;
 	margin-top: 30px;
@@ -166,9 +171,9 @@ header {
 }
 
 .main .buttons {
-	margin: 20px 40px;
-	display: flex;
-	justify-content: flex-end;
+	margin: 0px 40px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .main .buttons button {
@@ -259,11 +264,10 @@ header {
 								<option value="none" ${searchCategory == 'none' ? 'selected' : ''}>==선택==</option>
 								<option value="boardNo" ${searchCategory == 'boardNo' ? 'selected' : ''}>게시글 번호</option>
 								<option value="nickname" ${searchCategory == 'nickname' ? 'selected' : ''}>작성자</option>
-								<option value="createDate" ${searchCategory == 'createDate' ? 'selected' : ''}>작성일자</option>
-							</select> <input type="text" class="search-box">
+							</select> <input type="text" class="search-box" name="searchKeyword">
 						</form>
 					</div>
-					<div>
+					<div class="board-table">
 						<table class="member-content">
 							<tr class="table-title">
 								<th>게시글 번호</th>

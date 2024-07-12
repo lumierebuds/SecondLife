@@ -26,7 +26,9 @@ import com.kh.secondLife.member.model.service.MemberService;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 @SessionAttributes({"loginAdmin"})
@@ -83,19 +85,18 @@ public class AdminController {
 	@GetMapping("/postManage/{pageNo}")
 	public String postManage(
 			@PathVariable /* (name = "pageNo") */ int pageNo,
-
 			Model model,
 			@RequestParam Map<String, Object> paramMap
 			) {
-
-
+		log.debug("프론트에서 넘겨받은 값 - {}", paramMap);
+		// 페이징 처리 부분.
 		int listCount = bService.selectBoardListCount(paramMap);
 		int pageLimit = 10;
 		int boardLimit = 10;
 		
 		PageInfo pi = Pagenation.getPageInfo(listCount, pageNo, pageLimit, boardLimit);
 		
-		List<Board> bList = bService.selectBoardList(pi, paramMap);
+		List<Board> bList = aService.selectManageBoardList(pi, paramMap);
 		
 		model.addAttribute("bList", bList);
 		model.addAttribute("boardCount", listCount);

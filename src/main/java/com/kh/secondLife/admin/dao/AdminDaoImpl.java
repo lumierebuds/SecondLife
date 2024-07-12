@@ -24,14 +24,13 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
+	public List<Board> selectManageBoardList(PageInfo pi, Map<String, Object> paramMap) {
 		
-		// rowBounds 방식 (전체 게시글을 가지고 와서 페이징 처리)
 		int offset = (pi.getCurrentPage() - 1) * pi.getPageLimit();
 		int limit = pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		return sqlSession.selectList("admin.selectBoardList", paramMap, rowBounds);
+		return sqlSession.selectList("admin.selectManageBoardList", paramMap, rowBounds);
 	}
 
 	@Override
@@ -44,6 +43,7 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.selectList("admin.selectMemberAll", paramMap, rowBounds);
 	}
 	
+	// 게시글 수 가져오는.
 	@Override
 	public int selectMemberAllCount(Map<String, Object> paramMap) {
 		return sqlSession.selectOne("admin.selectMemberAllCount", paramMap);
