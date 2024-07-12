@@ -33,7 +33,10 @@
                 <div class="detail-wrapper">
                 <c:if test="${board.biList.size() ne 0}">
                 <c:forEach items="${board.biList }" var="bi">
-               	  <img src="/secondlife/${bi.imgPath}/${bi.changeName}" alt="${bi.productName}">
+                	<div class="imgDiv">
+                		<img src="/secondlife/${bi.imgPath}/${bi.changeName}" alt="${bi.productName}">
+                	</div>
+               	  
                 </c:forEach>
 				</c:if>
                 </div>

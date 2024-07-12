@@ -33,4 +33,5 @@ public interface BoardDao {
 	int getReviewCount(int boardWriter);
 
 	List<Board> selectSellorBoard(Map<String, Object> paramMap);
+
 }

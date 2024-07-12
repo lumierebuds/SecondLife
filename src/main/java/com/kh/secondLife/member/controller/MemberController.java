@@ -61,7 +61,7 @@ public class MemberController {
 			log.debug("로그인 한 유저 정보 - {}", loginUser);
 			viewName = "redirect:/";
 			if (loginUser.getAdminAuth().equals("Y")) {
-				viewName += "admin/memberManage";
+				viewName += "admin/memberManage/1";
 			}
 
 	    }
@@ -189,6 +189,30 @@ public class MemberController {
 	    System.out.println(id);
 	    return id != null ? id : "fail";
 	}
+	
+	// 이메일 조회 엔드포인트
+    @GetMapping("/getEmail")
+    @ResponseBody
+    public String getEmail(@RequestParam("id") String id) {
+        // 1. 아이디로 회원 조회
+        String email = mService.getMemberById(id);
+        
+        // 2. 랜덤 인증코드 생성
+        
+        // 3. 이메일로 인증코드 보내기
+        
+        // 4. 보낸 인증코드 페이지로 반환  --> (두진)사용자의 아이디랑 db아이디랑 같은지 확인 후 이메일 반환
+        if (email != null && !email.equals("")) {
+            // 회원이 존재하면 이메일 반환
+        	System.out.println(email);
+        	System.out.println(email);
+            return email;
+        } else {
+            // 회원이 존재하지 않으면 실패 메시지 반환
+            return "fail";
+        }
+        
+    }
 	
 
 	@GetMapping("/myPage")

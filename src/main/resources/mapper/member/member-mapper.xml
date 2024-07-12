@@ -67,9 +67,18 @@
    
    <!-- 아이디 찾기 기능 -->
    <select id="findIdByEmail" parameterType="String" resultType="String">
-        SELECT id
-        FROM Member
-        WHERE email = #{email}
+        SELECT ID
+        FROM MEMBER
+        WHERE EMAIL = #{email}
+        	AND STATUS = 'Y'
+    </select>
+    
+    <!-- 아이디로 이메일 찾기 기능 -->
+    <select id="getMemberById" resultType="String">
+        SELECT EMAIL 
+        FROM MEMBER 
+        WHERE ID = #{id}
+          AND STATUS = 'Y'
     </select>
 	
 	<!-- 게시글 상세조회시 판매자 정보 조회 -->
