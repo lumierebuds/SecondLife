@@ -16,32 +16,6 @@
 		SELECT *
 		FROM MEMBER
 		WHERE STATUS = 'Y'
-		  AND ADMIN_AUTH = 'N'
-		  <if test="searchCategory != null and searchCategory != 'none'">
-		  AND
-		     <choose>
-		     	<when test="searchCategory == 'memberNo'">
-		     		MEMBER_NO LIKE '%' || #{searchKeyword} || '%'
-		     	</when>
-			  	<when test="searchCategory == 'id'">
-		     		ID LIKE '%' || #{searchKeyword} || '%'
-		     	</when>
-			    <when test="searchCategory == 'nickname'">
-		     		NICKNAME LIKE '%' || #{searchKeyword} || '%'
-		     	</when>
-		     	<when test="searchCategory == 'name'">
-		     		NAME LIKE '%' || #{searchKeyword} || '%'
-		     	</when>
-			 </choose>
-		  </if>
-		ORDER BY MEMBER_NO DESC
-	</select>
-	
-	<select id="selectMemberAllCount" resultType="int">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE STATUS = 'Y'
-			AND ADMIN_AUTH = 'N'
 	</select>
 	
 	<select id="selectBoardList" resultType="board">

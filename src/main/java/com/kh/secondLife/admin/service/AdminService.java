@@ -11,10 +11,8 @@ public interface AdminService {
 
 	Member login(Member m);
 
-	List<Member> selectMemberAll(PageInfo pi, Map<String, Object> paramMap);
+	List<Member> selectMemberAll();
 
 	List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap);
-
-	int selectMemberAllCount(Map<String, Object> paramMap);
 	
 }

@@ -22,6 +22,4 @@ public interface MemberService {
 
 	int insertReview(Review review);
 
-	String getMemberById(String id);
-
 }

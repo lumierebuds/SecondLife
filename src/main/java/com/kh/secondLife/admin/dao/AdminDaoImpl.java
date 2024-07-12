@@ -24,29 +24,20 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
+	public List<Member> selectMemberAll() {
+		return sqlSession.selectList("admin.selectMemberAll");
+	}
+
+	@Override
 	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
 		
 		// rowBounds 방식 (전체 게시글을 가지고 와서 페이징 처리)
+
 		int offset = (pi.getCurrentPage() - 1) * pi.getPageLimit();
 		int limit = pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		return sqlSession.selectList("admin.selectBoardList", paramMap, rowBounds);
-	}
-
-	@Override
-	public List<Member> selectMemberAll(PageInfo pi, Map<String, Object> paramMap) {
-		
-		int offset = (pi.getCurrentPage() - 1) * pi.getPageLimit();
-		int limit = pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		return sqlSession.selectList("admin.selectMemberAll", paramMap, rowBounds);
-	}
-	
-	@Override
-	public int selectMemberAllCount(Map<String, Object> paramMap) {
-		return sqlSession.selectOne("admin.selectMemberAllCount", paramMap);
+		return sqlSession.selectList("admin.selectBoardList", paramMap);
 	}
 
 

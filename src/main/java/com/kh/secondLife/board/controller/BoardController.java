@@ -3,13 +3,13 @@ package com.kh.secondLife.board.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.collections.map.HashedMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +24,8 @@ import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
 import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.Pagenation;
-
-import com.kh.secondLife.common.Utils;
 import com.kh.secondLife.common.model.vo.PageInfo;
+import com.kh.secondLife.common.Utils;
 
 import com.kh.secondLife.member.model.service.MemberService;
 import com.kh.secondLife.member.model.vo.Member;
@@ -129,7 +128,7 @@ public class BoardController {
 	// 게시글 등록 페이지 -> 게시글 등록 버튼 눌렀을 때
 	@ResponseBody
 	@PostMapping("/insert")
-	public Map<String, Object> insertBoard(
+	public int insertBoard(
 			Board b ,
 			@ModelAttribute("loginUser") Member loginUser,
 			Model model , // errorMsg
@@ -184,28 +183,12 @@ public class BoardController {
 		int result = 0;
 		try {
 			result = boardService.insertBoard(b, biList);
-			log.debug("거래글 정보(등록 후) - {}", b);
 		} catch (Exception e) {
 			ra.addFlashAttribute("errorMsg", e.getMessage());
 		}
 		
-		Map<String, Object> resultMap = new HashMap<>();
-		
-		resultMap.put("result", result);
-		resultMap.put("boardNo", b.getBoardNo());
-		
-		// 3) 반환값을 통해 메세지 등록
-//		String url = "";
-//		if(result > 0) {
-//			ra.addFlashAttribute("alertMsg", "글 작성 성공");
-//			url = "redirect:/";
-//			url = "redirect:/board/detail/"+b.getBoardNo();
-//		}else {
-//			model.addAttribute("errorMsg", "게시글 작성 실패");
-//			url = "common/errorPage";
-//		}
-		// 4) 응답페이지 설정
-		return resultMap;
+		// 3) 응답 전송
+		return result;
 	}
 	
 }

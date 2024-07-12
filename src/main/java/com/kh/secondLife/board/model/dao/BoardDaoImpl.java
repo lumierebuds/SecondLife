@@ -1,6 +1,12 @@
 package com.kh.secondLife.board.model.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -85,11 +91,9 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectOne("board.getReviewCount", boardWriter);
 	}
 
-
 	@Override
 	public List<Board> selectSellorBoard(Map<String, Object> paramMap) {
 		
 		return sqlSession.selectList("board.selectSellorBoard", paramMap);
 	}
-
 }

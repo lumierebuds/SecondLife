@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,11 +124,6 @@ header {
 	margin-left: 7px;
 }
 
-.member-table{
-	width: 736px;
-	height: 299px;
-}
-
 .member-content {
 	margin-left: 40px;
 	margin-top: 30px;
@@ -148,30 +143,8 @@ header {
 	text-align: center;
 }
 
-#pageArea {
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
-}
-
-#pageArea .pagination {
-	margin-bottom: 0px;
-}
-
-.pageLink {
-	color: #B08968;
-	position: relative;
-	display: block;
-	padding: .5rem .75rem;
-	margin-left: -1px;
-	line-height: 1.25;
-	background-color: #fff;
-	border: 1px solid #dee2e6;
-}
-
 .main .buttons {
-	margin: 0px 40px;
+	margin: 20px 40px;
 	display: flex;
 	justify-content: flex-end;
 }
@@ -216,17 +189,17 @@ header {
 					<div class="choice">
 						<div class="choices">
 							<div class="선택들">
-								<a href="/secondlife/admin/memberManage/1"><p>회원관리</p></a>
+								<a href="/secondlife/admin/memberManage"><p>회원관리</p></a>
 							</div>
 						</div>
 						<div class="choices">
 							<div class="선택들">
-								<a href="/secondlife/admin/postManage/1"><p>거래글관리</p></a>
+								<a href="/secondlife/admin/postManage"><p>거래글관리</p></a>
 							</div>
 						</div>
 						<div class="choices">
 							<div class="선택들">
-								<a href="/secondlife/admin/reportManage/1"><p>신고관리</p></a>
+								<a href="/secondlife/admin/reportManage"><p>신고관리</p></a>
 							</div>
 						</div>
 					</div>
@@ -260,64 +233,36 @@ header {
 							<p>회원검색</p>
 						</div>
 						<form>
-								<select class="search-category" name="searchCategory">
-									<option value="none" ${searchCategory == 'none' ? 'selected' : ''}>==선택==</option>
-									<option value="memberNo" ${searchCategory == 'memberNo' ? 'selected' : ''}>회원 번호</option>
-									<option value="id" ${searchCategory == 'id' ? 'selected' : ''}>회원 아이디</option>
-									<option value="nickname" ${searchCategory == 'nickname' ? 'selected' : ''}>닉네임</option>
-									<option value="name" ${searchCategory == 'name' ? 'selected' : ''}>이름</option>
-								</select>
-							<input type="text" class="search-box" name="searchKeyword" value="${searchKeyword}"> 
+							<input type="text" class="search-box" name="search"> <select
+								class="search-category">
+								<option value="none" selected>==선택==</option>
+								<option value="content-no">회원 번호</option>
+								<option value="content-writer">회원 아이디</option>
+								<option value="content-date">닉네임</option>
+								<option value="content-date">이름</option>
+							</select>
 						</form>
 					</div>
-					<div class="member-table">
-						<table class="member-content">
-							<tr class="table-title">
-								<th>회원 번호</th>
-								<th>회원 아이디</th>
-								<th>닉네임</th>
-								<th>이름</th>
-								<th>이메일</th>
-								<th>가입일</th>
-							</tr>
-							<c:forEach items="${mList}" var="member">
-								<tr>
-									<td>${member.memberNo}</td>
-									<td>${member.id}</td>
-									<td>${member.nickname}</td>
-									<td>${member.name}</td>
-									<td>${member.email}</td>
-									<td>${member.createDate}</td>
-								</tr>
-							</c:forEach>
-						</table>
-					</div>
-					<div id="pageArea">
-						<ul class="pagination">
-							<c:if test="${pi.currentPage eq 1}">
-								<li class='page-item'><a class="pageLink">이전</a></li>
-							</c:if>
-							<c:if test="${pi.currentPage ne 1}">
-								<li class='page-item'><a class="pageLink"
-									href="/secondlife/admin/memberManage/${pi.currentPage - 1}">이전</a></li>
-							</c:if>
-
-							<c:forEach var='i' begin="${pi.startPage}" end="${pi.endPage}">
-								<li class="page-link ${i eq pi.currentPage ? 'on' : ''}"
-									href="/secondlife/admin/memberManage/${i}"><a
-									href="/secondlife/admin/memberManage/${i}">${i}</a></li>
-							</c:forEach>
-							<c:if test="${pi.currentPage eq pi.maxPage}">
-								<li class='page-item'><a class="pageLink">다음</a></li>
-							</c:if>
-							<c:if test="${pi.currentPage ne pi.maxPage}">
-								<li class='page-item'><a class="pageLink"
-									href="/secondlife/admin/memberManage/${pi.currentPage + 1}">다음</a></li>
-							</c:if>
-						</ul>
-					</div>
-
-
+					<table class="member-content">
+						<tr class="table-title">
+							<th>회원 번호</th>
+							<th>회원 아이디</th>
+							<th>닉네임</th>
+							<th>이름</th>
+							<th>이메일</th>
+							<th>가입일</th>
+						</tr>
+						<c:forEach items="${mList}" var="member">
+						<tr>
+							<td>${member.memberNo}</td>
+							<td>${member.id}</td>
+							<td>${member.nickname}</td>
+							<td>${member.name}</td>
+							<td>${member.email}</td>
+							<td>${member.createDate}</td>
+						</tr>
+						</c:forEach>
+					</table>
 					<div class="buttons">
 						<button class="post">
 							<p>알림 전송</p>

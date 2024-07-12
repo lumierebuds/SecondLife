@@ -38,19 +38,16 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
+	public List<Member> selectMemberAll() {
+		
+		
+		return adminDao.selectMemberAll();
+	}
+
+	@Override
 	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
 		
 		return adminDao.selectBoardList(pi, paramMap);
-	}
-
-	@Override
-	public List<Member> selectMemberAll(PageInfo pi, Map<String, Object> paramMap) {
-		return adminDao.selectMemberAll(pi, paramMap);
-	}
-
-	@Override
-	public int selectMemberAllCount(Map<String, Object> paramMap) {
-		return adminDao.selectMemberAllCount(paramMap);
 	}
 	
 	

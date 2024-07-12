@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -143,28 +143,6 @@ header {
 	text-align: center;
 }
 
-#pageArea {
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
-}
-
-#pageArea .pagination {
-	margin-bottom: 0px;
-}
-
-.pageLink {
-	color: #B08968;
-	position: relative;
-	display: block;
-	padding: .5rem .75rem;
-	margin-left: -1px;
-	line-height: 1.25;
-	background-color: #fff;
-	border: 1px solid #dee2e6;
-}
-
 .main .buttons {
 	margin: 20px 40px;
 	display: flex;
@@ -211,12 +189,12 @@ header {
 					<div class="choice">
 						<div class="choices">
 							<div class="선택들">
-								<a href="/secondlife/admin/memberManage/1"><p>회원관리</p></a>
+								<a href="/secondlife/admin/memberManage"><p>회원관리</p></a>
 							</div>
 						</div>
 						<div class="choices">
 							<div class="선택들">
-								<a href="/secondlife/admin/postManage/1"><p>거래글관리</p></a>
+								<a href="/secondlife/admin/postManage"><p>거래글관리</p></a>
 							</div>
 						</div>
 						<div class="choices">
@@ -255,65 +233,36 @@ header {
 							<p>거래글검색</p>
 						</div>
 						<form>
-							<select class="search-category" name="searchCategory">
-								<option value="none"
-									${searchCategory == 'none' ? 'selected' : ''}>==선택==</option>
-								<option value="boardNo"
-									${searchCategory == 'boardNo' ? 'selected' : ''}>게시글
-									번호</option>
-								<option value="nickname"
-									${searchCategory == 'nickname' ? 'selected' : ''}>작성자</option>
+							<input type="text" class="search-box"> <select
+								class="search-category">
+								<option value="none" selected>==선택==</option>
+								<option value="content-no">게시글 번호</option>
 								<option value="content-writer">작성자</option>
-							</select> <input type="text" class="search-box">
+							</select>
 						</form>
 					</div>
-					<div>
-						<table class="member-content">
-							<tr class="table-title">
-								<th>게시글 번호</th>
-								<th>작성자</th>
-								<th>상품명</th>
-								<th>작성일자</th>
-							</tr>
-							<c:forEach items="${bList}" var="board">
-								<tr>
-									<td>${board.boardNo}</td>
-									<td>${board.nickname}(${board.id})</td>
-									<td>${board.productName}</td>
-									<td>${board.createDate}</td>
-								</tr>
-							</c:forEach>
-						</table>
-					</div>
-
-					<div id="pageArea">
-						<ul class="pagination">
-							<c:if test="${pi.currentPage eq 1}">
-								<li class='page-item'><a class="pageLink">이전</a></li>
-							</c:if>
-							<c:if test="${pi.currentPage ne 1}">
-								<li class='page-item'><a class="pageLink"
-									href="/secondlife/admin/postManage/${pi.currentPage - 1}">이전</a></li>
-							</c:if>
-
-							<c:forEach var='i' begin="${pi.startPage}" end="${pi.endPage}">
-								<li class="page-link ${i eq pi.currentPage ? 'on' : ''}"
-									href="/secondlife/admin/postManage/${i}">
-									
-									<a href="/secondlife/admin/postManage/${i}">${i}</a>
-								</li>
-							</c:forEach>
-							<c:if test="${pi.currentPage eq pi.maxPage}">
-								<li class='page-item'><a class="pageLink">다음</a></li>
-							</c:if>
-							<c:if test="${pi.currentPage ne pi.maxPage}">
-								<li class='page-item'><a class="pageLink"
-									href="/secondlife/admin/postManage/${pi.currentPage + 1}">다음</a></li>
-							</c:if>
-						</ul>
-					</div>
-
-
+					<table class="member-content">
+						<tr class="table-title">
+							<th>게시글 번호</th>
+							<th>작성자</th>
+							<th>상품명</th>
+							<th>작성일자</th>
+						</tr>
+						<c:forEach items="${bList}" var="board">
+						<tr>
+							<td>${board.boardNo}</td>
+							<td>${board.nickname}()</td>
+							<td></td>
+							<td></td>
+						</tr>
+						</c:forEach>
+						<tr class="더미">
+							<td>1</td>
+							<td>웃으면 복이 가요(user_id1)</td>
+							<td>호크아이 골프용 연습채</td>
+							<td>2024-07-01</td>
+						</tr>
+					</table>
 					<div class="buttons">
 						<button class="post">
 							<p>알림 전송</p>

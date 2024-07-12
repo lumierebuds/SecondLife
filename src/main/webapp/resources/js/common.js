@@ -10,9 +10,6 @@ $(document).ready(function() {
             $('.modal-login').css('display', 'flex');
             $('.modal-find-form').css('display', 'none');
             $('.result-form').css('display', 'none');
-            $('#id-select').click();
-            $('#certificationMessage').text('');
-            
         }
     });
 
@@ -75,6 +72,9 @@ $(document).ready(function() {
         });
     });
     
+    
+    
+    
 });
 
 function loginView() {
@@ -82,9 +82,4 @@ function loginView() {
     $('.logout-menu').css('display', 'none');
 }
 
-function adminView() {
-	$('.login-menu').css('display', 'none');
-    $('.logout-menu').css('display', 'none');
-	$('.admin-menu').css('display', 'flex');
-}
 

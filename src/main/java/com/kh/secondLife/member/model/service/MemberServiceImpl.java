@@ -1,7 +1,5 @@
 package com.kh.secondLife.member.model.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -68,9 +66,6 @@ public class MemberServiceImpl implements MemberService{
 		return dao.selectMemberInfo(boardWriter);
 	}
 	
-	@Override
-	public String getMemberById(String id) {
-		return dao.getMemberById(id);
-	}
+	
 	
 }
