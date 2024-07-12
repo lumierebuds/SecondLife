@@ -66,6 +66,7 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 
+
 	@Override
 	public String selectCategoryName(Map<String, Object> paramMap) {
 		
@@ -113,6 +114,12 @@ public class BoardServiceImpl implements BoardService {
 	public int getReviewCount(int boardWriter) {
 		
 		return boardDao.getReviewCount(boardWriter);
+	}
+
+	@Override
+	public List<Board> selectSellorBoard(Map<String, Object> paramMap) {
+		
+		return boardDao.selectSellorBoard(paramMap);
 	}
 
 }

@@ -21,4 +21,7 @@ public interface MemberDao {
 	// 게시글 상세조회시 판매자 정보 조회
 	Member selectMemberInfo(int boardWriter);
 	
+	// 게시글 상세조회시 판매자 정보 조회
+	Member selectMemberInfo(int boardWriter);
+	
 }

@@ -3,11 +3,13 @@ package com.kh.secondLife.board.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,22 +18,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
 import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.Pagenation;
+
 import com.kh.secondLife.common.Utils;
 import com.kh.secondLife.common.model.vo.PageInfo;
+
 import com.kh.secondLife.member.model.service.MemberService;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
+
+
 
 @Controller // 이게 있어야 bean객체로 등록
 @Slf4j
@@ -85,7 +95,7 @@ public class BoardController {
 	// 게시글 등록 페이지 -> 게시글 등록 버튼 눌렀을 때
 	@ResponseBody
 	@PostMapping("/insert")
-	public int insertBoard(
+	public Map<String, Object> insertBoard(
 			Board b ,
 			@ModelAttribute("loginUser") Member loginUser,
 			Model model , // errorMsg
@@ -105,7 +115,7 @@ public class BoardController {
 		
 		if(upfileList != null && !upfileList.isEmpty()) {
 			//첨부파일, 이미지등을 저장할 저장경로 얻어오기.
-			String webPath = "/resources/images/board/";
+			String webPath = "resources/images/board/";
 			String serverFolderPath = application.getRealPath(webPath);
 			
 			//디렉토리가 존재하지 않는다면 생성하는 코드 추가
@@ -123,7 +133,7 @@ public class BoardController {
 				bi.setChangeName(changeName);
 				log.debug("이미지의 원본명 - {}", image.getOriginalFilename());
 				bi.setOriginName(image.getOriginalFilename());
-				bi.setImgPath(serverFolderPath);
+				bi.setImgPath(webPath);
 				
 				biList.add(bi);
 			}
@@ -140,9 +150,15 @@ public class BoardController {
 		int result = 0;
 		try {
 			result = boardService.insertBoard(b, biList);
+			log.debug("거래글 정보(등록 후) - {}", b);
 		} catch (Exception e) {
 			ra.addFlashAttribute("errorMsg", e.getMessage());
 		}
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		resultMap.put("result", result);
+		resultMap.put("boardNo", b.getBoardNo());
 		
 		// 3) 반환값을 통해 메세지 등록
 //		String url = "";
@@ -155,7 +171,7 @@ public class BoardController {
 //			url = "common/errorPage";
 //		}
 		// 4) 응답페이지 설정
-		return result;
+		return resultMap;
 	}
 	
 //	// 게시글 수정 페이지
@@ -232,14 +248,18 @@ public class BoardController {
 		Map<String, Integer> salesCount = boardService.getSalesCount(boardWriter);
 		int reviewCount = boardService.getReviewCount(boardWriter);
 		
-		System.out.println(salesCount);
+		// 3. 게시글을 작성한 판매자의 판매중인 게시글 조회(최대 3개) 
+		paramMap.put("boardWriter", boardWriter);
+		paramMap.put("boardNo", boardNo);
+		//	List<Board> sellerBoard = boardService.selectSellorBoard(paramMap);
+		
 		// 3. 해당 게시글이 참고하는 카테고리의 거래 게시글을 조회하기(최대 4개) 
 		int categoryNo = board.getCategoryNo();
 		String productName = board.getProductName();
 		
 		paramMap.put("productName", productName);
 		paramMap.put("categoryNo", categoryNo);
-			
+		System.out.println(paramMap);	
 		List<Board> list = boardService.selectRecommendBoard(paramMap);
 		
 		// 4. 페이지 렌더링 

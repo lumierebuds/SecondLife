@@ -73,6 +73,7 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectOne("board.selectBoardFavCount",boardNo);
 	}
 
+
 	@Override
 	public Map<String, Integer> getSalesCount(int boardWriter) {
 		
@@ -84,7 +85,12 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return sqlSession.selectOne("board.getReviewCount", boardWriter);
 	}
-	
-	
+
+
+	@Override
+	public List<Board> selectSellorBoard(Map<String, Object> paramMap) {
+		
+		return sqlSession.selectList("board.selectSellorBoard", paramMap);
+	}
 
 }
