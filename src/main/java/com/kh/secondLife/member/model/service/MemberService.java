@@ -21,4 +21,6 @@ public interface MemberService {
 
 	String getMemberById(String id);
 
+	boolean deleteMemberById(String memberId);
+
 }

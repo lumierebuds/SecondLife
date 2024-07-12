@@ -50,8 +50,13 @@ public class MemberDaoImpl implements MemberDao{
 	// 게시글 상세조회시 판매자 정보 조회
 	@Override
 	public Member selectMemberInfo(int boardWriter) {
-		
 		return sqlSession.selectOne("member.selectMemberInfo", boardWriter);
+	}
+
+	@Override
+	public boolean deleteMemberById(String memberId) {
+		int result = sqlSession.delete("member.deleteMemberById", memberId);
+        return result > 0;
 	}
 	
 }

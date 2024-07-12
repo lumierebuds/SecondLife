@@ -70,5 +70,14 @@ public class MemberServiceImpl implements MemberService{
 		return dao.getMemberById(id);
 	}
 
+	@Override
+	public boolean deleteMemberById(String memberId) {
+		try {
+            return dao.deleteMemberById(memberId);
+        } catch (Exception e) {
+            return false;
+        }
+	}
+
 	
 }

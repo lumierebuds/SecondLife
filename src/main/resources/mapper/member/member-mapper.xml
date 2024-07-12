@@ -108,4 +108,15 @@
 		</association>
 		
 	</resultMap>
+	
+	<delete id="deleteMemberById" parameterType="String">
+        DELETE FROM MEMBER
+        WHERE ID = #{id}
+    </delete>
+	
+	
+	
+	
+	
+	
 </mapper>
