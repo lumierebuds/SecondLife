@@ -102,10 +102,12 @@
 		  BOARD_IMG_NO,
 		  IMG_PATH,
 		  CHANGE_NAME
+		  
 		FROM BOARD "B" 
 		LEFT JOIN BOARD_IMG "BI"
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		WHERE B.STATUS = 'Y'
+		  AND BI.STATUS = 'Y'
 		<!-- 카테고리 or 검색 결과 -->
 		<choose>
 			<when test="search != null and search !=''">
@@ -220,4 +222,8 @@
 		     AND BOARD_NO != #{boardNo}
 	</select>
 	
+	<select id="selectBoardListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+	</select>
 </mapper>

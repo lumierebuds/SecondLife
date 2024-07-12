@@ -34,4 +34,5 @@ public interface BoardDao {
 
 	List<Board> selectSellorBoard(Map<String, Object> paramMap);
 
+	int selectBoardListCount(Map<String, Object> paramMap);
 }
