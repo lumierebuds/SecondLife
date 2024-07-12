@@ -135,7 +135,7 @@
               </div>
               <div class="seller-detail">
                 <div class="seller-profile">
-                  <div class="seller-name">${member.nickname }</div>
+                  <div class="seller-name"><a href="/secondlife/member/memberDetail/${member.memberNo }">${member.nickname}</a></div>
                   <div class="seller-img">
                   	<c:if test="${member.profileImg eq null}">
                  		<img src="/secondlife/resources/images/사이트 로고.png" alt=""> 

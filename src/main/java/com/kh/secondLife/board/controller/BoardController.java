@@ -329,4 +329,10 @@ public class BoardController {
 		return "board/boardDetailView";
 	}
 	
+	
+	
+	
+	
+	
+	
 }
