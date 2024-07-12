@@ -1,6 +1,7 @@
 package com.kh.secondLife.member.model.dao;
 
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.model.vo.Review;
 
 public interface MemberDao {
 	
@@ -23,5 +24,5 @@ public interface MemberDao {
 
 	boolean deleteMemberById(String memberId);
 	
-	
+	int insertReview(Review review);
 }

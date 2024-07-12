@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.model.vo.Review;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
@@ -59,6 +60,9 @@ public class MemberDaoImpl implements MemberDao{
         return result > 0;
 	}
 	
-
+	@Override
+	public int insertReview(Review review) {
+		return sqlSession.insert("review.insertReview", review);
+	}
 	
 }

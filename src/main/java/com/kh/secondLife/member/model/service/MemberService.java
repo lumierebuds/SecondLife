@@ -1,6 +1,7 @@
 package com.kh.secondLife.member.model.service;
 
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.member.model.vo.Review;
 
 public interface MemberService {
 	
@@ -17,11 +18,11 @@ public interface MemberService {
 	// 게시글 상세조회시 판매자 정보 조회 
 	Member selectMemberInfo(int boardWriter);
 
-
 	String findIdByEmail(String email);
 
 	String getMemberById(String id);
 
 	boolean deleteMemberById(String memberId);
 
+	int insertReview(Review review);
 }
