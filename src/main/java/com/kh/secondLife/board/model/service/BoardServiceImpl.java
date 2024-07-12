@@ -127,10 +127,20 @@ public class BoardServiceImpl implements BoardService {
 	public int increaseCount(int boardNo) {
 		
 		return boardDao.increateCount(boardNo);
-
+	}
+	
 	@Override
 	public int selectBoardListCount(Map<String, Object> paramMap) {
 		return boardDao.selectBoardListCount(paramMap);
+	}
+
+
+	@Override
+	public int insertLike(Map<String, Object> paramMap) throws Exception {
+		
+		int result = boardDao.insertLike(paramMap);
+		
+		return result;
 	}
 
 }

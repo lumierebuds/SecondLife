@@ -37,5 +37,6 @@ public interface BoardService {
 	
 	int selectBoardListCount(Map<String, Object> paramMap);
 
-	
+	int insertLike(Map<String, Object> paramMap) throws Exception;
+
 }
