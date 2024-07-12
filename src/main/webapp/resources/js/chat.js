@@ -132,3 +132,26 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log('전송된 메시지:', message);
             document.getElementById('chatMessage').value = ''; // 전송 후 입력 필드 비우기
         }
+        
+// 클라이언트측 웹 소켓 구성       
+ let socket;
+        
+        function connect() {
+            socket = new WebSocket('ws://localhost:8088/ws/chat');
+            socket.onmessage = function(event) {
+                const messages = document.getElementById('messages');
+                const message = document.createElement('li');
+                message.appendChild(document.createTextNode(event.data));
+                messages.appendChild(message);
+            };
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            socket.send(input.value);
+            input.value = '';
+        }
+
+        window.onload = function() {
+            connect();
+        };
