@@ -51,7 +51,7 @@ function toggleDeleteButton(button) {
 function deleteChatRoom(chatRoomNo) {
     if (confirm("채팅방을 나가면 채팅 내역을 더이상 확인할 수 없어요. 정말 나가시겠어요?")) {
         // AJAX 요청을 통해 서버에 채팅방 삭제 요청
-        fetch(`/deleteChatRoom?chatRoomNo=${chatRoomNo}`, {
+        fetch(`/deleteChatRoom.chatRoomNo=${chatRoomNo}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -135,23 +135,43 @@ document.addEventListener("DOMContentLoaded", function() {
         
 // 클라이언트측 웹 소켓 구성       
  let socket;
-        
-        function connect() {
-            socket = new WebSocket('ws://localhost:8088/ws/chat');
-            socket.onmessage = function(event) {
-                const messages = document.getElementById('messages');
-                const message = document.createElement('li');
-                message.appendChild(document.createTextNode(event.data));
-                messages.appendChild(message);
-            };
-        }
 
-        function sendMessage() {
-            const input = document.getElementById('messageInput');
-            socket.send(input.value);
-            input.value = '';
-        }
+function connect() {
+    socket = new WebSocket('ws://localhost:8088/ws/chat');
 
-        window.onload = function() {
-            connect();
-        };
+    socket.onopen = function(event) {
+        console.log('WebSocket connection established');
+    };
+
+    socket.onmessage = function(event) {
+        const messages = document.getElementById('messages');
+        const message = document.createElement('li');
+        message.appendChild(document.createTextNode(event.data));
+        messages.appendChild(message);
+    };
+
+    socket.onclose = function(event) {
+        console.log('WebSocket connection closed:', event);
+        // Optionally, try to reconnect after a delay
+        setTimeout(connect, 1000);
+    };
+
+    socket.onerror = function(error) {
+        console.error('WebSocket error:', error);
+    };
+}
+
+function sendMessage() {
+    const input = document.getElementById('messageInput');
+    if (socket.readyState === WebSocket.OPEN) {
+        socket.send(input.value);
+        input.value = '';
+    } else {
+        console.error('WebSocket is not open. Ready state: ' + socket.readyState);
+    }
+}
+
+window.onload = function() {
+    connect();
+};
+
