@@ -13,7 +13,7 @@ public interface AdminDao {
 
 	List<Member> selectMemberAll(PageInfo pi, Map<String, Object> paramMap);
 
-	List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap);
+	List<Board> selectManageBoardList(PageInfo pi, Map<String, Object> paramMap);
 
 	int selectMemberAllCount(Map<String, Object> paramMap);
 

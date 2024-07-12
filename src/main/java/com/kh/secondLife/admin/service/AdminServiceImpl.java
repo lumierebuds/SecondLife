@@ -38,9 +38,9 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
+	public List<Board> selectManageBoardList(PageInfo pi, Map<String, Object> paramMap) {
 		
-		return adminDao.selectBoardList(pi, paramMap);
+		return adminDao.selectManageBoardList(pi, paramMap);
 	}
 
 	@Override
