@@ -34,5 +34,7 @@ public interface BoardService {
 	List<Board> selectSellorBoard(Map<String, Object> paramMap);
 
 	int selectBoardListCount(Map<String, Object> paramMap);
+
+	boolean deleteBoardByNo(int boardNo);
 	
 }

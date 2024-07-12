@@ -59,7 +59,7 @@
 	
 	
 	<!--  회원 탈퇴 기능 -->
-	<update id="deleteMember"> 
+	<update id="deleteMemberById" parameterType="String"> 
         UPDATE MEMBER
         SET STATUS = 'N'
         WHERE ID = #{id}
@@ -108,13 +108,6 @@
 		</association>
 		
 	</resultMap>
-	
-	<delete id="deleteMemberById" parameterType="String">
-        DELETE FROM MEMBER
-        WHERE ID = #{id}
-    </delete>
-	
-	
 	
 	
 	
