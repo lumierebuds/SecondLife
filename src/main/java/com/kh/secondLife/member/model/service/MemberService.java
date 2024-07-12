@@ -14,6 +14,9 @@ public interface MemberService {
 	int idCheck(String id);
 	
 	int deleteMember(String id);
+	
+	// 게시글 상세조회시 판매자 정보 조회 
+	Member selectMemberInfo(int boardWriter);
 
 	String findIdByEmail(String email);
 

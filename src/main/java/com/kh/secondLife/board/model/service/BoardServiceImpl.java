@@ -102,4 +102,59 @@ public class BoardServiceImpl implements BoardService{
 		return result;
 	}
 
+
+	@Override
+	public String selectCategoryName(Map<String, Object> paramMap) {
+		
+		return boardDao.selectCategoryName(paramMap);
+	}
+	
+	@Override
+	public int selectListCount(Map<String, Object> paramMap) {
+		
+		return boardDao.selectListCount(paramMap);
+	}
+
+	
+	@Override
+	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
+
+		return boardDao.selectBoardList(pi, paramMap);
+	}
+
+	@Override
+	public Board selectBoard(int boardNo) {
+		
+		return boardDao.selectBoard(boardNo);
+	}
+
+	@Override
+	public List<Board> selectRecommendBoard(Map<String, Object> paramMap) {
+		
+		return boardDao.selectRecommendBoard(paramMap);
+	}
+
+	@Override
+	public int selectBoardFavCount(int boardNo) {
+		
+		return boardDao.selectBoardFavCount(boardNo);
+	}
+
+	@Override
+	public Map<String, Integer> getSalesCount(int boardWriter) {
+		
+		return boardDao.getSalesCount(boardWriter);
+	}
+
+	@Override
+	public int getReviewCount(int boardWriter) {
+		
+		return boardDao.getReviewCount(boardWriter);
+	}
+
+	@Override
+	public List<Board> selectSellorBoard(Map<String, Object> paramMap) {
+		
+		return boardDao.selectSellorBoard(paramMap);
+	}
 }

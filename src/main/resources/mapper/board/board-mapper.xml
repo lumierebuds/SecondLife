@@ -3,125 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
-	
-	<select id="selectCategoryName" resultType="string">
-		SELECT CATEGORY_NAME
-		FROM CATEGORY
-		WHERE CATEGORY_NO = #{category}
-	</select>
-	
-	
-	<select id="selectListCount" resultType="int">
-		SELECT COUNT(*)
-		FROM BOARD
-		WHERE STATUS = 'Y'
-		<choose>
-			<when test="search != null and search != ''">
-			AND 
-				PRODUCT_NAME LIKE '%' || #{search} || '%'
-			</when>
-			<when test="category != null and category != ''">
-			AND 
-				CATEGORY_NO = #{category}
-			</when>
-		</choose>
-
-	</select>
-	
-	<resultMap type="boardExt" id="boardExtMap">
-		<id column="BOARD_NO" property="boardNo"/>
-		<result column="PRODUCT_NAME" property="productName"/>
-		<result column="PRICE" property="price"/>
-		<result column="CREATE_DATE" property="createDate"/>
-		<result column="CONTENT" property="content"/>
-		<result column="BOARD_WRITER" property="boardWriter"/>
-		
-		<collection property="biList" javaType="List" ofType="boardImg">
-			<id column="BOARD_IMG_NO" property="boardImgNo"/>
-			<result column="IMG_PATH" property="imgPath"/>
-			<result column="CHANGE_NAME" property="changeName"/>
-		</collection>
-		
-	</resultMap>
-	
-	<select id="selectBoardList" resultMap="boardExtMap">
-		SELECT
-		  B.BOARD_NO AS BOARD_NO,
-		  PRODUCT_NAME,
-		  PRICE,
-		  B.CREATE_DATE AS CREATE_DATE,
-		  
-		  BOARD_IMG_NO,
-		  IMG_PATH,
-		  CHANGE_NAME
-		FROM BOARD "B" 
-		LEFT JOIN BOARD_IMG "BI"
-		ON (B.BOARD_NO = BI.BOARD_NO)
-		WHERE B.STATUS = 'Y'
-		<!-- 카테고리 or 검색 결과 -->
-		<choose>
-			<when test="search != null and search !=''">
-				AND PRODUCT_NAME LIKE '%' || #{search} || '%'
-			</when>
-			<when test="category != null and category !=''">
-				AND CATEGORY_NO = #{category}
-			</when>
-		</choose>
-
-	</select>
-	
-	<select id="selectBoard" resultMap="boardExtMap">
-		SELECT
-		  B.BOARD_NO AS BOARD_NO,
-		  PRODUCT_NAME,
-		  PRICE,
-		  CONTENT,
-		  B.CREATE_DATE AS CREATE_DATE,
-		  BOARD_WRITER,
-		  
-		  BOARD_IMG_NO,
-		  IMG_PATH,
-		  CHANGE_NAME
-		FROM BOARD "B" 
-		LEFT JOIN BOARD_IMG "BI"
-		ON (B.BOARD_NO = BI.BOARD_NO)
-		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{boardNo}
-	</select>
-	
-	<select id="selectBoardFavCount" resultType="int">
-		SELECT 
-			COUNT(BOARD_NO)
-		FROM FAVORITE_LIST
-		WHERE BOARD_NO = ${boardNo}
-	</select>
-	
-	
-	<select id="selectRecommendBoard" resultMap="boardExtMap">
-		<!-- group by 절을 이용해서 추천 게시글의 이미지를 1개만 가져왔다. -->
-		SELECT * 
-			FROM (
-		        SELECT
-		            B.BOARD_NO AS BOARD_NO,
-		            PRODUCT_NAME,
-		            BOARD_WRITER,
-		            IMG_PATH,
-		            MIN(BOARD_IMG_NO) AS BOARD_IMG_NO,
-		            MIN(CHANGE_NAME) AS CHANGE_NAME
-		        FROM BOARD "B"
-		        LEFT JOIN BOARD_IMG "BI"
-		            ON (B.BOARD_NO = BI.BOARD_NO)
-		        WHERE 
-		            B.STATUS = 'Y' 
-		            AND (CATEGORY_NO = 0 OR PRODUCT_NAME LIKE '%' || #{productName} || '%')
-		            GROUP BY
-		            B.BOARD_NO,
-		            PRODUCT_NAME,
-		            BOARD_WRITER,
-		            IMG_PATH)
-		     WHERE ROWNUM <![CDATA[ <= ]]> 4
-	</select>
-	
-	
 
 	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true">
 	
@@ -166,4 +47,173 @@
 		)
 	</insert>
 
+	
+	<select id="selectCategoryName" resultType="string">
+		SELECT CATEGORY_NAME
+		FROM CATEGORY
+		WHERE CATEGORY_NO = #{category}
+	</select>
+	
+	
+	<select id="selectListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		<choose>
+			<when test="search != null and search != ''">
+			AND 
+				PRODUCT_NAME LIKE '%' || #{search} || '%'
+			</when>
+			<when test="category != null and category != ''">
+			AND 
+				CATEGORY_NO = #{category}
+			</when>
+		</choose>
+
+	</select>
+	
+	<resultMap type="boardExt" id="boardExtMap">
+		<id column="BOARD_NO" property="boardNo"/>
+		<result column="CATEGORY_NO" property="categoryNo"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="PRICE" property="price"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="CONTENT" property="content"/>
+		<result column="BOARD_WRITER" property="boardWriter"/>
+		
+		
+		<collection property="biList" javaType="List" ofType="boardImg">
+			<id column="BOARD_IMG_NO" property="boardImgNo"/>
+			<result column="IMG_PATH" property="imgPath"/>
+			<result column="CHANGE_NAME" property="changeName"/>
+		</collection>
+		
+	</resultMap>
+	
+	<select id="selectBoardList" resultMap="boardExtMap">
+		SELECT
+		  B.BOARD_NO AS BOARD_NO,
+		  PRODUCT_NAME,
+		  PRICE,
+		  B.CREATE_DATE AS CREATE_DATE,
+		  
+		  BOARD_IMG_NO,
+		  IMG_PATH,
+		  CHANGE_NAME
+		FROM BOARD "B" 
+		LEFT JOIN BOARD_IMG "BI"
+		ON (B.BOARD_NO = BI.BOARD_NO)
+		WHERE B.STATUS = 'Y'
+		<!-- 카테고리 or 검색 결과 -->
+		<choose>
+			<when test="search != null and search !=''">
+				AND PRODUCT_NAME LIKE '%' || #{search} || '%'
+			</when>
+			<when test="category != null and category !=''">
+				AND CATEGORY_NO = #{category}
+			</when>
+		</choose>
+
+	</select>
+	
+	<select id="selectBoard" resultMap="boardExtMap">
+		SELECT
+		  B.BOARD_NO AS BOARD_NO,
+		  CATEGORY_NO,
+		  PRODUCT_NAME,
+		  PRICE,
+		  CONTENT,
+		  B.CREATE_DATE AS CREATE_DATE,
+		  BOARD_WRITER,
+		  
+		  BOARD_IMG_NO,
+		  IMG_PATH,
+		  CHANGE_NAME
+		FROM BOARD "B" 
+		LEFT JOIN BOARD_IMG "BI"
+		ON (B.BOARD_NO = BI.BOARD_NO)
+		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{boardNo}
+	</select>
+	
+	<select id="selectBoardFavCount" resultType="int">
+		SELECT 
+			COUNT(BOARD_NO)
+		FROM FAVORITE_LIST
+		WHERE BOARD_NO = ${boardNo}
+	</select>
+	
+	
+	<select id="selectRecommendBoard" resultMap="boardExtMap">
+		<!-- group by 절을 이용해서 추천 게시글의 이미지를 1개만 가져왔다. -->
+		SELECT * 
+			FROM (
+		        SELECT
+		            B.BOARD_NO AS BOARD_NO,
+		            PRODUCT_NAME,
+		            BOARD_WRITER,
+		            IMG_PATH,
+		            MIN(BOARD_IMG_NO) AS BOARD_IMG_NO,
+		            MIN(CHANGE_NAME) AS CHANGE_NAME
+		        FROM BOARD "B"
+		        LEFT JOIN BOARD_IMG "BI"
+		            ON (B.BOARD_NO = BI.BOARD_NO)
+		        WHERE 
+		            B.STATUS = 'Y' 
+		            AND (CATEGORY_NO = #{categoryNo} OR PRODUCT_NAME LIKE '%' || #{productName} || '%')
+		            GROUP BY
+		            B.BOARD_NO,
+		            PRODUCT_NAME,
+		            BOARD_WRITER,
+		            IMG_PATH)
+		     WHERE ROWNUM <![CDATA[ <= ]]> 4
+		     AND BOARD_NO != #{boardNo}
+	</select>
+	
+	<!-- 판매자의 판매중, 판매완료한 거래글의 개수 -->
+	<select id="getSalesCount" resultType="map">
+		SELECT 
+		    COUNT(CASE WHEN (SALE_CONDITION ='Y') THEN 1 ELSE NULL END) AS SOLD_COUNT,
+		    COUNT(CASE WHEN (SALE_CONDITION ='N') THEN 1 ELSE NULL END) AS SALE_COUNT
+		FROM BOARD WHERE BOARD_WRITER = #{boardWriter}
+	</select>
+	
+	<!-- 판매자가 받은 리뷰글의 개수 -->
+	<select id="getReviewCount" resultType="int">
+		SELECT COUNT(*)
+        FROM
+        (
+	        SELECT MEMBER_NO, NICKNAME, B.BOARD_NO, PRODUCT_NAME, REVIEW_NO, R.BOARD_NO, REVIEW_MEMBER_NO
+	            FROM MEMBER "M"
+	        JOIN BOARD "B" ON (MEMBER_NO = BOARD_WRITER)
+	        JOIN REVIEW "R" ON (B.BOARD_NO = R.BOARD_NO)
+	        WHERE MEMBER_NO = #{boardWriter}
+        )
+	</select>
+	
+	<!-- 판매자가 판매중인 거래글 -->
+	<select id="selectSellorBoard" resultMap="boardExtMap">
+		<!-- group by 절을 이용해서 추천 게시글의 이미지를 1개만 가져왔다. -->
+		SELECT * 
+			FROM (
+		        SELECT
+		            B.BOARD_NO AS BOARD_NO,
+		            PRODUCT_NAME,
+		            BOARD_WRITER,
+		            IMG_PATH,
+		            MIN(BOARD_IMG_NO) AS BOARD_IMG_NO,
+		            MIN(CHANGE_NAME) AS CHANGE_NAME
+		        FROM BOARD "B"
+		        LEFT JOIN BOARD_IMG "BI"
+		            ON (B.BOARD_NO = BI.BOARD_NO)
+		        WHERE 
+		            B.STATUS = 'Y' 
+		            GROUP BY
+		            B.BOARD_NO,
+		            PRODUCT_NAME,
+		            BOARD_WRITER,
+		            IMG_PATH)
+		     WHERE ROWNUM <![CDATA[ <= ]]> 3
+		     AND BOARD_NO != #{boardNo}
+	</select>
+	
 </mapper>

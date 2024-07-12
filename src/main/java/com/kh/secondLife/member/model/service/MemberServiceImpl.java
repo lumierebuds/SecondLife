@@ -59,6 +59,13 @@ public class MemberServiceImpl implements MemberService{
 	public int insertReview(Review review) {
 		return dao.insertReview(review);
 	}
-
+	
+	// 게시글 상세조회시 판매자 정보 조회
+	@Override
+	public Member selectMemberInfo(int boardWriter) {
+		return dao.selectMemberInfo(boardWriter);
+	}
+	
+	
 	
 }

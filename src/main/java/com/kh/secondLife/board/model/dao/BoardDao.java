@@ -12,6 +12,10 @@ import com.kh.secondLife.common.model.vo.PageInfo;
 @Repository
 public interface BoardDao {
 
+	int insertBoard(Board b);
+
+	int insertBoardImg(BoardImg bi);
+
 	int selectListCount(Map<String, Object> paramMap);
 
 	List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap);
@@ -24,7 +28,9 @@ public interface BoardDao {
 
 	int selectBoardFavCount(int boardNo);
 
-	int insertBoard(Board b);
+	Map<String, Integer> getSalesCount(int boardWriter);
 
-	int insertBoardImg(BoardImg bi);
+	int getReviewCount(int boardWriter);
+
+	List<Board> selectSellorBoard(Map<String, Object> paramMap);
 }
