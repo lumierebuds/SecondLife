@@ -38,4 +38,5 @@ public interface BoardDao {
   
 	int selectBoardListCount(Map<String, Object> paramMap);
 
+	boolean deleteBoardByNo(int boardNo);
 }
