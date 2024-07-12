@@ -205,6 +205,29 @@
 		<!-- 스프링 시큐리티 끝 -->
 		
 		<!-- 
+			@ResponseBody 사용을 위한 의존성으로 반환형의 자바객체(hashmap, vo)를
+			json으로 자동 변환(convert)시켜주는 의존성
+			
+			jackson-databind
+		 -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.5</version>
+		</dependency>
+		
+		<!-- jsonView를 사용하기위한 의존성 
+			 json-lib-ext-spring
+		-->
+		<!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib-ext-spring -->
+		<dependency>
+		    <groupId>net.sf.json-lib</groupId>
+		    <artifactId>json-lib-ext-spring</artifactId>
+		    <version>1.0.2</version>
+		</dependency>
+		
+		<!-- 
 			@ResponseBody 사용을 위한 의존성으로 반환형의 자바객체(hashmap, vo)를 
 			json으로 자동 변환(convert)시켜주는 의존성 
 			jackson-databind
@@ -259,6 +282,13 @@
 	         <version>${org.springframework-version}</version>
 	    </dependency>
 		
+		<!-- Spring WebSocket -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+	     <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-websocket</artifactId>
+	        <version>${org.springframework-version}</version>
+	     </dependency>
 	
 		<!-- AOP 관련 의존성 -->
 		<!-- AspectJ -->
