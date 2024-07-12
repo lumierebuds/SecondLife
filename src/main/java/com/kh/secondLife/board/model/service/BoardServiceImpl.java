@@ -26,43 +26,6 @@ public class BoardServiceImpl implements BoardService{
 	private final ServletContext application;
 
 	@Override
-	public String selectCategoryName(Map<String, Object> paramMap) {
-		
-		return boardDao.selectCategoryName(paramMap);
-	}
-	
-	@Override
-	public int selectListCount(Map<String, Object> paramMap) {
-		
-		return boardDao.selectListCount(paramMap);
-	}
-
-	
-	@Override
-	public List<Board> selectBoardList(PageInfo pi, Map<String, Object> paramMap) {
-
-		return boardDao.selectBoardList(pi, paramMap);
-	}
-
-	@Override
-	public Board selectBoard(int boardNo) {
-		
-		return boardDao.selectBoard(boardNo);
-	}
-
-	@Override
-	public List<Board> selectRecommendBoard(Map<String, Object> paramMap) {
-		
-		return boardDao.selectRecommendBoard(paramMap);
-	}
-
-	@Override
-	public int selectBoardFavCount(int boardNo) {
-		
-		return boardDao.selectBoardFavCount(boardNo);
-	}
-
-	@Override
 	@Transactional(rollbackFor = {Exception.class}) // 어떤 예외든 발생시 rollback처리
 	public int insertBoard(Board b, List<BoardImg> biList) throws Exception {
 		// 0) 전달된 이미지가 없다면 저장처리 거부

@@ -3,6 +3,7 @@ package com.kh.secondLife.board.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -128,7 +129,7 @@ public class BoardController {
 	// 게시글 등록 페이지 -> 게시글 등록 버튼 눌렀을 때
 	@ResponseBody
 	@PostMapping("/insert")
-	public int insertBoard(
+	public Map<String, Object> insertBoard(
 			Board b ,
 			@ModelAttribute("loginUser") Member loginUser,
 			Model model , // errorMsg

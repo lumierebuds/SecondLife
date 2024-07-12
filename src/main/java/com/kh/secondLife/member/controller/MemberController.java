@@ -235,8 +235,19 @@ public class MemberController {
 		// 업무로직
 		// 1. 받아온 review 정보 등록 요청
 		int result = mService.insertReview(review);
+		log.debug("리뷰 등록 후 리뷰 객체 상태 - {}", review);
 		
-		return "";
+		// 2. 결과에 따라 메세지 등록
+		String url = "";
+		if(result == 1) {
+			ra.addAttribute("alertMsg", "리뷰가 등록되었습니다.");
+			url = "redirect:/"; // 일단 메인으로. 추후 해당 유저의 정보 중 받은 리뷰 메뉴로 이동
+		} else {
+			ra.addAttribute("alertMsg", "리뷰 등록 실패");
+			url = "redirect:/member/review/insert";
+		}
+		
+		return url;
 	}
 	
 }
