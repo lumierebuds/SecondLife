@@ -101,18 +101,11 @@
 		  
 		  BOARD_IMG_NO,
 		  IMG_PATH,
-		  CHANGE_NAME,
-		  
-		  NICKNAME,
-		  ID
+		  CHANGE_NAME
 		FROM BOARD "B" 
 		LEFT JOIN BOARD_IMG "BI"
 		ON (B.BOARD_NO = BI.BOARD_NO)
-		LEFT JOIN MEMBER "M" ON (BOARD_WRITER = MEMBER_NO)
 		WHERE B.STATUS = 'Y'
-		  AND ADMIN_AUTH = 'N'
-		  AND M.STATUS = 'Y'
-		  AND BI.STATUS = 'Y'
 		<!-- 카테고리 or 검색 결과 -->
 		<choose>
 			<when test="search != null and search !=''">
@@ -201,15 +194,6 @@
 	</select>
 	
 
-	<!-- 판매자의 판매중, 판매완료한 거래글의 개수 -->
-	<select id="getSalesCount" resultType="map">
-		SELECT 
-		    COUNT(CASE WHEN (SALE_CONDITION ='Y') THEN 1 ELSE NULL END) AS SOLD_COUNT,
-		    COUNT(CASE WHEN (SALE_CONDITION ='N') THEN 1 ELSE NULL END) AS SALE_COUNT
-		FROM BOARD WHERE BOARD_WRITER = #{boardWriter}
-    
- </select>  
-
 	<!-- 판매자가 판매중인 거래글 -->
 	<select id="selectSellorBoard" resultMap="boardExtMap">
 		<!-- group by 절을 이용해서 추천 게시글의 이미지를 1개만 가져왔다. -->
@@ -236,16 +220,4 @@
 		     AND BOARD_NO != #{boardNo}
 	</select>
 	
-	<!-- 판매자가 받은 리뷰글의 개수 -->
-	<select id="getReviewCount" resultType="int">
-		SELECT COUNT(*)
-        FROM
-        (
-	        SELECT MEMBER_NO, NICKNAME, B.BOARD_NO, PRODUCT_NAME, REVIEW_NO, R.BOARD_NO, REVIEW_MEMBER_NO
-	            FROM MEMBER "M"
-	        JOIN BOARD "B" ON (MEMBER_NO = BOARD_WRITER)
-	        JOIN REVIEW "R" ON (B.BOARD_NO = R.BOARD_NO)
-	        WHERE MEMBER_NO = #{boardWriter}
-        )
-	</select>
 </mapper>
