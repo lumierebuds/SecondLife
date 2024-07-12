@@ -30,6 +30,12 @@
                     </div>
                 </div>
                 <div class="header-user-menu">
+                	<div class="header-user-menu-item admin-menu">
+                        <button>
+                            <img src="/secondlife/resources/images/관리 아이콘.png" alt="관리 아이콘">
+                            <a href="/secondlife/admin/memberManage/1">관 리</a>
+                        </button>
+                    </div>
 					<div class="header-user-menu-item login-menu">
                         <button>
                             <img src="/secondlife/resources/images/찜목록 아이콘.png" alt="찜목록 아이콘">
@@ -37,7 +43,7 @@
                         </button>
                     </div>
                     <div class="header-user-menu-item">
-                        <button onclick="return false">
+                        <button onclick="location.href='/secondlife/chat/room'">
                             <img src="/secondlife/resources/images/세라톡 아이콘.png" alt="세라톡 아이콘">
                             세라톡
                         </button>
@@ -48,7 +54,7 @@
                             로그인
                         </button>
                     </div>
-					<div class="header-user-menu-item login-menu">
+					<div class="header-user-menu-item login-menu admin-menu">
                         <button id="drop-btn">
                             <img src="/secondlife/resources/images/마이 아이콘.png" alt="마이 아이콘">
                             마 이
@@ -94,16 +100,21 @@
 				<button id="pwd-select" value="find-pwd-form" class="find-btn">비밀번호
 					찾기</button>
 			</div>
-			<form action="" class="find-form find-id-form">
+			
+			<!-- 아이디 찾기 -->
+			<form action="/secondlife/member/findId" class="find-form find-id-form">
 				<label for="emailInput">가입 시 사용한 이메일을 입력해주세요</label> <input
 					type="text" id="emailInput" name="email" placeholder="이메일">
-				<button class="submit-btn">확 인</button>
+				<button class="submit-btn" id="findIdSubmit">확 인</button>
 			</form>
+			
+			<!-- 비밀번호 찾기 -->
 			<form action="" class="find-form find-pwd-form">
 				<label for="idInput">아이디</label> <input type="text" id="id-input"
 					name="id" placeholder="아이디">
 				<div class="flex-right">
-					<button id="id-submit" onclick="return false">인증번호 보내기</button>
+					<span class="success-message" id="certificationMessage"></span>
+					<button id="id-submit" onclick="sendCertification(event)">인증번호 보내기</button>
 				</div>
 				<div class="certi-area">
 					<label for="certi-num">인증번호</label> <input type="text"
@@ -113,23 +124,90 @@
 				<button class="submit-btn">확 인</button>
 			</form>
 		</div>
-		<div class="modal-content result-form">
+      
+		<!-- 결과창 -->
+		<div class="modal-content result-form" id="pwdResultForm">
+
 			<img src="https://via.placeholder.com/50" alt="로고"> <label
 				for="pwd-result">임시 비밀번호가 발급되었습니다</label> <input type="text"
-				id="pwd-result" value="" placeholder="아이디 찾기 결과" disabled>
+				id="pwd-result" value="" placeholder="임시 비밀번호" disabled>
 		</div>
-		<div class="modal-content result-form">
+
+		<div class="modal-content result-form" id="idResultForm">
 			<img src="https://via.placeholder.com/50" alt="로고"> <label
-				for="id-result">아이디 찾기 결과</label> <input type="text" id="id-result"
-				value="" placeholder="아이디 찾기 결과" disabled>
+				for="id-result">아이디 찾기 결과</label>
+				<input type="text" id="id-result" value="" placeholder="아이디 찾기 결과" disabled>
 		</div>
 	</div>
 	
 	<script src="/secondlife/resources/js/common.js"></script>
+	
+	<script>
+		$(document).ready(function() {
+	        // 아이디 찾기 버튼 클릭 이벤트
+	        $('#findIdSubmit').click(function(e) {
+	            e.preventDefault();
+	            var email = $('#emailInput').val();
+	            
+	            $.ajax({
+	                url: '/secondlife/member/findId',
+	                method: 'GET',
+	                data: { email: email },
+	                success: function(response) {
+	                    if (response === 'fail') {
+	                        alert('이메일을 찾을 수 없습니다.');
+	                    } else {
+	                        $('#id-result').val(response);
+	                        $('.modal-find-form').css('display', 'none');
+	                        $('#idResultForm').css('display', 'flex');
+	                    }
+	                },
+	                error: function() {
+	                    alert('오류가 발생했습니다. 다시 시도해주세요.');
+	                }
+	            });
+	        });
+		});
+		
+		// 인증번호 보내기 버튼 클릭 이벤트
+        function sendCertification(event) {
+			event.preventDefault();
+            var id = $('#id-input').val();
+	         // 아이디로부터 이메일 가져오기
+	            $.ajax({
+	                url: '/secondlife/member/getEmail',
+	                method: 'GET',
+	                data: { id: id },
+	                success: function(response) {
+	                    if (response === 'fail') {
+	                        alert('이메일을 가져오는 데 실패했습니다.');
+	                    } else {
+	                        // 이메일 가져오기 성공
+	                        var email = response;
+	                        
+	                        // 여기서 인증번호 발송 로직을 구현할 수 있습니다.
+	                        // 인증번호 발송 완료 메시지 표시
+	                        $('#certificationMessage').text('해당 아이디의 이메일로 인증번호를 보냈습니다.');
+	                        $('#certificationMessage').css('display', 'inline-block');
+	                    }
+	                },
+	                error: function() {
+	                    alert('오류가 발생했습니다. 다시 시도해주세요.');
+	                }
+	            });     
+        }
+		
+		
+	</script>
+
+
 	<c:if test="${not empty fn:trim(loginUser)}">
 		<script>
 			console.log('${loginUser}');
 			loginView();
+			if('${loginUser.adminAuth}' == 'Y') {
+				adminView();
+			}
 		</script>
 	</c:if>
 </body>

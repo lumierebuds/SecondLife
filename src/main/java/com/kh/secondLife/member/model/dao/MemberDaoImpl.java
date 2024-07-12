@@ -36,6 +36,23 @@ public class MemberDaoImpl implements MemberDao{
     public int deleteMember(String id) {
         return sqlSession.update("member.deleteMember", id);
     }
+
+	@Override
+	public String findIdByEmail(String email) {
+		return sqlSession.selectOne("member.findIdByEmail", email);
+	}
+
+	@Override
+	public String getMemberById(String id) {
+		return sqlSession.selectOne("member.getMemberById" ,id);
+	}
+	
+	// 게시글 상세조회시 판매자 정보 조회
+	@Override
+	public Member selectMemberInfo(int boardWriter) {
+		
+		return sqlSession.selectOne("member.selectMemberInfo", boardWriter);
+	}
 	
 	// 게시글 상세조회시 판매자 정보 조회
 	@Override

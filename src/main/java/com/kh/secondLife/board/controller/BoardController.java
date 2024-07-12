@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
-
-import java.util.Map;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
@@ -23,11 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
-import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.Pagenation;
-import com.kh.secondLife.common.model.vo.PageInfo;
+
 import com.kh.secondLife.common.Utils;
+import com.kh.secondLife.common.model.vo.PageInfo;
 
 import com.kh.secondLife.member.model.service.MemberService;
 import com.kh.secondLife.member.model.vo.Member;

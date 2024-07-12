@@ -39,11 +39,11 @@
         background-color: #DDB892;
         text-align: center;
         border: 1px solid #B08968;
-        color: #7F5539;
         font-weight: bold;
       }
       .선택들 p{
         margin-top: 30px;
+        color: #7F5539;
       }
 	  
 	  .main {
@@ -170,35 +170,35 @@
         
         
         <div class="content">
-          <div class="tap">
-            <div class="choice">
-              <div class="choices">
-                <div class="선택들">
-                  <p>내 정보</p>
-                </div>
-              </div>
-              <div class="choices">
-                <div class="선택들">
-                  <p>판매내역</p>
-                </div>
-              </div>
-              <div class="choices">
-                <div class="선택들">
-                  <p>구매내역</p>
-                </div>
-              </div>
-              <div class="choices">
-                <div class="선택들">
-                  <p>받은 리뷰</p>
-                </div>
-              </div>
-              <div class="choices">
-                <div class="선택들">
-                  <p>찜한글</p>
-                </div>
-              </div>
-            </div>
-          </div>
+				<div class="tap">
+					<div class="choice">
+						<div class="choices">
+							<div class="선택들">
+								<a href="/secondlife/member/myPage"><p>내 정보</p></a>
+							</div>
+						</div>
+						<div class="choices">
+							<div class="선택들">
+								<a href="/secondlife/member/sell"><p>판매내역</p></a>
+							</div>
+						</div>
+						<div class="choices">
+							<div class="선택들">
+								<a href="/secondlife/member/buy"><p>구매내역</p></a>
+							</div>
+						</div>
+						<div class="choices">
+							<div class="선택들">
+								<a href="/secondlife/member/review"><p>받은 리뷰</p></a>
+							</div>
+						</div>
+						<div class="choices">
+							<div class="선택들">
+								<a href="/secondlife/member/basket"><p>찜 목록</p></a>
+							</div>
+						</div>
+					</div>
+				</div>
 
           <div class="main">
             <div class="빈공간"></div>
