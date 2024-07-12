@@ -99,4 +99,10 @@ public class BoardDaoImpl implements BoardDao{
 	
 	
 
+	@Override
+	public int increateCount(int boardNo) {
+		
+		return sqlSession.update("board.increaseCount", boardNo);
+	}
+
 }

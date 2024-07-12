@@ -122,6 +122,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectSellorBoard(paramMap);
 	}
 
+
+	@Override
+	public int increaseCount(int boardNo) {
+		
+		return boardDao.increateCount(boardNo);
+
 	@Override
 	public int selectBoardListCount(Map<String, Object> paramMap) {
 		return boardDao.selectBoardListCount(paramMap);
