@@ -54,7 +54,7 @@
             </div>
             <div class="dif-2">
               <div class="detail-summary">
-                <div class="detail-category"><a href="#">홈</a> &gt; 카테고리 &gt; <a href="#">수입 명품</a></div>
+                <div class="detail-category"><a href="/secondlife">홈</a> &gt; 카테고리 &gt; <a href="/secondlife/board/list?category=${board.categoryNo}">${categoryName}</a></div>
                 <div class="detail-title">
                   <h1>${board.productName}</h1>
                 </div>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="detail-viewers">
                   <span>${board.createDate }</span>
-                  <span>조회&nbsp;13</span>
+                  <span>조회&nbsp;${board.count }</span>
                   <span>찜&nbsp;${favCount }</span>
                   <c:if test="${not empty loginUser and loginUser.memberNo eq board.boardWriter}">
                   <div class="dropdown-category">
@@ -158,39 +158,19 @@
 
                 </div>
                 <div class="seller-other">
+                  <c:forEach items="${sellorList }" var="board">
                   <div class="seller-items">
-                    <a href="#">
+                    <a href="/secondlife/board/detail/${board.boardNo }">
                       <div class="thumbnail">
-                        <img src="/secondlife/resources/images/board/가방2.jpg" alt="">
+                        <img src="/secondlife/${board.biList.get(0).imgPath }${board.biList.get(0).changeName}" alt="">
                       </div>
                       <div class="info">
-                        <span>관상용 꽃</span>
-                        <span>15,000원</span>
+                        <span>${board.productName }</span>
+                        <span><fmt:formatNumber value="${board.price}" pattern="#,###" />원</span>
                       </div>
                     </a>
                   </div>
-                  <div class="seller-items">
-                    <a href="#">
-                      <div class="thumbnail">
-                        <!-- <img src="cookies.jpg" alt=""> -->
-                      </div>
-                      <div class="info">
-                        <span>쿠키 무료 나눔</span>
-                        <span>0원</span>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="seller-items">
-                    <a href="">
-                      <div class="thumbnail">
-                        <!-- <img src="figures.jpg" alt=""> -->
-                      </div>
-                      <div class="info">
-                        <span>선물용 고급 초콜릿</span>
-                        <span>10,000원</span>
-                      </div>
-                    </a>
-                  </div>
+                  </c:forEach>
                 </div>
               </div>
             </div>

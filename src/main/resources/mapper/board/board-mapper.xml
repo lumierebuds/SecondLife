@@ -82,7 +82,7 @@
 		<result column="BOARD_WRITER" property="boardWriter"/>
 		<result column="NICKNAME" property="nickname"/>
 		<result column="ID" property="id"/>
-		
+		<result column="COUNT" property="count"/>
 		
 		<collection property="biList" javaType="List" ofType="boardImg">
 			<id column="BOARD_IMG_NO" property="boardImgNo"/>
@@ -118,6 +118,14 @@
 
 	</select>
 	
+	<!-- 조회수 증가 로직  -->
+	<update id="increaseCount">
+		UPDATE BOARD
+		SET COUNT = COUNT + 1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<!-- 게시글 상세조회시 게시글 내용 -->
 	<select id="selectBoard" resultMap="boardExtMap">
 		SELECT
 		  B.BOARD_NO AS BOARD_NO,
@@ -127,6 +135,7 @@
 		  CONTENT,
 		  B.CREATE_DATE AS CREATE_DATE,
 		  BOARD_WRITER,
+		  COUNT,
 		  
 		  BOARD_IMG_NO,
 		  IMG_PATH,
@@ -138,6 +147,7 @@
 	</select>
 	
 	
+	<!-- 게시글이 받은 찜수 조회 -->
 	<select id="selectBoardFavCount" resultType="int">
 		SELECT 
 			COUNT(BOARD_NO)
@@ -162,7 +172,7 @@
 		            ON (B.BOARD_NO = BI.BOARD_NO)
 		        WHERE 
 		            B.STATUS = 'Y' 
-		            AND (CATEGORY_NO = #{categoryNo} OR PRODUCT_NAME LIKE '%' || #{productName} || '%')
+		            AND (CATEGORY_NO = #{category} OR PRODUCT_NAME LIKE '%' || #{productName} || '%')
 		            GROUP BY
 		            B.BOARD_NO,
 		            PRODUCT_NAME,
@@ -202,6 +212,7 @@
 		        SELECT
 		            B.BOARD_NO AS BOARD_NO,
 		            PRODUCT_NAME,
+		            PRICE,
 		            BOARD_WRITER,
 		            IMG_PATH,
 		            MIN(BOARD_IMG_NO) AS BOARD_IMG_NO,
@@ -214,10 +225,12 @@
 		            GROUP BY
 		            B.BOARD_NO,
 		            PRODUCT_NAME,
+		            PRICE,
 		            BOARD_WRITER,
 		            IMG_PATH)
 		     WHERE ROWNUM <![CDATA[ <= ]]> 3
 		     AND BOARD_NO != #{boardNo}
+             AND BOARD_WRITER = #{boardWriter}
 	</select>
 	
 </mapper>

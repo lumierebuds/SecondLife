@@ -93,4 +93,10 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectList("board.selectSellorBoard", paramMap);
 	}
 
+	@Override
+	public int increateCount(int boardNo) {
+		
+		return sqlSession.update("board.increaseCount", boardNo);
+	}
+
 }

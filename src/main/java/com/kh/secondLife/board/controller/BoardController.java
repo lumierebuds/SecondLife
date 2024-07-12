@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
@@ -45,7 +48,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller // 이게 있어야 bean객체로 등록
 @Slf4j
-@SessionAttributes({"loginUser"})
+@SessionAttributes( {"loginUser"} )
 @RequestMapping("/board")
 @RequiredArgsConstructor
 public class BoardController {
@@ -235,11 +238,56 @@ public class BoardController {
 	public String detailBoard(
 			@PathVariable(name="boardNo", required = true) int boardNo,
 			@RequestParam Map<String, Object> paramMap,
-			Model model
+			Model model,
+			HttpServletRequest req,
+			HttpServletResponse res
 			) {
 		
 		// 1. 게시글의 내용을 조회하기 		
 		Board board = boardService.selectBoard(boardNo);
+		
+		// 게시글이 존재할때
+		if(board != null) { 
+			Cookie cookie = null; 
+			Cookie[] cookies = req.getCookies(); 
+			
+			if(cookies != null && cookies.length > 0) {
+				for(Cookie c : cookies) {
+					if("readBoardNo".equals(c.getName())) {
+						cookie = c;
+						break;
+					}
+				}
+			}
+			int result = 0; 
+			
+			if(cookie == null) {
+				cookie = new Cookie("readBoardNo", boardNo +"");
+				result = boardService.increaseCount(boardNo); // update 쿼리문 실행 
+			}
+			else {
+				
+				String[] arr = cookie.getValue().split("/"); 
+				List<String> list = Arrays.asList(arr); 
+				if(list.indexOf(boardNo +"") == -1) {
+					result = boardService.increaseCount(boardNo);
+					cookie.setValue(cookie.getValue() + "/" + boardNo);
+				}
+				
+			}
+			if(result >0) {
+				board.setCount(board.getCount() + 1); // 1 증가 시키기 
+				
+				cookie.setPath(req.getContextPath());
+				cookie.setMaxAge(1 * 60 * 60); 
+				res.addCookie(cookie);
+			}
+			
+		} else { // 게시글이 존재하지 않을때  
+			model.addAttribute("errorMsg","존재하지 않는 거래글입니다.");
+			return "common/errorPage";
+		}
+		
 		int	favCount = boardService.selectBoardFavCount(boardNo);
 		
 		// 2. 게시글을 작성한 판매자 정보를 조회하기 
@@ -254,21 +302,29 @@ public class BoardController {
 		//	List<Board> sellerBoard = boardService.selectSellorBoard(paramMap);
 		
 		// 3. 해당 게시글이 참고하는 카테고리의 거래 게시글을 조회하기(최대 4개) 
-		int categoryNo = board.getCategoryNo();
+		// 이 카테고리의 이름을 조회하도록 한다. 
+		
+		int category = board.getCategoryNo();
 		String productName = board.getProductName();
 		
 		paramMap.put("productName", productName);
-		paramMap.put("categoryNo", categoryNo);
+		paramMap.put("category", category);
+		String categoryName = boardService.selectCategoryName(paramMap);
+		
 		System.out.println(paramMap);	
 		List<Board> list = boardService.selectRecommendBoard(paramMap);
+		List<Board> sellorList = boardService.selectSellorBoard(paramMap);
+		
 		
 		// 4. 페이지 렌더링 
 		model.addAttribute("board", board);
 		model.addAttribute("list", list);
+		model.addAttribute("sellorList",sellorList);
 		model.addAttribute("favCount", favCount);
 		model.addAttribute("member", member);
 		model.addAttribute("salesCount", salesCount);
 		model.addAttribute("reviewCount", reviewCount);
+		model.addAttribute("categoryName", categoryName);
 		
 		return "board/boardDetailView";
 	}
