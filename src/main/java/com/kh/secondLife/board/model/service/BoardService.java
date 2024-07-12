@@ -31,5 +31,6 @@ public interface BoardService {
 	int getReviewCount(int boardWriter);
 
 	List<Board> selectSellorBoard(Map<String, Object> paramMap);
+
 	
 }

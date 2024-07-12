@@ -157,4 +157,5 @@ public class BoardServiceImpl implements BoardService{
 		
 		return boardDao.selectSellorBoard(paramMap);
 	}
+
 }
