@@ -187,8 +187,23 @@ public class BoardController {
 			ra.addFlashAttribute("errorMsg", e.getMessage());
 		}
 		
-		// 3) 응답 전송
-		return result;
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		resultMap.put("result", result);
+		resultMap.put("boardNo", b.getBoardNo());
+		
+		// 3) 반환값을 통해 메세지 등록
+//		String url = "";
+//		if(result > 0) {
+//			ra.addFlashAttribute("alertMsg", "글 작성 성공");
+//			url = "redirect:/";
+//			url = "redirect:/board/detail/"+b.getBoardNo();
+//		}else {
+//			model.addAttribute("errorMsg", "게시글 작성 실패");
+//			url = "common/errorPage";
+//		}
+		// 4) 응답페이지 설정
+		return resultMap;
 	}
 	
 }

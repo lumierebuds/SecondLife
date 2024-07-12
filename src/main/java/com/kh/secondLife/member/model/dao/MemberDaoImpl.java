@@ -47,6 +47,11 @@ public class MemberDaoImpl implements MemberDao{
 	public int insertReview(Review review) {
 		return sqlSession.insert("review.insertReview", review);
 	}
+
+	@Override
+	public String getMemberById(String id) {
+		return sqlSession.selectOne("member.getMemberById" ,id);
+	}
 	
 	// 게시글 상세조회시 판매자 정보 조회
 	@Override

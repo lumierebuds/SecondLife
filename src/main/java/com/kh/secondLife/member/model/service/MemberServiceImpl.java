@@ -66,6 +66,9 @@ public class MemberServiceImpl implements MemberService{
 		return dao.selectMemberInfo(boardWriter);
 	}
 	
-	
+	@Override
+	public String getMemberById(String id) {
+		return dao.getMemberById(id);
+	}
 	
 }
