@@ -195,4 +195,9 @@
 	        WHERE MEMBER_NO = #{boardWriter}
         )
 	</select>
+	
+	<select id="selectBoardListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+	</select>
 </mapper>

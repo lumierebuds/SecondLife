@@ -256,14 +256,10 @@ header {
 						</div>
 						<form>
 							<select class="search-category" name="searchCategory">
-								<option value="none"
-									${searchCategory == 'none' ? 'selected' : ''}>==선택==</option>
-								<option value="boardNo"
-									${searchCategory == 'boardNo' ? 'selected' : ''}>게시글
-									번호</option>
-								<option value="nickname"
-									${searchCategory == 'nickname' ? 'selected' : ''}>작성자</option>
-								<option value="content-writer">작성자</option>
+								<option value="none" ${searchCategory == 'none' ? 'selected' : ''}>==선택==</option>
+								<option value="boardNo" ${searchCategory == 'boardNo' ? 'selected' : ''}>게시글 번호</option>
+								<option value="nickname" ${searchCategory == 'nickname' ? 'selected' : ''}>작성자</option>
+								<option value="createDate" ${searchCategory == 'createDate' ? 'selected' : ''}>작성일자</option>
 							</select> <input type="text" class="search-box">
 						</form>
 					</div>

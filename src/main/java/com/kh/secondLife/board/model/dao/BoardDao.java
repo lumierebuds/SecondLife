@@ -31,4 +31,6 @@ public interface BoardDao {
 	Map<String, Integer> getSalesCount(int boardWriter);
 
 	int getReviewCount(int boardWriter);
+
+	int selectBoardListCount(Map<String, Object> paramMap);
 }

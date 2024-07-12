@@ -226,7 +226,7 @@ header {
 						</div>
 						<div class="choices">
 							<div class="선택들">
-								<a href="/secondlife/admin/reportManage/1"><p>신고관리</p></a>
+								<a href="/secondlife/admin/reportManage"><p>신고관리</p></a>
 							</div>
 						</div>
 					</div>

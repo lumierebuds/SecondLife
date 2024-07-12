@@ -83,9 +83,9 @@ public class AdminController {
 			Model model,
 			@RequestParam Map<String, Object> paramMap
 			) {
-		
 
-		int listCount = aService.selectMemberAllCount(paramMap);
+
+		int listCount = bService.selectBoardListCount(paramMap);
 		int pageLimit = 10;
 		int boardLimit = 10;
 		

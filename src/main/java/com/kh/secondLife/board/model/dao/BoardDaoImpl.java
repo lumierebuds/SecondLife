@@ -84,6 +84,11 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return sqlSession.selectOne("board.getReviewCount", boardWriter);
 	}
+
+	@Override
+	public int selectBoardListCount(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("board.selectBoardListCount", paramMap);
+	}
 	
 	
 

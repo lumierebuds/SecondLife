@@ -115,4 +115,9 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.getReviewCount(boardWriter);
 	}
 
+	@Override
+	public int selectBoardListCount(Map<String, Object> paramMap) {
+		return boardDao.selectBoardListCount(paramMap);
+	}
+
 }
