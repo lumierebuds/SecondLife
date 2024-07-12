@@ -191,16 +191,6 @@ header {
 		<main class="centered-content">
 			<div class="marginer"></div>
 
-
-
-
-
-
-
-
-
-
-
 			<div class="content">
 				<div class="tap">
 					<div class="choice">
@@ -219,11 +209,7 @@ header {
 								<a href="/secondlife/member/buy"><p>구매내역</p></a>
 							</div>
 						</div>
-						<div class="choices">
-							<div class="선택들">
-								<a href="/secondlife/member/review"><p>받은 리뷰</p></a>
-							</div>
-						</div>
+						
 						<div class="choices">
 							<div class="선택들">
 								<a href="/secondlife/member/basket"><p>찜 목록</p></a>

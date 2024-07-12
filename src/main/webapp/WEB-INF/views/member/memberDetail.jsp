@@ -8,8 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Second Life - 상품의 새 삶</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../resources/css/member/memberDetail.css">
+  <link rel="stylesheet" href="/secondlife/resources/css/member/memberDetail.css">
   <style>
+  	.main-container {
+  		display: flex;
+  	}
+  
     .content {
       display: flex;
       background-color: #EDE0D4;
@@ -86,7 +90,7 @@
 
     .card-content .table td {
       border: 0;
-      padding: 20px;
+      padding: 10px;
       text-align: center;
       color: #EDE0D4;
     }
@@ -160,40 +164,17 @@
 
 <body>
   <div id="container">
-    <header>
-      <div class="marginer"></div>
-      <div class="header-area">
-        <div class="header-title">
-          <img src="사이트 로고.png" alt="사이트로고">
-          <h3>SecondLife</h3>
-        </div>
-        <div class="header-menu">
-          <div class="header-menu-item">
-            <a href="">거래 장터</a>
-          </div>
-        </div>
-        <div class="header-user-menu">
-          <div class="header-user-menu-item">
-            <img src="세라톡 아이콘.png" alt="사이트로고">
-            <a href="">세라톡</a>
-          </div>
-          <div class="header-user-menu-item">
-            <img src="로그인 아이콘.png" alt="사이트로고">
-            <a href="">로그인</a>
-          </div>
-        </div>
-      </div>
-      <div class="marginer"></div>
-    </header>
+  <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+    
 
-    <main class="centered-content">
+    <main class="main-container">
       <div class="marginer"></div>
       <div class="content">
         <div class="tap">
           <div class="choice">
             <div class="choices">
               <div class="선택들">
-                <p>사용자 정보</p>
+                <a href="/secondlife/member/memberDetail/${member.memberNo}"><p>사용자 정보</p></a>
               </div>
             </div>
             <div class="choices">
@@ -204,11 +185,7 @@
             <div class="choices">
 
             </div>
-            <div class="choices">
-              <div class="선택들">
-                <p>받은 리뷰</p>
-              </div>
-            </div>
+            
             <div class="choices">
             </div>
           </div>
@@ -224,11 +201,11 @@
               <table class="table">
                 <tr>
                   <th>닉네임</th>
-                  <td>웃으면 복이 가요</td>
+                  <td>${member.nickname}</td>
                 </tr>
                 <tr>
                   <th>이메일</th>
-                  <td>hong33@gmail.com</td>
+                  <td>${member.email }</td>
                 </tr>
               </table>
               <img src="/빠끄껀.jpg" alt="" width="180px" height="200px">
@@ -239,32 +216,7 @@
       <div class="marginer"></div>
     </main>
 
-    <footer>
-      <div class="marginer"></div>
-      <div class="footer-area">
-        <div class="footer-info">
-          <h5>세컨드 라이프</h5>
-          <div>
-            <h6>전화</h6>
-            <p>1544-XXXX</p>
-          </div>
-          <div>
-            <h6>이메일</h6>
-            <p>second@life.com</p>
-          </div>
-          <div>
-            <h6>주소</h6>
-            <p>서울특별시 강남구 테헤란로 KH 강남1지원</p>
-          </div>
-        </div>
-        <hr>
-        <div class="footer-term">
-          <a href="">이용약관</a>
-          <a href="">개인정보처리방침</a>
-        </div>
-      </div>
-      <div class="marginer"></div>
-    </footer>
+    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
   </div>
 </body>
 
