@@ -13,7 +13,7 @@
 <body>
     <header>
         <div class="secondlifeLogo-url"> 
-            <a href="https://secondlife.com">
+            <a href="/secondlife">
                 <img class="logoimg" src="../resources/images/defaultImg.png" alt="SecondLife Logo" onclick="mainPage()">
             </a>
             <span class="logoText">Second Life</span>
