@@ -250,7 +250,7 @@ public class MemberController {
 			) {
 		model.addAttribute("boardNo", paramMap.get("boardNo"));
 		
-		return "review/insertReviewForm";
+		return "member/insertReview";
 	}
 	
 	@PostMapping("/review/insert")
@@ -271,7 +271,7 @@ public class MemberController {
 			url = "redirect:/"; // 일단 메인으로. 추후 해당 유저의 정보 중 받은 리뷰 메뉴로 이동
 		} else {
 			ra.addAttribute("alertMsg", "리뷰 등록 실패");
-			url = "redirect:/member/review/insert";
+			url = "redirect:/member/insert";
 		}
 		
 		return url;
