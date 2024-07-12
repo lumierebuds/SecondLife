@@ -60,13 +60,6 @@ public class MemberServiceImpl implements MemberService{
 	
 	
 	
-	// 게시글 상세조회시 판매자 정보 조회
-	@Override
-	public Member selectMemberInfo(int boardWriter) {
-		
-		return dao.selectMemberInfo(boardWriter);
-	}
-	
 
 	@Override
     public String findIdByEmail(String email) {
