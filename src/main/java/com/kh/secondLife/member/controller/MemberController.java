@@ -53,7 +53,7 @@ public class MemberController {
 	    } else {
 	        ra.addFlashAttribute("alertMsg", "로그인 성공");
 	        model.addAttribute("loginUser", loginUser);
-
+	        session.setAttribute("loginUser", loginUser); // 로그인 인터셉터에서 사용하기 위함
 	        
 	        String nextUrl = (String) session.getAttribute("nextUrl");
 	        viewName = "redirect:" + (nextUrl != null ? nextUrl : "/");

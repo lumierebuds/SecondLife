@@ -1,9 +1,5 @@
 package com.kh.secondLife.board.model.service;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/kjh
 import java.util.List;
 import java.util.Map;
 
