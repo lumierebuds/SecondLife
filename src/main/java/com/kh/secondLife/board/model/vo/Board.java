@@ -24,7 +24,7 @@ public class Board {
 	private Date modifyDate;
 	private String status;
 	private String saleCondition;
-	
+	private int count;
 }
 
 

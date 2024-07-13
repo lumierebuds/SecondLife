@@ -13,11 +13,11 @@ public class BoardImg {
 
 	private int boardImgNo;
 	private int boardNo;
+	private String originName;
 	private String changeName;
 	private String imgPath;
 	private String status;
 	private Date createDate;
 	private Date modifyDate;
-	
 }
 

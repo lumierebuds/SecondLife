@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	
+	 <select id="login" resultType='member'>
+		SELECT 
+			*
+		FROM MEMBER
+		WHERE ID = #{id}
+		  AND STATUS = 'Y'
+	</select>
+	
+	<insert id="insertMember">
+        INSERT INTO MEMBER VALUES(
+            SEQ_MEMBER_NO.NEXTVAL,
+            #{id},
+            #{pwd},
+            #{nickname},
+            #{name},
+            #{address},
+            #{phone},
+            #{email},
+            DEFAULT,
+            DEFAULT,
+            DEFAULT,
+            DEFAULT,
+            DEFAULT
+        )
+    </insert> 
+    
+    <select id="idCheck" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE ID = #{id}
+    </select>
+	
+</mapper>
