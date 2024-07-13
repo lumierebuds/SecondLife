@@ -1,0 +1,107 @@
+.modal-background2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-content {
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: 500px;
+    text-align: center;
+    background-color: #E6CCB2;
+}
+
+.modal-content > div {
+    display: flex;
+    align-items: baseline;
+}
+
+.alert-receiver {
+    height: 30px;
+    width: 40%;
+    margin:0 0 10px 5px;
+    border-radius: 4px;
+    border: 1px solid rgb(168, 168, 168);
+}
+
+.alert-area {
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #EDE0D4;
+}
+
+.alert-title-area, .alert-content-area {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.alert-input {
+    flex-grow: 1;
+    margin: 0px 10px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid rgb(168, 168, 168);
+    box-shadow: 0 0 1px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.alert-content-area {
+    margin-top: 10px;
+    flex-basis: 300px;
+    flex-grow: 1;
+
+}
+
+#alert-content {
+    height: 100%;
+    resize: none;
+    flex-grow: 1;
+    box-sizing: border-box;
+}
+
+.alert-submit-area {
+    display: flex;
+    width: 100%;
+    padding-left: 20px;
+    justify-content: center;
+}
+
+.alert-btn1 {
+    flex-basis: 144px;
+    height: 50px;
+    margin: 10px 10px 0px 10px;
+    font-size: 20px;
+    background-color: #9C6644;
+    border: 1px solid rgb(168, 168, 168);
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+}
+.alert-btn2 {
+    flex-basis: 144px;
+    height: 50px;
+    margin: 10px 10px 0px 10px;
+    font-size: 20px;
+    background-color: #9C6644;
+    border: 1px solid rgb(168, 168, 168);
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+}
+
+.alert-btn:hover {
+    background-color: #7F5539;
+}

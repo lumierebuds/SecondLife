@@ -1,15 +1,22 @@
 package com.kh.secondLife.board.model.service;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/kjh
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.kh.secondLife.board.model.vo.Board;
+import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.model.vo.PageInfo;
 
 @Service
 public interface BoardService {
+
+	int insertBoard(Board b, List<BoardImg> bi) throws Exception;
 
 	int selectListCount(Map<String, Object> paramMap);
 
@@ -20,7 +27,19 @@ public interface BoardService {
 	Board selectBoard(int boardNo);
 
 	List<Board> selectRecommendBoard(Map<String, Object> paramMap);
+
+	int selectBoardFavCount(int boardNo);
+
+	Map<String, Integer> getSalesCount(int boardWriter);
+
+	int getReviewCount(int boardWriter);
+
+	List<Board> selectSellorBoard(Map<String, Object> paramMap);
+
+	int increaseCount(int boardNo);
 	
-	
+	int selectBoardListCount(Map<String, Object> paramMap);
+
+	int insertLike(Map<String, Object> paramMap) throws Exception;
 
 }

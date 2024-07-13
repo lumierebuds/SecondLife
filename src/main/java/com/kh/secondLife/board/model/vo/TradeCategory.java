@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TradeCategory {
-	private int tradeCategoryNo;
-	private String tradeMethod;
+	private int tradeCategoryNo; // 거래 방식 번호 (택배거래=0, 직거래=1)
+	private String tradeMethod; // 거래 방식 (택배거래, 직거래)
 }

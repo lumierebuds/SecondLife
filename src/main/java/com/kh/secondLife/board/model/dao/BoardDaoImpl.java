@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.secondLife.board.model.vo.Board;
+import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.model.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,16 @@ public class BoardDaoImpl implements BoardDao{
 	
 	private final SqlSession sqlSession;
 	
+	@Override
+	public int insertBoard(Board b) {
+		return sqlSession.insert("board.insertBoard", b);
+	}
+
+	@Override
+	public int insertBoardImg(BoardImg bi) {
+		return sqlSession.insert("board.insertBoardImg", bi);
+	}
+
 	@Override
 	public String selectCategoryName(Map<String, Object> paramMap) {
 		
@@ -56,8 +67,47 @@ public class BoardDaoImpl implements BoardDao{
 	
 	}
 
+	@Override
+	public int selectBoardFavCount(int boardNo) {
+		
+		return sqlSession.selectOne("board.selectBoardFavCount",boardNo);
+	}
 
+
+	@Override
+	public Map<String, Integer> getSalesCount(int boardWriter) {
+		
+		return sqlSession.selectOne("board.getSalesCount", boardWriter);
+	}
+
+	@Override
+	public int getReviewCount(int boardWriter) {
+		
+		return sqlSession.selectOne("board.getReviewCount", boardWriter);
+	}
+
+	@Override
+	public List<Board> selectSellorBoard(Map<String, Object> paramMap) {
+		
+		return sqlSession.selectList("board.selectSellorBoard", paramMap);
+	}
 	
+	@Override
+	public int selectBoardListCount(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("board.selectBoardListCount", paramMap);
+	}
 	
-	
+
+	@Override
+	public int increateCount(int boardNo) {
+		
+		return sqlSession.update("board.increaseCount", boardNo);
+	}
+
+	@Override
+	public int insertLike(Map<String, Object> paramMap) {
+		
+		return sqlSession.insert("board.insertLike", paramMap);
+	}
+
 }
