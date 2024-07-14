@@ -125,6 +125,34 @@
               </div>
               <div class="product-detail">
                 ${board.content}
+                <br>
+              	<br>
+              
+				<span style="font-weight: bold">거래방식 : 
+					<c:choose>
+						<c:when test="${board.tradeCategoryNo eq 0}">
+							택배거래
+						</c:when>
+						<c:when test="${board.tradeCategoryNo eq 1}">
+							직거래
+						</c:when>
+						<c:otherwise>
+							택배 & 직거래 가능 
+						</c:otherwise>
+					</c:choose>
+				</span>
+				<br>
+				<span style="font-weight: bold">상품상태 : 
+					<c:choose>
+						<c:when test="${board.condition eq 0 }">
+							중고
+						</c:when>
+						<c:when test="${board.condition eq 1 }">
+							새상품
+						</c:when>
+					</c:choose>
+				</span>
+				       
               </div>
             </div>
             <div class="des-2">

@@ -84,6 +84,8 @@
 		<result column="NICKNAME" property="nickname"/>
 		<result column="ID" property="id"/>
 		<result column="COUNT" property="count"/>
+		<result column="TRADE_CATEGORY_NO" property="tradeCategoryNo"/>
+		<result column="CONDITION" property="condition"/>
 		
 		<collection property="biList" javaType="List" ofType="boardImg">
 			<id column="BOARD_IMG_NO" property="boardImgNo"/>
@@ -109,6 +111,7 @@
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		WHERE B.STATUS = 'Y'
 		  AND BI.STATUS = 'Y'
+		  AND SALE_CONDITION = 'N'
 		<!-- 카테고리 or 검색 결과 -->
 		<choose>
 			<when test="search != null and search !=''">
@@ -139,6 +142,9 @@
 		  B.CREATE_DATE AS CREATE_DATE,
 		  BOARD_WRITER,
 		  COUNT,
+		  TRADE_CATEGORY_NO,
+		  CONDITION,
+		  
 		  
 		  BOARD_IMG_NO,
 		  IMG_PATH,
@@ -147,6 +153,7 @@
 		LEFT JOIN BOARD_IMG "BI"
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{boardNo}
+		AND SALE_CONDITION = 'N'
 	</select>
 	
 	
