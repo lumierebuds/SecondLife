@@ -37,6 +37,7 @@ import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -361,5 +362,29 @@ public class BoardController {
 		System.out.println(paramMap);
 		return paramMap;
 	}
+	
+	@PostMapping("/delete/{boardNo}")
+	@ResponseBody
+	public int deleteBoard(
+			@PathVariable(value="boardNo", required = true) int boardNo,
+			@ModelAttribute("loginUser") Member member){
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("boardNo", boardNo);
+		paramMap.put("memberNo", member.getMemberNo());
+		
+		
+		int result = 0; 
+		try {
+			result = boardService.deleteBoard(paramMap);
+			System.out.println(result);
+		} catch (Exception e) {
+			result = 0; 
+		}
+		
+		
+		return result;
+	}
+	
 	
 }
