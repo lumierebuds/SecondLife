@@ -33,11 +33,11 @@
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/resources/**"/>
 			<exclude-mapping path="/member/signup"/>
+			<exclude-mapping path="/member/login"/>
 			<exclude-mapping path="/member/findId"/>
 			<exclude-mapping path="/member/getEmail"/>
 			<exclude-mapping path="/board/list"/>
 			<exclude-mapping path="/board/detail"/>
-			<exclude-mapping path="/board/like"/>
 			
 			<beans:bean class="com.kh.secondLife.common.interceptor.LoginInterceptor"/>
 			
