@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -235,10 +236,19 @@ public class MemberController {
 		return "member/buy";
 	}
 	
-	@GetMapping("/review")
-	public String review() {
-		return "member/review";
+
+	
+	@GetMapping("/memberDetail/{memberNo}")
+	public String memberDetail(@PathVariable(value="memberNo", required = true) int memberNo,
+					Model model) {
+		
+		Member member = mService.selectMemberInfo(memberNo);
+			
+		model.addAttribute("member", member);
+		return "member/memberDetail";
 	}
+	
+	
 
 	
 	
