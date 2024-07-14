@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Second Life - 상품의 새 삶</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/secondlife/resources/css/insertReview.css">
+    <link rel="stylesheet" href="/secondlife/resources/css/review/insertReview.css">
     <style>
         textarea::placeholder {
             color: #9C6644;
@@ -29,11 +29,12 @@
 							<span class="image-preview__default-text">이미지 미리보기</span>
         					<img src="" alt="Image Preview" class="image-preview__image" style="display: none;">
 						</div>
-						<div class="file-upload-wrapper">
+						<!-- <div class="file-upload-wrapper">
     						<input type="text" id="file-path" class="file-path" readonly>
     						<label for="file-upload" class="file-upload-label">파일첨부</label>
     						<input type="file" id="file-upload" class="file-upload-input">
-						</div>
+						</div> -->
+						<br><br>
 						<textarea placeholder="리뷰를 작성해주세요."></textarea>
 						<div class="star-rating-box">
     						<span class="star-rating-text">별점</span>
