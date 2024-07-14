@@ -37,6 +37,7 @@
 			<exclude-mapping path="/member/getEmail"/>
 			<exclude-mapping path="/board/list"/>
 			<exclude-mapping path="/board/detail"/>
+			<exclude-mapping path="/board/like"/>
 			
 			<beans:bean class="com.kh.secondLife.common.interceptor.LoginInterceptor"/>
 			

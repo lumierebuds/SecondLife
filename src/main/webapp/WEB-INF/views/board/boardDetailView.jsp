@@ -260,10 +260,11 @@
   					else{
   						alert("이미 찜한 게시글입니다.");
   					}
-  					location.href = '/secondlife/board/detail/' + response.boardNo;
+  					location.href = '/secondlife/board/detail/' + ${board.boardNo};
   				},
   				error : function(xhr){
-  					console.log(xhr);
+  					console.log(xhr.status);
+  					console.log(xhr.responseText);
   					console.log("error");
   				}
   			})
