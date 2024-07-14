@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kh.secondLife.chat.model.service.ChatRoomService;
+import com.kh.secondLife.chat.model.service.ChatService;
 import com.kh.secondLife.chat.model.vo.ChatRoom;
 import com.kh.secondLife.member.model.vo.Member;
 
@@ -27,13 +27,20 @@ import com.kh.secondLife.member.model.vo.Member;
 public class ChatController {
 
     @Autowired
-    private ChatRoomService chatRoomService;
+    private ChatService chatService;
     
     @GetMapping("/room")
     public String chatRoom(@SessionAttribute("loginUser") Member loginUser, Model model) {
         if (loginUser != null) {
             int memberNo = loginUser.getMemberNo();
-            List<ChatRoom> chatRoomList = chatRoomService.getChatRoomsByMemberNo(memberNo);
+            List<ChatRoom> chatRoomList = null;
+            
+			try {
+				chatRoomList = chatService.getChatRoomsByMemberNo(memberNo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
             model.addAttribute("chatRoomList", chatRoomList);
             model.addAttribute("loginUser", loginUser);
         } else {
@@ -43,14 +50,14 @@ public class ChatController {
     }
     
     @GetMapping("/room/list")
-    public String getChatRoomList(HttpSession session, Model model) {
+    public String selectChatRoomList(HttpSession session, Model model) {
         Member loginUser = (Member) session.getAttribute("loginUser");
 
         if (loginUser == null) {
             return "redirect:/member/login";
         }
 
-        List<ChatRoom> chatRoomList = chatRoomService.getAllChatRooms();
+        List<ChatRoom> chatRoomList = ChatService.selectChatRoomList();
         session.setAttribute("chatRoomList", chatRoomList);
         session.setAttribute("loginUser", loginUser);
         model.addAttribute("chatRoomList", chatRoomList);
@@ -60,7 +67,7 @@ public class ChatController {
     
     @PostMapping("/room/create")
     public String createChatRoom(@ModelAttribute ChatRoom chatRoom) {
-        chatRoomService.createChatRoom(chatRoom);
+        ChatService.createChatRoom(chatRoom);
         return "redirect:/chat/room/list";
     }
     
@@ -73,11 +80,11 @@ public class ChatController {
             return "redirect:/member/login";
         }
 
-        chatRoomService.leaveChatRoom(chatRoom.getChatRoomNo(), loginUser.getMemberNo());
-        boolean isChatRoomEmpty = chatRoomService.isChatRoomEmpty(chatRoom.getChatRoomNo());
+        ChatService.leaveChatRoom(chatRoom.getChatRoomNo(), loginUser.getMemberNo());
+        boolean isChatRoomEmpty = ChatService.isChatRoomEmpty(chatRoom.getChatRoomNo());
 
         if (isChatRoomEmpty) {
-            chatRoomService.deleteChatRoom(chatRoom.getChatRoomNo());
+            ChatService.deleteChatRoom(chatRoom.getChatRoomNo());
         }
 
         return "success";

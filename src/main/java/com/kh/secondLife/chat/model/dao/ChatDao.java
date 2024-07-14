@@ -7,11 +7,11 @@ import org.apache.ibatis.annotations.Mapper;
 import com.kh.secondLife.chat.model.vo.ChatRoom;
 
 @Mapper
-public interface ChatRoomDAO {
+public interface ChatDao {
     List<ChatRoom> selectAllChatRooms();
     void insertChatRoom(ChatRoom chatRoom);
     void deleteChatRoomMember(int chatRoomNo, int memberNo);
     int countChatRoomMembers(int chatRoomNo);
     void deleteChatRoom(int chatRoomNo);
-    List<ChatRoom> selectChatRoomsByMemberNo(int memberNo);  // 추가된 메서드
+    List<ChatRoom> selectChatRoomList(int memberNo);  // 추가된 메서드
 }

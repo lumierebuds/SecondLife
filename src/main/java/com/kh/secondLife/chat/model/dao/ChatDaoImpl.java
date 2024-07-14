@@ -1,4 +1,4 @@
-package com.kh.secondLife.chat.model.dao.impl;
+package com.kh.secondLife.chat.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,11 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kh.secondLife.chat.model.dao.ChatRoomDAO;
 import com.kh.secondLife.chat.model.vo.ChatRoom;
 
 @Repository
-public class ChatRoomDAOImpl implements ChatRoomDAO {
+public class ChatDaoImpl implements ChatDao {
 
     @Autowired
     private SqlSession sqlSession;

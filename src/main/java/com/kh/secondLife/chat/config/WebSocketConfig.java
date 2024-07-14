@@ -6,7 +6,7 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
-import com.kh.secondLife.chat.handler.ChatWebSocketHandler;
+import com.kh.secondLife.chat.model.websocket.ChatWebSocketHandler;
 
 @Configuration
 @EnableWebSocket

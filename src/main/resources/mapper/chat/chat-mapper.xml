@@ -3,13 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="chatMapper">
+<mapper namespace="chat">
 
    <select id="selectAllChatRooms" resultType="com.kh.secondLife.chat.model.vo.ChatRoom">
     SELECT * FROM chat_room
   </select>
   
-  <select id="selectChatRoomsByMemberNo" parameterType="int" resultType="com.kh.secondLife.chat.model.vo.ChatRoom">
+  <select id="selectChatRoomList" parameterType="int" resultType="com.kh.secondLife.chat.model.vo.ChatRoom">
     SELECT * FROM chat_room
     WHERE first_member_no = #{memberNo} OR second_member_no = #{memberNo}
   </select>
