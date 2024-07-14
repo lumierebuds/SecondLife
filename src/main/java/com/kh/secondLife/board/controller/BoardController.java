@@ -205,9 +205,7 @@ public class BoardController {
 			Board board, // 저장할 게시판 데이터
 			RedirectAttributes ra,
 			// 첨부파일
-			@RequestParam(value="upfile[]", required = false) MultipartFile[] upfile,
-			int boardImgNo,
-			String deleteList // 일반게시판 1, 사진게시판 1,2,3
+			@RequestParam(value="upfile[]", required = false) MultipartFile[] upfile
 			) { 
 		// 업무로직
 		// 1. board 테이블 수정
@@ -217,8 +215,6 @@ public class BoardController {
 		// 4. 새로 삽입되어야 하는 이미지 새롭게 그룹(리스트에 넣는다) List<BoardImg> newImages -> BOARD_IMG 테이블에 INSERT
 		// 5. 서로 다른 것 중 기존에서 빠진 것 따로 뽑아서 그룹(리스트에 넣는다) List<BoardImg> deleteImages -> BOARD_IMG 테이블에 UPDATE(STATUS = 'N')
 		// (파일 삭제는 추후 스케쥴러에서 담당) -> 당장은 신경안써도 됨
-
-		log.debug("board ? {} , boardImgNo ? {}" , board, boardImgNo);
 		
 		/* List<BoardImg> biList = new ArrayList<>(); */
 		List<MultipartFile> upfileList = Arrays.asList(upfile);
@@ -227,7 +223,7 @@ public class BoardController {
 		
 		try {
 			
-			result = boardService.updateBoard(board, upfileList, boardImgNo, deleteList);
+			result = boardService.updateBoard(board, upfileList);
 			log.debug("거래글 정보(등록 후) - {}", board);
 			
 		} catch (Exception e) {

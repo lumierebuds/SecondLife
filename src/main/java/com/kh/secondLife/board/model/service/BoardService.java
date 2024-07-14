@@ -38,7 +38,7 @@ public interface BoardService {
 	
 	int selectBoardListCount(Map<String, Object> paramMap);
 
-	int updateBoard(Board board, List<MultipartFile> upfileList, int boardImgNo, String deleteList);
+	int updateBoard(Board board, List<MultipartFile> upfileList);
 
 	
 }

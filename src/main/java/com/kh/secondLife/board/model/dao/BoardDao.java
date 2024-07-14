@@ -40,6 +40,8 @@ public interface BoardDao {
 
 	int updateBoard(Board board);
 
-	int updateBoardImg(BoardImg bi);
+	int updateBoardImg(String fileName);
+
+	List<BoardImg> selectBoardImg(int boardNo);
 
 }

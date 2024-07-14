@@ -107,15 +107,28 @@ public class BoardDaoImpl implements BoardDao{
 
 	// 게시물 수정 POST
 	/* 게시물 글 수정 */
+	
+	// 글 업데이트
 	@Override
 	public int updateBoard(Board board) {
-		return sqlSession.update("board.updateBoardImg", board);
+		return sqlSession.update("board.updateBoard", board);
 	}
 
-	/* 게시물 첨부파일 수정 */
+	// 기존 이미지 불러오는 용도
 	@Override
-	public int updateBoardImg(BoardImg bi) {
-		return sqlSession.update("board.updateBoardImg", bi);
+	public List<BoardImg> selectBoardImg(int boardNo) {
+		return sqlSession.selectList("board.selectBoardImg", boardNo);
 	}
+	
+	// 기존 이미지중 수정하면서 지울(STATUS => N) 용도로 만든 거
+	@Override
+	public int updateBoardImg(String fileName) {
+		return sqlSession.update("board.updateBoardImg", fileName);
+	}
+	/* 게시물 글 수정 끝*/
+
+
+	
+
 
 }

@@ -34,19 +34,41 @@
 		(
 			BOARD_IMG_NO,
 			BOARD_NO,
-			ORIGIN_NAME,
 			CHANGE_NAME,
 			IMG_PATH
 		) VALUES
 		(
 			SEQ_BOARD_IMG_NO.NEXTVAL,
 			#{boardNo},
-			#{originName},
 			#{changeName},
 			#{imgPath}
 		)
 	</insert>
 
+	<update id="updateBoard">
+		UPDATE BOARD
+		SET CATEGORY_NO = #{categoryNo},
+			TRADE_CATEGORY_NO = #{tradeCategoryNo},
+			PRODUCT_NAME = #{productName},
+			PRICE = #{price},
+			CONDITION = #{condition},
+			CONTENT = #{content},
+			MODIFY_DATE = DEFAULT
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+
+	<select id="selectBoardImg" resultType="boardImg">
+		SELECT *
+		FROM BOARD_IMG_NO
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+
+	<update id="updateBoardImg">
+		UPDATE BOARD_IMG
+		SET STATUS = 'N',
+			MODIFY_DATE = DEFAULT
+		WHERE CHANGE_NAME = #{fileName}
+	</update>
 	
 	<select id="selectCategoryName" resultType="string">
 		SELECT CATEGORY_NAME
