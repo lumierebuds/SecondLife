@@ -86,7 +86,7 @@
                     </button>
                     <div class="dropdown-items" id="userDropdownMenu">
                       <a class="dropdown-select" href="#">수정하기</a>
-                      <a class="dropdown-select" href="#">삭제하기</a>
+                      <a class="dropdown-select" id="deleteButton">삭제하기</a>
                     </div>
                   </div>
                   </c:if>
@@ -260,14 +260,44 @@
   					else{
   						alert("이미 찜한 게시글입니다.");
   					}
-  					location.href = '/secondlife/board/detail/' + response.boardNo;
+  					location.href = '/secondlife/board/detail/' + ${board.boardNo};
   				},
   				error : function(xhr){
-  					console.log(xhr);
+  					console.log(xhr.status);
+  					console.log(xhr.responseText);
   					console.log("error");
   				}
   			})
   		})
+  </script>
+  
+  <script>
+	$("#deleteButton").on("click", function(){
+		var isDelete = confirm("게시글을 삭제하시겠습니까?");
+		if(isDelete){
+			
+			$.ajax({
+				url : `/secondlife/board/delete/${board.boardNo}`,
+				type: "post",
+				success : function(result){
+					console.log(result);
+					if(result > 0){
+						alert("게시글을 삭제했습니다.");
+						location.href="/secondlife/board/list";
+					} else{
+						alert("게시글 삭제에 실패했습니다.");
+					}
+				}, 
+				error : function(xhr){
+					console.log(xhr);
+					console.log("에러가 발생했습니다.")
+				}
+			})
+			
+		} else{
+			return;
+		}
+	});
   </script>
 
 </html>

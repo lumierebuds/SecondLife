@@ -110,4 +110,10 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.insert("board.insertLike", paramMap);
 	}
 
+	@Override
+	public int deleteBoard(Map<String, Object> paramMap) {
+		
+		return sqlSession.update("board.deleteBoard", paramMap);
+	}
+
 }

@@ -133,13 +133,31 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectBoardListCount(paramMap);
 	}
 
-
+	
+	
 	@Override
+	@Transactional(rollbackFor = {Exception.class})
 	public int insertLike(Map<String, Object> paramMap) throws Exception {
 		
 		int result = boardDao.insertLike(paramMap);
+		if(result == 0) {
+			throw new Exception();
+		}
+		return result;
+	}
+
+
+	@Override
+	@Transactional(rollbackFor = {Exception.class})
+	public int deleteBoard(Map<String, Object> paramMap) throws Exception {
+		
+		int result = boardDao.deleteBoard(paramMap);
+		if(result == 0) {
+			throw new Exception();
+		}
 		
 		return result;
 	}
+	
 
 }

@@ -33,6 +33,7 @@
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/resources/**"/>
 			<exclude-mapping path="/member/signup"/>
+			<exclude-mapping path="/member/login"/>
 			<exclude-mapping path="/member/findId"/>
 			<exclude-mapping path="/member/getEmail"/>
 			<exclude-mapping path="/board/list"/>
