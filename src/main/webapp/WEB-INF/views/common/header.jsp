@@ -84,10 +84,6 @@
 					<a id="find-id" onclick="return false">계정을 잊어버리셨나요?</a> <a
 						id="register" href="/secondlife/member/signup">회원 가입</a>
 				</div>
-				<!-- <div class="flex-right">
-					<input type="checkbox" id="rememberMe"> <label
-						for="rememberMe">로그인 유지</label>
-				</div> -->
 				<button class="submit-btn" >확 인</button>
 			</form>
 		</div>

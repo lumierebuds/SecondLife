@@ -240,4 +240,24 @@
 		SELECT COUNT(*)
 		FROM BOARD
 	</select>
+	
+	<!-- 게시글 찜하기 기능(insert) -->
+	<insert id="insertLike">
+		INSERT INTO FAVORITE_LIST 
+		VALUES 
+		(
+		    #{memberNo},
+		    #{boardNo},
+		    DEFAULT
+		    )
+	</insert>
+	
+	<!-- 게시글 삭제하기 기능(update) -->
+	<update id="deleteBoard">
+		UPDATE BOARD 
+		SET STATUS = 'N'
+        WHERE BOARD_NO = #{boardNo} 
+        AND BOARD_WRITER = #{memberNo}
+	</update>
+	
 </mapper>

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,6 +37,7 @@ import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -330,9 +332,59 @@ public class BoardController {
 	}
 	
 	
+	@PostMapping("/like/{boardNo}")
+	@ResponseBody 
+	public Map<String, Object> insertLike(
+			@PathVariable (value="boardNo", required=true) int boardNo,
+			@ModelAttribute("loginUser") Member member,
+			RedirectAttributes ra
+			){
+			
+		// 게시글 찜 기능 
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		// 1. 게시글 찜을 누를때 DB에 추가 
+		paramMap.put("memberNo", member.getMemberNo());
+		paramMap.put("boardNo", boardNo);
+		
+		int result = 0;
+		
+		// 2. 예외처리를 해서 중복된 행이 추가되지 않게 만든다.   
+		try {
+			result = boardService.insertLike(paramMap);
+		} catch (Exception e) {
+			result = 0; 
+		}
+		
+		paramMap.put("result", result);
+		
+		System.out.println(paramMap);
+		return paramMap;
+	}
 	
-	
-	
+	@PostMapping("/delete/{boardNo}")
+	@ResponseBody
+	public int deleteBoard(
+			@PathVariable(value="boardNo", required = true) int boardNo,
+			@ModelAttribute("loginUser") Member member){
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("boardNo", boardNo);
+		paramMap.put("memberNo", member.getMemberNo());
+		
+		
+		int result = 0; 
+		try {
+			result = boardService.deleteBoard(paramMap);
+			System.out.println(result);
+		} catch (Exception e) {
+			result = 0; 
+		}
+		
+		
+		return result;
+	}
 	
 	
 }

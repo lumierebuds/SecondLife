@@ -86,7 +86,7 @@
                     </button>
                     <div class="dropdown-items" id="userDropdownMenu">
                       <a class="dropdown-select" href="#">수정하기</a>
-                      <a class="dropdown-select" href="#">삭제하기</a>
+                      <a class="dropdown-select" id="deleteButton">삭제하기</a>
                     </div>
                   </div>
                   </c:if>
@@ -95,14 +95,12 @@
 				<c:if test="${not empty loginUser and loginUser.memberNo ne board.boardWriter}">
                 <div class="detail-purchace">
                   <button class="like-btn">
-                    <a href="#">
                       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M17.4997 14C17.4997 14.2308 17.5681 14.4563 17.6963 14.6482C17.8245 14.84 18.0067 14.9896 18.2199 15.0779C18.4331 15.1662 18.6676 15.1893 18.8939 15.1443C19.1203 15.0993 19.3281 14.9881 19.4913 14.825C19.6545 14.6618 19.7656 14.4539 19.8106 14.2276C19.8556 14.0013 19.8325 13.7667 19.7442 13.5536C19.6559 13.3404 19.5064 13.1582 19.3145 13.03C19.1226 12.9018 18.8971 12.8334 18.6663 12.8334C18.3569 12.8334 18.0602 12.9563 17.8414 13.1751C17.6226 13.3939 17.4997 13.6906 17.4997 14ZM25.328 13.1717L19.4947 7.33835C19.3857 7.23022 19.2564 7.14468 19.1142 7.08662C18.9721 7.02856 18.8199 6.99913 18.6663 7.00002H5.83301C4.90475 7.00002 4.01451 7.36877 3.35813 8.02515C2.70176 8.68152 2.33301 9.57176 2.33301 10.5V17.5C2.33301 18.4283 2.70176 19.3185 3.35813 19.9749C4.01451 20.6313 4.90475 21 5.83301 21H18.6663C18.8199 21.0009 18.9721 20.9715 19.1142 20.9134C19.2564 20.8554 19.3857 20.7698 19.4947 20.6617L25.328 14.8284C25.4374 14.7199 25.5241 14.5909 25.5834 14.4487C25.6426 14.3065 25.6731 14.154 25.6731 14C25.6731 13.846 25.6426 13.6935 25.5834 13.5513C25.5241 13.4092 25.4374 13.2801 25.328 13.1717ZM18.188 18.6667H5.83301C5.52359 18.6667 5.22684 18.5438 5.00805 18.325C4.78926 18.1062 4.66634 17.8094 4.66634 17.5V10.5C4.66634 10.1906 4.78926 9.89385 5.00805 9.67506C5.22684 9.45627 5.52359 9.33335 5.83301 9.33335H18.188L22.8547 14L18.188 18.6667Z"
                           fill="#141414" />
                       </svg>
                       찜하기
-                    </a>
                   </button>
                   <button class="chat-btn">
                     <a href="#">
@@ -249,7 +247,57 @@
     </div>
 	
   </div>
-  <script src="/secondlife/resources/js/board/boardDetail.js"></script>
-
+  <script src="/secondlife/resources/js/board/boardDetail.js"></script> 
+  <script>
+  		$(".like-btn").click(function(){
+  			$.ajax({
+  				url : `/secondlife/board/like/${board.boardNo}`,
+  				type: "post",
+  				success : function(response){
+  					if(response.result > 0){
+  						alert("게시글을 찜했습니다!");
+  					} 
+  					else{
+  						alert("이미 찜한 게시글입니다.");
+  					}
+  					location.href = '/secondlife/board/detail/' + ${board.boardNo};
+  				},
+  				error : function(xhr){
+  					console.log(xhr.status);
+  					console.log(xhr.responseText);
+  					console.log("error");
+  				}
+  			})
+  		})
+  </script>
+  
+  <script>
+	$("#deleteButton").on("click", function(){
+		var isDelete = confirm("게시글을 삭제하시겠습니까?");
+		if(isDelete){
+			
+			$.ajax({
+				url : `/secondlife/board/delete/${board.boardNo}`,
+				type: "post",
+				success : function(result){
+					console.log(result);
+					if(result > 0){
+						alert("게시글을 삭제했습니다.");
+						location.href="/secondlife/board/list";
+					} else{
+						alert("게시글 삭제에 실패했습니다.");
+					}
+				}, 
+				error : function(xhr){
+					console.log(xhr);
+					console.log("에러가 발생했습니다.")
+				}
+			})
+			
+		} else{
+			return;
+		}
+	});
+  </script>
 
 </html>

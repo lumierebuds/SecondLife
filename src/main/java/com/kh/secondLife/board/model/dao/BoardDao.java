@@ -38,4 +38,8 @@ public interface BoardDao {
   
 	int selectBoardListCount(Map<String, Object> paramMap);
 
+	int insertLike(Map<String, Object> paramMap);
+
+	int deleteBoard(Map<String, Object> paramMap);
+	
 }
