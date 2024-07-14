@@ -100,9 +100,15 @@ public class BoardDaoImpl implements BoardDao{
 	
 
 	@Override
-	public int increateCount(int boardNo) {
+	public int increaseCount(int boardNo) {
 		
 		return sqlSession.update("board.increaseCount", boardNo);
+	}
+
+	// 게시물 수정 POST
+	@Override
+	public int updateBoard(Board board) {
+		return sqlSession.update("board.updateBoardImg", board);
 	}
 
 }

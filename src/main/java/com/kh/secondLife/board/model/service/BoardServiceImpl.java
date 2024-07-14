@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.secondLife.board.model.dao.BoardDao;
 import com.kh.secondLife.board.model.vo.Board;
@@ -126,11 +127,66 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int increaseCount(int boardNo) {
 		
-		return boardDao.increateCount(boardNo);
+		return boardDao.increaseCount(boardNo);
+	}
 
 	@Override
 	public int selectBoardListCount(Map<String, Object> paramMap) {
 		return boardDao.selectBoardListCount(paramMap);
 	}
+
+	// 게시물 수정 POST
+	@Transactional(rollbackFor = {Exception.class})
+	@Override
+	public int updateBoard(Board board, List<MultipartFile> upfileList, int boardImgNo, String deleteList) {
+
+		int result = boardDao.updateBoard(board);
+		
+		if(result == 0) {
+			throw new RuntimeException("수정실패");
+		}
+		
+		BoardImg bi = new BoardImg();
+		String webPath = "/resources/images/board/N/";
+		String serverFolderPath = application.getRealPath(webPath); // c://...
+		
+		log.debug("board {}", board);
+		log.debug("upfile {}", upfile.isEmpty());
+		log.debug("boardImgNo {}", boardImgNo);
+		log.debug("deleteList {}", deleteList);
+		
+		// 사진이 없던곳에서 새롭게 추가된경우 -> INSERT
+		if(boardImgNo == 0 && upfile != null && !upfile.isEmpty()) {
+			bi.setRefBno(board.getBoardNo());
+			bi.setImgLevel(0);
+			
+			String changeName = Utils.saveFile(upfile, serverFolderPath );
+			bi.setChangeName(changeName);
+			bi.setOriginName(upfile.getOriginalFilename());
+			
+			result *= boardDao.insertBoardImg(bi);
+		}
+		
+		// 사진이 있던곳에서 새롭게 추가된경우 -> UPDATE
+		else if(boardImgNo != 0 && upfile != null && !upfile.isEmpty()) {
+			bi.setBoardImgNo(boardImgNo);
+			
+			String changeName = Utils.saveFile(upfile, serverFolderPath );
+			bi.setChangeName(changeName);
+			bi.setOriginName(upfile.getOriginalFilename());
+			
+			result *= boardDao.updateBoardImg(bi); 
+		}
+		
+		// 사진이 있던곳에서 삭제가 된경우 -> DELETE
+		else if(boardImgNo != 0 && upfile.isEmpty() && !deleteList.equals("")) {
+			result *= boardDao.deleteBoardImg(deleteList);
+			// 웹서버의 파일시스템 안에 있는 첨부파일도 삭제 해줘야함. (지금은 생략)
+		}
+		
+		return result;
+		
+	}
+
 
 }

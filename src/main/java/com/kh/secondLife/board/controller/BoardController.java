@@ -208,28 +208,40 @@ public class BoardController {
 			@RequestParam(value="upfile[]", required = false) MultipartFile[] upfile,
 			int boardImgNo,
 			String deleteList // 일반게시판 1, 사진게시판 1,2,3
-			) {
+			) { 
 		// 업무로직
-		// BOARD테이블 수정하고
+		// 1. board 테이블 수정
+		// 2. 기존의 거래글 내용 중 이미지 목록 가져오기
+		// 3. 새로 넘어온 거래글 이미지 목록과 기존 이미지 목록 파일명으로 비교
+		// -> 서버에서 넘어간 자료는 changeName 그대로 사용자 페이지에 들어갈 거임
+		// 4. 새로 삽입되어야 하는 이미지 새롭게 그룹(리스트에 넣는다) List<BoardImg> newImages -> BOARD_IMG 테이블에 INSERT
+		// 5. 서로 다른 것 중 기존에서 빠진 것 따로 뽑아서 그룹(리스트에 넣는다) List<BoardImg> deleteImages -> BOARD_IMG 테이블에 UPDATE(STATUS = 'N')
+		// (파일 삭제는 추후 스케쥴러에서 담당) -> 당장은 신경안써도 됨
+
 		log.debug("board ? {} , boardImgNo ? {}" , board, boardImgNo);
 		
-		// upfile에 전달된 IMG이 있으면 이미지테이블 수정 , 추가
-		// 사진이 없던곳에서 새롭게 추가된경우 -> INSERT
-		// 사진이 있던곳에서 새롭게 추가된경우 -> UPDATE
-		// 사진이 있던곳에서 삭제가 된경우 -> DELETE
-		// 원래 사진이 없었고, 추가된 것도 없는 경우 -> 아무것도 안함.
+		List<BoardImg> biList = new ArrayList<>();
+		List<MultipartFile> upfileList = Arrays.asList(upfile);
+		
 		int result = 0;
 		
-		result = boardService.updateBoard(board, upfile, boardImgNo, deleteList);
-		
-		if(result > 0) {
-			ra.addFlashAttribute("alertMsg", "게시글 수정 성공");
-			// 작업성공시 리다이렉트
-			return "redirect:/board/detail/" + boardNo;
-		}else {
-			model.addAttribute("errorMsg", "게시글 수정 실패");
-			return "common/errorPage";
+		try {
+			
+			result = boardService.updateBoard(board, upfileList, boardImgNo, deleteList);
+			log.debug("거래글 정보(등록 후) - {}", board);
+			
+		} catch (Exception e) {
+			
+			ra.addFlashAttribute("errorMsg", e.getMessage());
+			
 		}
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		resultMap.put("result", result);
+		resultMap.put("boardNo", board.getBoardNo());
+		
+		return resultMap;
 		
 	}
 	/*------------------------------게시글 등록/수정 끝------------------------------*/
