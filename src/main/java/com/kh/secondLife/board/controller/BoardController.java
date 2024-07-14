@@ -220,7 +220,7 @@ public class BoardController {
 
 		log.debug("board ? {} , boardImgNo ? {}" , board, boardImgNo);
 		
-		List<BoardImg> biList = new ArrayList<>();
+		/* List<BoardImg> biList = new ArrayList<>(); */
 		List<MultipartFile> upfileList = Arrays.asList(upfile);
 		
 		int result = 0;

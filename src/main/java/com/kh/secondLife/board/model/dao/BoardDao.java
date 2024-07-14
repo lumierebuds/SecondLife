@@ -40,4 +40,6 @@ public interface BoardDao {
 
 	int updateBoard(Board board);
 
+	int updateBoardImg(BoardImg bi);
+
 }

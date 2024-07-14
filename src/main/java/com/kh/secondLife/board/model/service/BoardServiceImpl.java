@@ -1,5 +1,6 @@
 package com.kh.secondLife.board.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -140,49 +141,65 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int updateBoard(Board board, List<MultipartFile> upfileList, int boardImgNo, String deleteList) {
 
+		/* 게시물 글 수정 */
 		int result = boardDao.updateBoard(board);
 		
 		if(result == 0) {
 			throw new RuntimeException("수정실패");
 		}
+		/* 게시물 글 수정 끝 */
 		
-		BoardImg bi = new BoardImg();
-		String webPath = "/resources/images/board/N/";
-		String serverFolderPath = application.getRealPath(webPath); // c://...
+		/* 게시물 첨부파일 수정 */
+		
+		if(upfileList != null && !upfileList.isEmpty()) {
+			String webPath = "/resources/images/board/";
+			String serverFolderPath = application.getRealPath(webPath); // c://...
+		
+			for(MultipartFile image : upfileList) {
+				
+				String changeName = Utils.saveFile(image, serverFolderPath);
+				
+				BoardImg bi = new BoardImg();
+				bi.setChangeName(changeName);
+				log.debug("이미지의 원본명 - {}", image.getOriginalFilename());
+				bi.setImgPath(webPath);
+				
+				List<BoardImg> biList = new ArrayList<>();
+				
+				result *= boardDao.updateBoardImg(bi); 
+				
+				biList.add(bi);
+			}
+		
+		}
 		
 		log.debug("board {}", board);
-		log.debug("upfile {}", upfile.isEmpty());
+		log.debug("upfile {}", upfileList.isEmpty());
 		log.debug("boardImgNo {}", boardImgNo);
 		log.debug("deleteList {}", deleteList);
 		
-		// 사진이 없던곳에서 새롭게 추가된경우 -> INSERT
-		if(boardImgNo == 0 && upfile != null && !upfile.isEmpty()) {
-			bi.setRefBno(board.getBoardNo());
-			bi.setImgLevel(0);
-			
-			String changeName = Utils.saveFile(upfile, serverFolderPath );
-			bi.setChangeName(changeName);
-			bi.setOriginName(upfile.getOriginalFilename());
-			
-			result *= boardDao.insertBoardImg(bi);
-		}
 		
-		// 사진이 있던곳에서 새롭게 추가된경우 -> UPDATE
-		else if(boardImgNo != 0 && upfile != null && !upfile.isEmpty()) {
-			bi.setBoardImgNo(boardImgNo);
-			
-			String changeName = Utils.saveFile(upfile, serverFolderPath );
-			bi.setChangeName(changeName);
-			bi.setOriginName(upfile.getOriginalFilename());
-			
-			result *= boardDao.updateBoardImg(bi); 
-		}
 		
-		// 사진이 있던곳에서 삭제가 된경우 -> DELETE
-		else if(boardImgNo != 0 && upfile.isEmpty() && !deleteList.equals("")) {
-			result *= boardDao.deleteBoardImg(deleteList);
-			// 웹서버의 파일시스템 안에 있는 첨부파일도 삭제 해줘야함. (지금은 생략)
-		}
+//		// 사진이 없던곳에서 새롭게 추가된경우 -> INSERT
+//		if(boardImgNo == 0 && upfile != null && !upfile.isEmpty()) {
+//			bi.setRefBno(board.getBoardNo());
+//			bi.setImgLevel(0);
+//			
+//			String changeName = Utils.saveFile(upfile, serverFolderPath );
+//			bi.setChangeName(changeName);
+//			
+//			result *= boardDao.insertBoardImg(bi);
+//		}
+//		
+//		// 사진이 있던곳에서 새롭게 추가된경우 -> UPDATE
+//		else if(boardImgNo != 0 && upfile != null && !upfile.isEmpty()) {
+//			bi.setBoardImgNo(boardImgNo);
+//			
+//			String changeName = Utils.saveFile(upfile, serverFolderPath );
+//			bi.setChangeName(changeName);
+//			
+//			result *= boardDao.updateBoardImg(bi); 
+//		}
 		
 		return result;
 		

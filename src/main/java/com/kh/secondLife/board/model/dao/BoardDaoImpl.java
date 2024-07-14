@@ -106,9 +106,16 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	// 게시물 수정 POST
+	/* 게시물 글 수정 */
 	@Override
 	public int updateBoard(Board board) {
 		return sqlSession.update("board.updateBoardImg", board);
+	}
+
+	/* 게시물 첨부파일 수정 */
+	@Override
+	public int updateBoardImg(BoardImg bi) {
+		return sqlSession.update("board.updateBoardImg", bi);
 	}
 
 }
