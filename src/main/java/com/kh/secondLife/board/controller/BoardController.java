@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -106,6 +107,7 @@ public class BoardController {
 			//첨부파일
 			@RequestParam(value="upfile[]", required=false) MultipartFile[] upfile // 항상 객체 생성
 			) {
+
 		// 넘어온 값 확인
 		log.debug("loginUser - {}", loginUser);
 		log.debug("업로드 파일 정보 - {}", upfile);
@@ -326,6 +328,33 @@ public class BoardController {
 		model.addAttribute("categoryName", categoryName);
 		
 		return "board/boardDetailView";
+	}
+	
+	@PostMapping("/like/{boardNo}")
+	@ResponseBody
+	public Map<String, Object> insertLike(
+			@PathVariable (value="boardNo", required=true) int boardNo,
+			@ModelAttribute("loginUser") Member member,
+			Map<String, Object> paramMap,
+			RedirectAttributes ra
+			){
+			
+		// 게시글 찜 기능 
+		
+		// 1. 게시글 찜을 누를때 DB에 추가 
+		paramMap.put("memberNo", member.getMemberNo());
+		paramMap.put("boardNo", boardNo);
+		int result = 0;
+		
+		// 2. 예외처리를 해서 중복된 행이 추가되지 않게 만든다.   
+		try {
+			result = boardService.insertLike(paramMap);
+		} catch (Exception e) {
+			ra.addFlashAttribute("errorMsg", "이미 찜한 상품입니다.");
+		}
+		paramMap.put("result", result);
+		
+		return paramMap;
 	}
 	
 }

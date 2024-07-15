@@ -24,6 +24,7 @@
 			DEFAULT,
 			DEFAULT,
 			DEFAULT,
+			DEFAULT,
 			DEFAULT
 		)
 	
@@ -237,4 +238,16 @@
 		SELECT COUNT(*)
 		FROM BOARD
 	</select>
+	
+	<!-- 게시글 찜하기 기능(insert) -->
+	<insert id="insertLike">
+		INSERT INTO FAVORITE_LIST 
+		VALUES 
+		(
+		    #{memberNo},
+		    #{boardNo},
+		    DEFAULT
+		    )
+	</insert>
+	
 </mapper>
