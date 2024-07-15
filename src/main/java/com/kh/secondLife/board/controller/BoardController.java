@@ -107,6 +107,7 @@ public class BoardController {
 			//첨부파일
 			@RequestParam(value="upfile[]", required=false) MultipartFile[] upfile // 항상 객체 생성
 			) {
+
 		// 넘어온 값 확인
 		log.debug("loginUser - {}", loginUser);
 		log.debug("업로드 파일 정보 - {}", upfile);
@@ -136,7 +137,6 @@ public class BoardController {
 				BoardImg bi = new BoardImg();
 				bi.setChangeName(changeName);
 				log.debug("이미지의 원본명 - {}", image.getOriginalFilename());
-				bi.setOriginName(image.getOriginalFilename());
 				bi.setImgPath(webPath);
 				
 				biList.add(bi);

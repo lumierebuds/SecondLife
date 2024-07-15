@@ -4,31 +4,89 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="chat">
-
-   <select id="selectAllChatRooms" resultType="com.kh.secondLife.chat.model.vo.ChatRoom">
-    SELECT * FROM chat_room
-  </select>
   
-  <select id="selectChatRoomList" parameterType="int" resultType="com.kh.secondLife.chat.model.vo.ChatRoom">
-    SELECT * FROM chat_room
-    WHERE first_member_no = #{memberNo} OR second_member_no = #{memberNo}
-  </select>
+	<select id="selectMemberChatRoomList" resultType="chatRoomExt">
+	  SELECT
+	  	CHAT_ROOM_NO,
+	  	BOARD_NO,
+	  	FIRST_MEMBER_NO,
+	  	SECOND_MEMBER_NO,
+	  	CR.CREATE_DATE,
+	  	NOTICE,
+	  	PRODUCT_NAME,
+	  	M.NICKNAME
+	  FROM CHAT_ROOM "CR"
+	  LEFT JOIN BOARD "B" USING (BOARD_NO)
+	  LEFT JOIN MEMBER "M" ON (FIRST_MEMBER_NO = #{memberNo} AND SECOND_MEMBER_NO = MEMBER_NO)
+	  						  OR
+	  						  (SECOND_MEMBER_NO = #{memberNo} AND FIRST_MEMBER_NO = MEMBER_NO)
+	  WHERE CR.STATUS = 'Y'
+	    AND B.STATUS = 'Y'
+	    AND M.STATUS = 'Y'
+	</select>
 
-  <insert id="insertChatRoom">
-    INSERT INTO chat_room (board_no, first_member_no, second_member_no, create_date, status, notice)
-    VALUES (#{boardNo}, #{firstMemberNo}, #{secondMemberNo}, #{createDate}, #{status}, #{notice})
-  </insert>
+	<insert id="insertChatRoom" useGeneratedKeys="true">
+	
+	  <selectKey keyProperty="chatRoomNo" resultType="int" order="BEFORE">
+		  SELECT SEQ_CHAT_ROOM_NO.NEXTVAL
+		  FROM DUAL
+	  </selectKey>
+	
+	  INSERT INTO CHAT_ROOM(
+	  	CHAT_ROOM_NO,
+	  	BOARD_NO,
+	  	FIRST_MEMBER_NO,
+	  	SECOND_MEMBER_NO
+	  )
+	  VALUES (
+	  	SEQ_CHAT_ROOM_NO.CURRVAL,
+	  	#{boardNo},
+	  	#{firstMemberNo},
+	  	#{secondMemberNo}
+	  )
+	</insert>
+	
+	<insert id="joinChatRoom">
+		INSERT INTO CHAT_ROOM_JOIN
+		VALUES (
+			#{chatRoomNo},
+			#{memberNo}
+		)
+	</insert>
 
-  <delete id="deleteChatRoomMember" parameterType="map">
-    DELETE FROM chat_room_user 
-    WHERE chat_room_no = #{chatRoomNo} AND member_no = #{memberNo}
-  </delete>
+	<delete id="leaveChatRoom">
+	  DELETE FROM CHAT_ROOM_JOIN 
+	  WHERE CHAT_ROOM_NO = #{chatRoomNo} AND MEMBER_NO = #{memberNo}
+	</delete>
 
   <select id="countChatRoomMembers" parameterType="int" resultType="int">
-    SELECT COUNT(*) FROM chat_room_user WHERE chat_room_no = #{chatRoomNo}
+    SELECT COUNT(*) FROM CHAT_ROOM_JOIN WHERE CHAT_ROOM_NO = #{chatRoomNo}
   </select>
 
-  <delete id="deleteChatRoom" parameterType="int">
-    DELETE FROM chat_room WHERE chat_room_no = #{chatRoomNo}
-  </delete>
+  <update id="deleteChatRoom" parameterType="int">
+    UPDATE CHAT_ROOM
+    SET STATUS = 'N'
+    WHERE CHAT_ROOM_NO = #{chatRoomNo}
+  </update>
+  
+  <insert id="insertMessage">
+  	INSERT INTO CHAT_MESSAGE(
+  		CHAT_MESSAGE_NO,
+  		CHAT_ROOM_NO,
+  		MESSAGE,
+  		MEMBER_NO
+  	) VALUES (
+  		#{chatMessageNo},
+  		#{chatRoomNo},
+  		#{message},
+  		#{memberNo}
+  	)
+  </insert>
+  
+  <select id="selectChatMessageList" resultType="chatMessage">
+  	SELECT *
+  	FROM CHAT_MESSAGE
+  	WHERE CHAT_ROOM_NO = #{chatRoomNo}
+  	ORDER BY CREATE_DATE
+  </select>
 </mapper>

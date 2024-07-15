@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/member")
-@SessionAttributes({"loginUser"})
+@SessionAttributes({"loginUser", "chatRoomList"})
 @RequiredArgsConstructor
 public class MemberController {
 	
@@ -55,10 +55,9 @@ public class MemberController {
 	        model.addAttribute("loginUser", loginUser);
 	        session.setAttribute("loginUser", loginUser); // 로그인 인터셉터에서 사용하기 위함
 	        
-	        String nextUrl = (String) session.getAttribute("nextUrl");
-	        viewName = "redirect:" + (nextUrl != null ? nextUrl : "/");
+	        viewName = "redirect:/";
 
-          log.debug("로그인 한 유저 정보 - {}", loginUser);
+	        log.debug("로그인 한 유저 정보 - {}", loginUser);
 	        viewName = "redirect:/";
 	        if(loginUser.getAdminAuth().equals("Y")) {
 	        	viewName += "admin/memberManage/1";
