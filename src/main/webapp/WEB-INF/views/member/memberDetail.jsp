@@ -179,7 +179,7 @@
             </div>
             <div class="choices">
               <div class="선택들">
-                <p>판매내역</p>
+                <a href="/secondlife/member/sellerSell/${member.memberNo}"><p>판매내역</p></a>
               </div>
             </div>
             <div class="choices">

@@ -1,5 +1,7 @@
 package com.kh.secondLife.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.member.model.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -236,6 +239,21 @@ public class MemberController {
 		return "member/buy";
 	}
 	
+	// 판매자의 판매내역 
+	@GetMapping("/sellerSell/{memberNo}")
+	public String sellerSell(@PathVariable(value="memberNo", required = true) int memberNo,
+			Model model) {
+		List<BoardExt> boardList = (List<BoardExt>)mService.selectSellerBoardList(memberNo);
+		
+		model.addAttribute("boardList" , boardList);
+		
+		Member member = mService.selectMemberInfo(memberNo);
+		model.addAttribute("member", member);
+		return "member/sellerSell";
+	}
+	
+	
+	
 
 	
 	@GetMapping("/memberDetail/{memberNo}")
@@ -243,7 +261,8 @@ public class MemberController {
 					Model model) {
 		
 		Member member = mService.selectMemberInfo(memberNo);
-			
+		log.debug("조회할 회원 : {}" , member );	
+		
 		model.addAttribute("member", member);
 		return "member/memberDetail";
 	}

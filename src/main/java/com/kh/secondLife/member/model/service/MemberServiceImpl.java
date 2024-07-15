@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.member.model.dao.MemberDao;
 import com.kh.secondLife.member.model.vo.Member;
 
@@ -78,6 +79,11 @@ public class MemberServiceImpl implements MemberService{
         } catch (Exception e) {
             return false;
         }
+	}
+
+	@Override
+	public List<BoardExt> selectSellerBoardList(int memberNo) {
+		return dao.selectSellerBoardList(memberNo);
 	}
 
 	
