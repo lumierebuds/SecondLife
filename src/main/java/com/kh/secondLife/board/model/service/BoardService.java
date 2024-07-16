@@ -36,8 +36,12 @@ public interface BoardService {
 	
 	int selectBoardListCount(Map<String, Object> paramMap);
 
+
+	boolean deleteBoardByNo(int boardNo);
+
 	int insertLike(Map<String, Object> paramMap) throws Exception;
 
 	int deleteBoard(Map<String, Object> paramMap) throws Exception;
+
 	
 }

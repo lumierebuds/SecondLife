@@ -133,6 +133,17 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.selectBoardListCount(paramMap);
 	}
 
+
+
+	@Override
+	public boolean deleteBoardByNo(int boardNo) {
+		try {
+            return boardDao.deleteBoardByNo(boardNo);
+        } catch (Exception e) {
+            return false;
+        }
+	}
+
 	
 	
 	@Override
@@ -159,5 +170,6 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 	
+
 
 }

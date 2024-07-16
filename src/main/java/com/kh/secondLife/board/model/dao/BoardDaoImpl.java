@@ -96,6 +96,12 @@ public class BoardDaoImpl implements BoardDao{
 	public int selectBoardListCount(Map<String, Object> paramMap) {
 		return sqlSession.selectOne("board.selectBoardListCount", paramMap);
 	}
+
+	@Override
+	public boolean deleteBoardByNo(int boardNo) {
+		int result = sqlSession.delete("board.deleteBoardByNo", boardNo);
+        return result > 0;
+	}
 	
 
 	@Override

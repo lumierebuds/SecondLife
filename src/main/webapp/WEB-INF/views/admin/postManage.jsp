@@ -190,6 +190,10 @@ header {
 .main .buttons .post {
 	margin-right: 5px;
 }
+
+.selected-row {
+    background-color: #B08968;
+}
 </style>
 </head>
 <body>
@@ -222,11 +226,6 @@ header {
 						<div class="choices">
 							<div class="선택들">
 								<a href="/secondlife/admin/postManage/1"><p>거래글관리</p></a>
-							</div>
-						</div>
-						<div class="choices">
-							<div class="선택들">
-								<a href="/secondlife/admin/reportManage"><p>신고관리</p></a>
 							</div>
 						</div>
 					</div>
@@ -276,7 +275,7 @@ header {
 								<th>작성일자</th>
 							</tr>
 							<c:forEach items="${bList}" var="board">
-								<tr>
+								<tr class="board-row" data-board-id="${board.boardNo}">
 									<td>${board.boardNo}</td>
 									<td>${board.nickname}(${board.id})</td>
 									<td>${board.productName}</td>
@@ -399,6 +398,47 @@ header {
         if (e.target === e.currentTarget) {
             e.currentTarget.style.display = 'none';
         }
+    });
+    
+    $(document).ready(function() {
+        if (test=${not empty alertMsg}) {
+            alert("${alertMsg}")
+        }
+    });
+
+    // 거래글 삭제 버튼 클릭 시 확인 대화상자
+    document.querySelector('.delete').addEventListener('click', function() {
+        var selectedRow = document.querySelector('.board-row.selected-row');
+        if (selectedRow) {
+            var boardNo = selectedRow.getAttribute('data-board-id');
+            if (confirm('정말 삭제하시겠습니까?')) {
+                $.ajax({
+                    url: '/secondlife/admin/deleteBoard',
+                    type: 'POST',
+                    data: { boardNo: boardNo },
+                    success: function(response) {
+                        if (response.success) {
+                            alert('거래글이 삭제되었습니다.');
+                            location.reload(); // 페이지 새로고침
+                        } else {
+                            alert('거래글 삭제에 실패했습니다.');
+                        }
+                    }
+                });
+            }
+        } else {
+            alert('삭제할 거래글을 선택해주세요.');
+        }
+    });
+
+    // 게시물 행 클릭 시 선택 및 색상 변경
+    document.querySelectorAll('.board-row').forEach(function(row) {
+        row.addEventListener('click', function() {
+            document.querySelectorAll('.board-row').forEach(function(r) {
+                r.classList.remove('selected-row');
+            });
+            this.classList.add('selected-row');
+        });
     });
 
 </script>

@@ -248,6 +248,18 @@
 		FROM BOARD
 	</select>
 	
+
+	<!--  관리자 게시글 삭제 기능 -->
+	<update id="deleteBoardByNo" parameterType="int"> 
+        UPDATE BOARD
+        SET STATUS = 'N'
+        WHERE BOARD_NO = #{boardNo}
+   </update>
+	
+	
+	
+	
+
 	<!-- 게시글 찜하기 기능(insert) -->
 	<insert id="insertLike">
 		INSERT INTO FAVORITE_LIST 
@@ -266,5 +278,6 @@
         WHERE BOARD_NO = #{boardNo} 
         AND BOARD_WRITER = #{memberNo}
 	</update>
+
 	
 </mapper>
