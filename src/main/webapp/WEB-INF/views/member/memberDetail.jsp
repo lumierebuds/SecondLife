@@ -179,7 +179,7 @@
             </div>
             <div class="choices">
               <div class="선택들">
-                <p>판매내역</p>
+                <a href="/secondlife/member/sellerSell/${member.memberNo}"><p>판매완료 내역</p></a>
               </div>
             </div>
             <div class="choices">
@@ -208,7 +208,7 @@
                   <td>${member.email }</td>
                 </tr>
               </table>
-              <img src="/secondlife/resources/images/SecondLife_profile.png" alt="" width="180px" height="200px">
+              <img src="/secondlife/resources/images/프로필 사진.png" alt="프로필 사진" width="180px" height="200px">
             </div>
           </div>
         </div>

@@ -1,6 +1,10 @@
 package com.kh.secondLife.member.controller;
 
+<<<<<<< HEAD
 import java.util.Map;
+=======
+import java.util.List;
+>>>>>>> origin/dujin
 
 import javax.servlet.http.HttpSession;
 
@@ -18,8 +22,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.secondLife.member.model.vo.FavoriteList;
 import com.kh.secondLife.member.model.vo.Member;
-import com.kh.secondLife.member.model.vo.Review;
+import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.member.model.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -228,27 +233,59 @@ public class MemberController {
 		return "/member/sell";
 	}
 	
-	@GetMapping("/basket")
-	public String basket() {
-		return "member/basket";
-	}
+	
 	
 	@GetMapping("/buy")
 	public String buy() {
 		return "member/buy";
 	}
 	
-
+	// 판매자의 판매내역 
+	@GetMapping("/sellerSell/{memberNo}")
+	public String sellerSell(@PathVariable(value="memberNo", required = true) int memberNo,
+			Model model) {
+		List<BoardExt> boardList = (List<BoardExt>)mService.selectSellerBoardList(memberNo);
+		
+		model.addAttribute("boardList" , boardList);
+		
+		Member member = mService.selectMemberInfo(memberNo);
+		model.addAttribute("member", member);
+		return "member/sellerSell";
+	}
+	
+	// 나의 판매내역
+	@GetMapping("/sell/{memberNo}")
+	public String sell(@PathVariable(value="memberNo", required = true) int memberNo,
+			Model model) {
+		List<BoardExt> boardList = (List<BoardExt>)mService.selectMySellBoardList(memberNo);
+		
+		model.addAttribute("boardList" , boardList);
+		
+		Member member = mService.selectMemberInfo(memberNo);
+		model.addAttribute("member", member);
+		return "member/sell";
+	}
+	
+	
 	
 	@GetMapping("/memberDetail/{memberNo}")
 	public String memberDetail(@PathVariable(value="memberNo", required = true) int memberNo,
 					Model model) {
 		
 		Member member = mService.selectMemberInfo(memberNo);
-			
+		log.debug("조회할 회원 : {}" , member );	
+		
 		model.addAttribute("member", member);
 		return "member/memberDetail";
 	}
+	
+	@GetMapping("/basket")
+    public String basket(@ModelAttribute("loginUser") Member loginUser, Model model) {
+        List<BoardExt> wishlist = mService.getWishlist(loginUser.getMemberNo());
+        model.addAttribute("wishlist", wishlist);
+        return "member/basket";
+    }
+	
 	
 	
 

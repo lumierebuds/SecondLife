@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -34,7 +36,7 @@
 .choice {
 	width: 100%;
 	height: 70%;
-	margin-top: 90px;
+	margin-top: 130px;
 }
 
 .선택들 {
@@ -266,7 +268,7 @@ header {
 								<p>나의 판매내역</p>
 							</div>
 							<div class="gun">
-								<p>1건</p>
+								<p>${fn:length(boardList)}건</p>
 							</div>
 							<div class="delete">
 								<div class="all">
@@ -284,11 +286,14 @@ header {
 
 						<hr class="hello">
 
+
+						<c:if test="${not empty boardList}">
+						<c:forEach items="${boardList}" var="board">
 						<div class="information">
 							<div class="box1">
 								<input type="checkbox" class="box-1">
 								<div class="date">
-									<p>24년 06월 12일</p>
+									<p>${board.createDate}</p>
 								</div>
 								<div class="condition">
 									<p>거래완료 &gt</p>
@@ -296,20 +301,27 @@ header {
 							</div>
 							<hr class="hello2">
 							<div class="box2">
-								<img src="${contextPath}/resources/images/SecondLife_profile.png" alt="" width="80px" height="100px">
+								<img src="/secondlife/${board.biList.get(0).imgPath}${board.biList.get(0).changeName}" alt="" width="80px" height="100px">
 								<div class="text">
 									<div class="won">
-										<p>19,000원</p>
+										<p>${board.price}원</p>
 									</div>
 									<div class="info1">
-										<p>[새상품급] 남성 검은 티셔츠 급처합니다.</p>
+										<p>${board.productName}</p>
 									</div>
 									<div class="info2">
-										<p>준씨샵 / 택배거래</p>
+										<p>
+											<c:if test="${board.tradeCategoryNo == 0}">택배거래</c:if>
+											<c:if test="${board.tradeCategoryNo == 1}">직거래</c:if>
+											<c:if test="${board.tradeCategoryNo == 2}">택배거래 혹은 직거래</c:if>
+										</p>
 									</div>
 								</div>
 							</div>
 						</div>
+						</c:forEach>
+						</c:if>
+						
 					</div>
 				</div>
 			</div>

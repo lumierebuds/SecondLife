@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Second Life - 상품의 새 삶</title>
-<link
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Life - 상품의 새 삶</title>
+    <link rel="stylesheet" href="/secondlife/resources/css/member/sellerSell.css">
+    <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="/secondlife/resources/css/myPage.css">
 <style>
 .centered-content {
 	display: flex;
@@ -33,7 +36,7 @@
 .choice {
 	width: 100%;
 	height: 70%;
-	margin-top: 130px;
+	margin-top: 90px;
 }
 
 .선택들 {
@@ -84,20 +87,18 @@
 	font-weight: bold;
 }
 
-.delete button {
-	margin-top: 7px;
-	margin-left: 440px;
-	border: 0;
-	width: 60px;
-	height: 30px;
-	background-color: #B08968;
-	color: #EDE0D4;
-	border-radius: 5px;
+.delete {
+	margin-top: 20px;
+	display: flex;
+	margin-left: 365px;
 }
 
-.delete p {
-	margin-top: 3px;
-	font-size: 15px;
+.title-title input{
+    margin-left: 30px;
+	font-size: 30px;
+	font-weight: bold;
+	color: #7F5539;
+	background-color: #F2E7DC;
 }
 
 .nall {
@@ -116,6 +117,7 @@
 	border: 1px solid #B08968;
 	border-radius: 10px;
 	background-color: #E6CCB2;
+	
 }
 
 .box1 {
@@ -123,7 +125,7 @@
 }
 
 .box-1 {
-	accent-color: #7F5539;
+	accent-color: #7F5539
 }
 
 .information .box1 .box-1 {
@@ -217,67 +219,56 @@ header {
 .header-user-menu-item a {
 	color: #7F5539;
 }
+
+.목록들{
+	overflow-y: auto; /* scroll 대신 auto 사용 */
+	max-height: 489px; /* 필요한 높이로 조정 */
+}
+
 </style>
 </head>
 <body>
-	<div id="container">
+    <div id="container">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
-		<main class="centered-content">
+		<main class="centered-content" >
 			<div class="marginer"></div>
 			<div class="content">
 				<div class="tap">
 					<div class="choice">
 						<div class="choices">
 							<div class="선택들">
-								<a href="/secondlife/member/myPage"><p>내 정보</p></a>
-							</div>
+				               <a href="/secondlife/member/memberDetail/${member.memberNo}"><p>사용자 정보</p></a>
+				             </div>
 						</div>
-						<div class="choices">
-							<div class="선택들">
-								<a href="/secondlife/member/sell"><p>판매내역</p></a>
-							</div>
-						</div>
-						<div class="choices">
-							<div class="선택들">
-								<a href="/secondlife/member/buy"><p>구매내역</p></a>
-							</div>
-						</div>
-
-						
-
-						<div class="choices">
-							<div class="선택들">
-								<a href="/secondlife/member/basket"><p>찜 목록</p></a>
-							</div>
-						</div>
+						<div class="선택들">
+			                <a href="/secondlife/member/sellerSell"><p>판매완료 내역</p></a>
+			             </div>
 					</div>
 				</div>
 
-				<div class="main">
+				<div class="main"  >
 					<div class="title">
 						<div class="빈공간"></div>
 						<div class="semi-title">
 							<div class="title-title">
-								<p>나의 구매내역</p>
+								<p>${member.nickname}님의 판매완료 내역</p>
 							</div>
 							<div class="gun">
-								<p>1건</p>
+								<p>${fn:length(boardList)}건</p>
 							</div>
-							<div class="delete">
-								<button>
-									<p>삭제</p>
-								</button>
-							</div>
+							
 						</div>
 
 						<hr class="hello">
-
-						<div class="information">
+						<div class="목록들" style="overflow-y: auto; max-height: 489px;" >
+						<c:if test="${not empty boardList}">
+						<c:forEach items="${boardList}" var="board" >
+						<div class="information"  >
 							<div class="box1">
 								<input type="checkbox" class="box-1">
-								<div class="date">
-									<p>24년 06월 08일</p>
+								<div class="date" >
+									<p>${board.createDate}</p>
 								</div>
 								<div class="condition">
 									<p>거래완료 &gt</p>
@@ -285,20 +276,28 @@ header {
 							</div>
 							<hr class="hello2">
 							<div class="box2">
-								<img src="${contextPath}/resources/images/SecondLife_profile.png" alt="" width="80px" height="100px">
+								<img src="/secondlife/${board.biList.get(0).imgPath}${board.biList.get(0).changeName}" alt="" width="80px" height="100px">
 								<div class="text">
 									<div class="won">
-										<p>3,000원</p>
+										<p>${board.price}원</p>
 									</div>
 									<div class="info1">
-										<p>[새상품급] 남성 흰 티셔츠 급처합니다.</p>
+										<p>${board.productName}</p>
 									</div>
 									<div class="info2">
-										<p>아줌씨 / 만남거래</p>
+										<p>
+											<c:if test="${board.tradeCategoryNo == 0}">택배거래</c:if>
+											<c:if test="${board.tradeCategoryNo == 1}">직거래</c:if>
+											<c:if test="${board.tradeCategoryNo == 2}">택배거래 혹은 직거래</c:if>
+										</p>
 									</div>
 								</div>
 							</div>
 						</div>
+						</c:forEach>
+						</c:if>
+						</div>
+						
 					</div>
 				</div>
 			</div>

@@ -1,9 +1,12 @@
 package com.kh.secondLife.member.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.member.model.vo.Member;
 import com.kh.secondLife.member.model.vo.Review;
 
@@ -58,6 +61,21 @@ public class MemberDaoImpl implements MemberDao{
 	public boolean deleteMemberById(String memberId) {
 		int result = sqlSession.delete("member.deleteMemberById", memberId);
         return result > 0;
+	}
+
+	@Override
+	public List<BoardExt> selectSellerBoardList(int memberNo) {
+		return sqlSession.selectList("member.selectSellBoardList", memberNo);
+	}
+
+	@Override
+	public List<BoardExt> selectMySellBoardList(int memberNo) {
+		return sqlSession.selectList("member.selectMySellBoardList", memberNo);
+	}
+
+	@Override
+	public List<BoardExt> getWishlist(int memberNo) {
+		return sqlSession.selectList("member.getWishlist", memberNo);
 	}
 	
 	@Override

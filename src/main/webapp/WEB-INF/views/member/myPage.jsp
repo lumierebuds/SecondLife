@@ -30,7 +30,7 @@
       .choice {
         width: 100%;
         height: 70%;
-        margin-top: 90px;
+        margin-top: 130px;
       }
 
       .선택들 {
@@ -225,7 +225,7 @@
                     <td>${loginUser.nickname}</td>
                   </tr>
                 </table>
-                <img src="${contextPath}/resources/images/SecondLife_profile.png" alt="프로필사진" width="180px" height="200px">
+                <img src="/secondlife/resources/images/프로필 사진.png" alt="프로필사진" width="180px" height="200px">
               </div>
               <div class="buttons">
                 <a class="수정" href="/secondlife/member/modify"><p>회원정보수정</p></a>

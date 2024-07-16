@@ -1,5 +1,8 @@
 package com.kh.secondLife.member.model.service;
 
+import java.util.List;
+
+import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.member.model.vo.Member;
 import com.kh.secondLife.member.model.vo.Review;
 
@@ -24,5 +27,10 @@ public interface MemberService {
 
 	boolean deleteMemberById(String memberId);
 
-	int insertReview(Review review);
+	List<BoardExt> selectSellerBoardList(int memberNo);
+
+	List<BoardExt> selectMySellBoardList(int memberNo);
+
+	List<BoardExt> getWishlist(int memberNo);
+
 }

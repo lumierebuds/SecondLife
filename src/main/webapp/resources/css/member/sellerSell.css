@@ -11,7 +11,7 @@ body {
     color: black;
   }
   
-  #container {
+  .container {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -23,8 +23,6 @@ body {
     width: 15%;
     flex-grow: 1;
     height: 100%;
-    /* border-bottom: 1px solid black;
-    border-top: 1px solid black; */
   }
   
   header {
@@ -39,8 +37,6 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
-   /*  border-bottom: 1px solid black;
-    border-top: 1px solid black; */
   }
   
   .header-title {
@@ -104,6 +100,7 @@ body {
   nav {
     width: 99.9vw;
     height: 80px;
+   /*  border: 1px solid black; */
     display: flex;
   }
   
@@ -111,7 +108,7 @@ body {
     flex-basis: 1024px;
     flex-shrink: 0;
     height: 100%;
-    border: 1px solid black;
+   /*  border: 1px solid black; */
     padding: 20px;
     display: flex;
   }
@@ -164,7 +161,6 @@ body {
     flex-basis: 1024px;
     flex-shrink: 0;
     height: 100%;
-    /* border: 1px solid black; */
   }
   /* 메인 스타일 끝*/
   
@@ -179,8 +175,8 @@ body {
     flex-basis: 1024px;
     flex-shrink: 0;
     height: 100%;
-    /* border-bottom: 1px solid black;
-    border-top: 1px solid black; */
+    /* border-bottom: 1px solid black; */
+    /* border-top: 1px solid black; */
     display: flex;
     flex-direction: column;
   }
