@@ -1,10 +1,9 @@
 package com.kh.secondLife.member.controller;
 
-<<<<<<< HEAD
 import java.util.Map;
-=======
+
 import java.util.List;
->>>>>>> origin/dujin
+
 
 import javax.servlet.http.HttpSession;
 
@@ -299,7 +298,7 @@ public class MemberController {
 		return "member/insertReview";
 	}
 	
-	@PostMapping("/review/insert")
+	/*@PostMapping("/review/insert")
 	public String insertReview(
 			Model model,
 			Review review,
@@ -321,6 +320,6 @@ public class MemberController {
 		}
 		
 		return url;
-	}
+	}*/
 	
 }

@@ -11,7 +11,7 @@ function deleteChatRoom(chatRoomNo) {
     if (confirm("채팅방을 나가면 채팅 내역을 더이상 확인할 수 없어요. 정말 나가시겠어요?")) {
         // AJAX 요청을 통해 서버에 채팅방 삭제 요청
         $.ajax({
-            url: `/secondlife/chat/room/leave/\${chatRoomNo}`,
+            url: `/secondlife/chat/room/leave/${chatRoomNo}`,
             method: 'post',
             success: function(result) {
                 if (result > 0) {
