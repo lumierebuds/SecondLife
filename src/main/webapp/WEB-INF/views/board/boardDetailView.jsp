@@ -164,7 +164,7 @@
                   <div class="seller-name"><a href="/secondlife/member/memberDetail/${member.memberNo }">${member.nickname}</a></div>
                   <div class="seller-img">
                   	<c:if test="${member.profileImg eq null}">
-                 		<img src="/secondlife/resources/images/사이트 로고.png" alt=""> 
+                 		<img src="/secondlife/resources/images/SecondLife_profile.png" alt=""> 
                   	</c:if>
                   </div>
                 </div>

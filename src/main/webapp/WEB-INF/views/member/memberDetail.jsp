@@ -208,7 +208,7 @@
                   <td>${member.email }</td>
                 </tr>
               </table>
-              <img src="/빠끄껀.jpg" alt="" width="180px" height="200px">
+              <img src="/secondlife/resources/images/SecondLife_profile.png" alt="" width="180px" height="200px">
             </div>
           </div>
         </div>

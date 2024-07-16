@@ -259,7 +259,7 @@ header {
 							<hr class="hello">
 							<div class="찜들">
 								<div class="찜">
-									<img src="/성민.jpg" alt="" width="120px" height="160px">
+									<img src="${contextPath}/resources/images/SecondLife_profile.png" alt="" width="120px" height="160px">
 									<div class="information">
 										<div class="titles">
 											<div class="title">
@@ -280,7 +280,7 @@ header {
 									</div>
 								</div>
 								<div class="찜">
-									<img src="/민혁.jpg" alt="" width="120px" height="160px">
+									<img src="${contextPath}/resources/images/SecondLife_profile.png" alt="" width="120px" height="160px">
 									<div class="information">
 										<div class="titles">
 											<div class="title">

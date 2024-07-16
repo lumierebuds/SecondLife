@@ -55,7 +55,7 @@
 	              <a href="/secondlife/board/detail/${board.boardNo}" class="card-anchor">
 	                <div class="board-thumbnail">
 	                  <c:if test="${board.biList.size() ne 0 }">
-	                  	<img src="/secondlife/${board.biList.get(0).imgPath}/${board.biList.get(0).changeName}" alt="${board.productName}" />
+	                  	<img src="/secondlife/${board.biList.get(0).imgPath}${board.biList.get(0).changeName}" alt="${board.productName}" />
 	                  </c:if>
 					  <c:if test="${board.biList.size() eq 0 }"> <!-- 이미지가 존재하지 않을때 (사이트 로고) -->
 					  	<img src="/secondlife/resources/images/사이트 로고.png" alt="${board.productName}" />

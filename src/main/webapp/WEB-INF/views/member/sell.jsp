@@ -296,7 +296,7 @@ header {
 							</div>
 							<hr class="hello2">
 							<div class="box2">
-								<img src="/빠끄껀.jpg" alt="" width="80px" height="100px">
+								<img src="${contextPath}/resources/images/SecondLife_profile.png" alt="" width="80px" height="100px">
 								<div class="text">
 									<div class="won">
 										<p>19,000원</p>

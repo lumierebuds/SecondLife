@@ -44,7 +44,7 @@
                 <c:forEach var="chatRoom" items="${chatRoomList}">
                     <li class="nav-item" data-no="${chatRoom.chatRoomNo}">
                         <div class="chat-room-info">
-                            <img class="profile-img" src="../resources/images/defaultImg.png" alt="${chatRoom.nickname}">
+                            <img class="profile-img" src="/secondlife/resources/images/SecondLife_profile.png" alt="${chatRoom.nickname}">
                             <div class="profile-info">
                                 <p class="member-nickname">${chatRoom.nickname}</p>
                                 <p class="product-name">${chatRoom.productName}</p>

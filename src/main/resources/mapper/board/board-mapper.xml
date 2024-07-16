@@ -82,6 +82,7 @@
 		SELECT COUNT(*)
 		FROM BOARD
 		WHERE STATUS = 'Y'
+		  AND SALE_CONDITION = 'N'
 		<choose>
 			<when test="search != null and search != ''">
 			AND 
@@ -267,6 +268,8 @@
 	<select id="selectBoardListCount" resultType="int">
 		SELECT COUNT(*)
 		FROM BOARD
+		WHERE SALE_CONDITION = 'N'
+		  AND STATUS = 'Y'
 	</select>
 	
 
