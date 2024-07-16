@@ -225,7 +225,7 @@
                     <td>${loginUser.nickname}</td>
                   </tr>
                 </table>
-                <img src="/빠끄껀.jpg" alt="프로필사진" width="180px" height="200px">
+                <img src="/secondlife/resources/images/프로필 사진.png" alt="프로필사진" width="180px" height="200px">
               </div>
               <div class="buttons">
                 <a class="수정" href="/secondlife/member/modify"><p>회원정보수정</p></a>
