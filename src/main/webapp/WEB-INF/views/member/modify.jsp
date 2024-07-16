@@ -306,14 +306,14 @@ form {
 									<option value="nate.com">nate.com</option>
 								</select>
 							</div>
-							<div class="form-group file-group">
+							<!-- <div class="form-group file-group">
 								<label for="profile-pic">프로필 사진</label>
 								<div class="file-input-container">
 									<input type="text" id="profile-pic" name="profile-pic"
 										class="profile-pic-input">
 									<button type="button" class="file-select">파일 선택</button>
 								</div>
-							</div>
+							</div> -->
 
 
 

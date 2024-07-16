@@ -103,12 +103,23 @@ public class BoardDaoImpl implements BoardDao{
         return result > 0;
 	}
 	
-	
 
 	@Override
 	public int increateCount(int boardNo) {
 		
 		return sqlSession.update("board.increaseCount", boardNo);
+	}
+
+	@Override
+	public int insertLike(Map<String, Object> paramMap) {
+		
+		return sqlSession.insert("board.insertLike", paramMap);
+	}
+
+	@Override
+	public int deleteBoard(Map<String, Object> paramMap) {
+		
+		return sqlSession.update("board.deleteBoard", paramMap);
 	}
 
 }

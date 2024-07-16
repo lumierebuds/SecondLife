@@ -24,6 +24,7 @@
 			DEFAULT,
 			DEFAULT,
 			DEFAULT,
+			DEFAULT,
 			DEFAULT
 		)
 	
@@ -83,6 +84,8 @@
 		<result column="NICKNAME" property="nickname"/>
 		<result column="ID" property="id"/>
 		<result column="COUNT" property="count"/>
+		<result column="TRADE_CATEGORY_NO" property="tradeCategoryNo"/>
+		<result column="CONDITION" property="condition"/>
 		
 		<collection property="biList" javaType="List" ofType="boardImg">
 			<id column="BOARD_IMG_NO" property="boardImgNo"/>
@@ -108,6 +111,7 @@
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		WHERE B.STATUS = 'Y'
 		  AND BI.STATUS = 'Y'
+		  AND SALE_CONDITION = 'N'
 		<!-- 카테고리 or 검색 결과 -->
 		<choose>
 			<when test="search != null and search !=''">
@@ -138,6 +142,9 @@
 		  B.CREATE_DATE AS CREATE_DATE,
 		  BOARD_WRITER,
 		  COUNT,
+		  TRADE_CATEGORY_NO,
+		  CONDITION,
+		  
 		  
 		  BOARD_IMG_NO,
 		  IMG_PATH,
@@ -146,6 +153,7 @@
 		LEFT JOIN BOARD_IMG "BI"
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{boardNo}
+		AND SALE_CONDITION = 'N'
 	</select>
 	
 	
@@ -240,6 +248,7 @@
 		FROM BOARD
 	</select>
 	
+
 	<!--  관리자 게시글 삭제 기능 -->
 	<update id="deleteBoardByNo" parameterType="int"> 
         UPDATE BOARD
@@ -250,5 +259,25 @@
 	
 	
 	
+
+	<!-- 게시글 찜하기 기능(insert) -->
+	<insert id="insertLike">
+		INSERT INTO FAVORITE_LIST 
+		VALUES 
+		(
+		    #{memberNo},
+		    #{boardNo},
+		    DEFAULT
+		    )
+	</insert>
+	
+	<!-- 게시글 삭제하기 기능(update) -->
+	<update id="deleteBoard">
+		UPDATE BOARD 
+		SET STATUS = 'N'
+        WHERE BOARD_NO = #{boardNo} 
+        AND BOARD_WRITER = #{memberNo}
+	</update>
+
 	
 </mapper>
