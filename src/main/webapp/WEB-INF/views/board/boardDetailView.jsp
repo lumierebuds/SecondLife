@@ -272,7 +272,7 @@
       $(".chat-btn").click(function () {	
         $.ajax({
           url : '${contextPath}/chat/room/insert',
-          type : 'post',
+          method : 'post',
           data : {
             'boardNo' : '${board.boardNo}',
             'secondMemberNo' : '${board.boardWriter}'

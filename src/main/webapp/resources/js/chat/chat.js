@@ -90,8 +90,15 @@ function currentTime() {
     return `${now.getFullYear()}-${month}-${date}`; // 2024-06-21
 }
 
-$('.send-message-btn').on('click', function () {
+$('.send-message-btn').on('click', function (e) {
     // 메시지 전송 로직을 구현하는 함수
+    e.preventDefault();
+
+    nextChatMessageNo = $('.message-collect').find('p').length;
+    console.log(nextChatMessageNo);
+
+    $(this).attr('disabled', true);
+
     var $inputMessage = $('.chat-message-area');
 
     if(!$.trim($inputMessage.val())) {
@@ -115,4 +122,6 @@ $('.send-message-btn').on('click', function () {
     chattingSocket.send(jsonParsedMessage);
 
     document.querySelector('.chat-message-area').value = ''; // 전송 후 입력 필드 비우기
+
+    $(this).removeAttr('disabled');
 });

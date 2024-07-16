@@ -112,6 +112,8 @@
         var nextChatMessageNo = 0;
 
         $('.nav-item').on('dblclick', function(e) {
+        	chattingSocket && chattingSocket.close();
+        	
             $currChatRoom.val($(this).data('no'));
 
             chattingSocket = new SockJS(contextPath + "/chat");
@@ -122,14 +124,16 @@
                     return false;
                 }
             });
+            
+            
+            var $messageCollect = $('.message-collect');
+            $messageCollect.html('');
 
             $.ajax({
                 url: `${contextPath}/chat/room/\${$currChatRoom.val()}`,
                 method: 'post',
                 success: function(data) {
-                    nextChatMessageNo = Object.keys(data).length;
                     $.each(data, function(index, item) {
-                        var $messageCollect = $('.message-collect');
                         $messageCollect.append(messagePacking(item, opponentNickname));
                         $messageCollect.scrollTop($messageCollect[0].scrollHeight);
                     });
@@ -140,7 +144,6 @@
             // 서버로 부터 메세지 받았을 때
             chattingSocket.onmessage = function(e) {
                 console.log(e.data);
-
                 // 전달받은 JSON 형태 메세지 js 객체로 변환
                 var chatMessage = JSON.parse(e.data);
             
@@ -151,7 +154,6 @@
             }
             var chatRoomNo = `\${$currChatRoom.val()}`;
             
-
             $('.send-message-btn').removeAttr("disabled");
 
             $('.empty-box').remove();

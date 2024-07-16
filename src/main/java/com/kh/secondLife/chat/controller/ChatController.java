@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@SessionAttributes({"loginUser", "chatRoomList"})
+@SessionAttributes({"loginUser", "chatRoomList" , "chatRoomNo"})
 @RequestMapping("/chat")
 public class ChatController {
 
@@ -78,7 +78,7 @@ public class ChatController {
         Member loginUser = (Member) model.getAttribute("loginUser");
 
         Map<String, Object> paramMap = new HashMap<>();
-        
+        model.addAttribute("chatRoomNo", chatRoomNo);
         paramMap.put("chatRoomNo", chatRoomNo);
         paramMap.put("memberNo", loginUser.getMemberNo());
         
@@ -98,8 +98,10 @@ public class ChatController {
     @PostMapping("/room/{chatRoomNo}")
     @ResponseBody
     public List<ChatMessage> accessChatRoom(
-    		@PathVariable int chatRoomNo
+    		@PathVariable int chatRoomNo,
+    		Model model
     		) {
+    	model.addAttribute("chatRoomNo", chatRoomNo);
     	List<ChatMessage> list = chatService.selectChatMessageList(chatRoomNo);
     	
     	return list;
