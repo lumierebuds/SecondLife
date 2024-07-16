@@ -228,11 +228,6 @@ header {
 								<a href="/secondlife/admin/postManage/1"><p>거래글관리</p></a>
 							</div>
 						</div>
-						<div class="choices">
-							<div class="선택들">
-								<a href="/secondlife/admin/reportManage"><p>신고관리</p></a>
-							</div>
-						</div>
 					</div>
 				</div>
 
