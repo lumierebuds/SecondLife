@@ -142,7 +142,32 @@ public class AdminController {
 
 	     return response;
 	 }
-	
+	 
+	 @PostMapping("/deleteBoard")
+	 @ResponseBody
+	 public Map<String, Object> deleteBoard(
+			 @RequestParam("boardNo") int boardNo
+			 ){
+		 
+		 Map<String, Object> response = new HashMap<>();
+		 
+		 try {
+			 boolean isDeleted = bService.deleteBoardByNo(boardNo);
+			 if(isDeleted) {
+				 response.put("success", true);
+				 response.put("message", "게시글을 삭제했습니다.");
+			 }else {
+				 response.put("success", false);
+				 response.put("message", "게시글 삭제에 실패했습니다.");
+			 }
+		 }catch(Exception e) {
+			 response.put("success", false);
+			 response.put("message", "오류가 발생했습니다: " + e.getMessage());
+		 }
+		 
+		 return response;
+	 }
+	 
 	
 	
 }

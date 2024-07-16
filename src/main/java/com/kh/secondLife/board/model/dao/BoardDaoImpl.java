@@ -96,6 +96,12 @@ public class BoardDaoImpl implements BoardDao{
 	public int selectBoardListCount(Map<String, Object> paramMap) {
 		return sqlSession.selectOne("board.selectBoardListCount", paramMap);
 	}
+
+	@Override
+	public boolean deleteBoardByNo(int boardNo) {
+		int result = sqlSession.delete("board.deleteBoardByNo", boardNo);
+        return result > 0;
+	}
 	
 
 	@Override
@@ -136,8 +142,9 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	/* 게시물 글 수정 끝*/
 
-
-	
-
+	public int deleteBoard(Map<String, Object> paramMap) {
+		
+		return sqlSession.update("board.deleteBoard", paramMap);
+	}
 
 }

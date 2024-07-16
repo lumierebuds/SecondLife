@@ -136,11 +136,26 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 
+
 	@Override
+	public boolean deleteBoardByNo(int boardNo) {
+		try {
+            return boardDao.deleteBoardByNo(boardNo);
+        } catch (Exception e) {
+            return false;
+        }
+	}
+
+	
+	
+	@Override
+	@Transactional(rollbackFor = {Exception.class})
 	public int insertLike(Map<String, Object> paramMap) throws Exception {
 		
 		int result = boardDao.insertLike(paramMap);
-		
+		if(result == 0) {
+			throw new Exception();
+		}
 		return result;
 	}
 
@@ -259,6 +274,18 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 		
 	}
+	
+	@Transactional(rollbackFor = {Exception.class})
+	public int deleteBoard(Map<String, Object> paramMap) throws Exception {
+		
+		int result = boardDao.deleteBoard(paramMap);
+		if(result == 0) {
+			throw new Exception();
+		}
+		
+		return result;
+	}
+	
 
 
 }

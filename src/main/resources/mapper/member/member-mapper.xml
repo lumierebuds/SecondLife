@@ -59,7 +59,7 @@
 	
 	
 	<!--  회원 탈퇴 기능 -->
-	<update id="deleteMember"> 
+	<update id="deleteMemberById" parameterType="String"> 
         UPDATE MEMBER
         SET STATUS = 'N'
         WHERE ID = #{id}
@@ -86,7 +86,7 @@
 		SELECT 
 			M.MEMBER_NO AS MEMBER_NO,
 			NICKNAME,
-			
+			EMAIL,
 			PROFILE_NO,		
 			CHANGE_NAME,
 			PROFILE_PATH
@@ -100,6 +100,7 @@
 	<resultMap type="memberExt" id="memberExtMap">
 		<id column="MEMBER_NO" property="memberNo"/>
 		<result column="NICKNAME" property="nickname"/>
+		<result column="EMAIL" property="email"/>
 		
 		<association property="profileImg">
 			<id column="PROFILE_NO" property="profileNo"/>
@@ -108,13 +109,6 @@
 		</association>
 		
 	</resultMap>
-	
-	<delete id="deleteMemberById" parameterType="String">
-        DELETE FROM MEMBER
-        WHERE ID = #{id}
-    </delete>
-	
-	
 	
 	
 	

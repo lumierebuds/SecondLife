@@ -133,6 +133,7 @@
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		WHERE B.STATUS = 'Y'
 		  AND BI.STATUS = 'Y'
+		  AND SALE_CONDITION = 'N'
 		<!-- 카테고리 or 검색 결과 -->
 		<choose>
 			<when test="search != null and search !=''">
@@ -173,6 +174,7 @@
 		LEFT JOIN BOARD_IMG "BI"
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{boardNo}
+		AND SALE_CONDITION = 'N'
 	</select>
 	
 	
@@ -267,6 +269,18 @@
 		FROM BOARD
 	</select>
 	
+
+	<!--  관리자 게시글 삭제 기능 -->
+	<update id="deleteBoardByNo" parameterType="int"> 
+        UPDATE BOARD
+        SET STATUS = 'N'
+        WHERE BOARD_NO = #{boardNo}
+   </update>
+	
+	
+	
+	
+
 	<!-- 게시글 찜하기 기능(insert) -->
 	<insert id="insertLike">
 		INSERT INTO FAVORITE_LIST 
@@ -287,5 +301,14 @@
 		  AND STATUS = 'Y'
 		  AND SALE_CONDITION = 'N'
 	</update>
+	
+	<!-- 게시글 삭제하기 기능(update) -->
+	<update id="deleteBoard">
+		UPDATE BOARD 
+		SET STATUS = 'N'
+        WHERE BOARD_NO = #{boardNo} 
+        AND BOARD_WRITER = #{memberNo}
+	</update>
+
 	
 </mapper>

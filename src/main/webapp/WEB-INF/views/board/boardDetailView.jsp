@@ -86,7 +86,7 @@
                     </button>
                     <div class="dropdown-items" id="userDropdownMenu">
                       <a class="dropdown-select" href="/secondlife/board/update/${board.boardNo}">수정하기</a>
-                      <a class="dropdown-select" href="#">삭제하기</a>
+                      <a class="dropdown-select" id="deleteButton">삭제하기</a>
                     </div>
                   </div>
                   </c:if>
@@ -125,6 +125,34 @@
               </div>
               <div class="product-detail">
                 ${board.content}
+                <br>
+              	<br>
+              
+				<span style="font-weight: bold">거래방식 : 
+					<c:choose>
+						<c:when test="${board.tradeCategoryNo eq 0}">
+							택배거래
+						</c:when>
+						<c:when test="${board.tradeCategoryNo eq 1}">
+							직거래
+						</c:when>
+						<c:otherwise>
+							택배 & 직거래 가능 
+						</c:otherwise>
+					</c:choose>
+				</span>
+				<br>
+				<span style="font-weight: bold">상품상태 : 
+					<c:choose>
+						<c:when test="${board.condition eq 0 }">
+							중고
+						</c:when>
+						<c:when test="${board.condition eq 1 }">
+							새상품
+						</c:when>
+					</c:choose>
+				</span>
+				       
               </div>
             </div>
             <div class="des-2">
@@ -133,7 +161,7 @@
               </div>
               <div class="seller-detail">
                 <div class="seller-profile">
-                  <div class="seller-name">${member.nickname }</div>
+                  <div class="seller-name"><a href="/secondlife/member/memberDetail/${member.memberNo }">${member.nickname}</a></div>
                   <div class="seller-img">
                   	<c:if test="${member.profileImg eq null}">
                  		<img src="/secondlife/resources/images/사이트 로고.png" alt=""> 
@@ -260,10 +288,11 @@
   					else{
   						alert("이미 찜한 게시글입니다.");
   					}
-  					location.href = '/secondlife/board/detail/' + response.boardNo;
+  					location.href = '/secondlife/board/detail/' + '${board.boardNo}';
   				},
   				error : function(xhr){
-  					console.log(xhr);
+  					console.log(xhr.status);
+  					console.log(xhr.responseText);
   					console.log("error");
   				}
   			})
@@ -287,6 +316,35 @@
           }
         })
       })
+  </script>
+  
+  <script>
+	$("#deleteButton").on("click", function(){
+		var isDelete = confirm("게시글을 삭제하시겠습니까?");
+		if(isDelete){
+			
+			$.ajax({
+				url : `/secondlife/board/delete/${board.boardNo}`,
+				type: "post",
+				success : function(result){
+					console.log(result);
+					if(result > 0){
+						alert("게시글을 삭제했습니다.");
+						location.href="/secondlife/board/list";
+					} else{
+						alert("게시글 삭제에 실패했습니다.");
+					}
+				}, 
+				error : function(xhr){
+					console.log(xhr);
+					console.log("에러가 발생했습니다.")
+				}
+			})
+			
+		} else{
+			return;
+		}
+	});
   </script>
 
 </html>
