@@ -16,7 +16,6 @@ body {
 #container {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
     box-sizing: border-box;
 }
 
@@ -24,7 +23,6 @@ body {
     width: 15%;
     flex-grow: 1;
     height: 100%;
-    border: 1px solid black;
 }
 
 
@@ -42,7 +40,6 @@ main.centered-content {
     flex-basis: 1024px;
     flex-shrink: 0;
     height: 100%;
-    border: 1px solid black;
     background-color: #E6CCB2;
 }
 
