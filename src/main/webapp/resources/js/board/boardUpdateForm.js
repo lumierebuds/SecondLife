@@ -256,7 +256,7 @@ $(document).ready(function() {
 		}
 		
 		$.ajax({
-			url: '/secondlife/board/insert',
+			url: '/secondlife/board/update/' + boardNo,
 			type: 'POST',
 			data: formData,
 			contentType: false,
@@ -318,6 +318,7 @@ if($('#price').val() == 0){
       $('#freeSharing').click();
 }
 
+console.log("condition 값 : ",$('#condition').val());
 $('.twotypebutton button').eq($('#condition').val()).addClass('selected');
 
 console.log("category 번호는 ",category);

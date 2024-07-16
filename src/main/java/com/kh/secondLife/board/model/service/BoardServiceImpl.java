@@ -144,6 +144,8 @@ public class BoardServiceImpl implements BoardService {
 		/* 게시물 글 수정 */
 		int result = boardDao.updateBoard(board);
 		
+		log.debug("글 업데이트 후 거래글 번호 - {}", board.getBoardNo());
+		
 		if(result == 0) {
 			throw new RuntimeException("수정실패");
 		}

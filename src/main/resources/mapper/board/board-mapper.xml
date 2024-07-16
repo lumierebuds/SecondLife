@@ -24,6 +24,7 @@
 			DEFAULT,
 			DEFAULT,
 			DEFAULT,
+			DEFAULT,
 			DEFAULT
 		)
 	
@@ -45,7 +46,7 @@
 		)
 	</insert>
 
-	<update id="updateBoard">
+	<update id="updateBoard">	
 		UPDATE BOARD
 		SET CATEGORY_NO = #{categoryNo},
 			TRADE_CATEGORY_NO = #{tradeCategoryNo},
@@ -54,20 +55,20 @@
 			CONDITION = #{condition},
 			CONTENT = #{content},
 			MODIFY_DATE = DEFAULT
-		WHERE BOARD_NO = #{boardNo}
+		WHERE BOARD_NO = #{boardNo} AND STATUS = 'Y'
 	</update>
 
 	<select id="selectBoardImg" resultType="boardImg">
 		SELECT *
-		FROM BOARD_IMG_NO
-		WHERE BOARD_NO = #{boardNo}
+		FROM BOARD_IMG
+		WHERE BOARD_NO = #{boardNo} AND STATUS = 'Y'
 	</select>
 
 	<update id="updateBoardImg">
 		UPDATE BOARD_IMG
 		SET STATUS = 'N',
 			MODIFY_DATE = DEFAULT
-		WHERE CHANGE_NAME = #{fileName}
+		WHERE CHANGE_NAME = #{fileName} AND STATUS = 'Y'
 	</update>
 	
 	<select id="selectCategoryName" resultType="string">
@@ -106,6 +107,7 @@
 		<result column="NICKNAME" property="nickname"/>
 		<result column="ID" property="id"/>
 		<result column="COUNT" property="count"/>
+		<result column="CONDITION" property="condition"/>
 		
 		<collection property="biList" javaType="List" ofType="boardImg">
 			<id column="BOARD_IMG_NO" property="boardImgNo"/>
@@ -162,6 +164,7 @@
 		  BOARD_WRITER,
 		  COUNT,
 		  TRADE_CATEGORY_NO,
+		  CONDITION,
 		  
 		  BOARD_IMG_NO,
 		  IMG_PATH,

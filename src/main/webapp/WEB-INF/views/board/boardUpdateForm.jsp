@@ -42,6 +42,7 @@
 								<c:forEach items="${board.biList}" var="boardImg">
 									<div class="additionalDiv">
 										<img src="/secondlife/resources/images/board/${boardImg.changeName}">
+										<button class="removeButton">✕</button>
 									</div>
 								</c:forEach>
 							</c:if>
@@ -190,6 +191,7 @@
 	</div>
 	<script>
 		var category = '${board.tradeCategoryNo}';
+		 var boardNo = ${board.boardNo};
 	</script>
 	<script src="/secondlife/resources/js/board/boardUpdateForm.js"></script>
 </body>
