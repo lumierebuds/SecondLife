@@ -34,7 +34,7 @@ public interface BoardDao {
 
 	List<Board> selectSellorBoard(Map<String, Object> paramMap);
 
-	int increateCount(int boardNo);
+	int increaseCount(int boardNo);
   
 	int selectBoardListCount(Map<String, Object> paramMap);
 
@@ -42,4 +42,10 @@ public interface BoardDao {
 
 	int tradeClose(Map<String, Object> paramMap);
 	
+	int updateBoard(Board board);
+
+	int updateBoardImg(String fileName);
+
+	List<BoardImg> selectBoardImg(int boardNo);
+
 }

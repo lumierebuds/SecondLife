@@ -256,7 +256,7 @@ $(document).ready(function() {
 		}
 		
 		$.ajax({
-			url: '/secondlife/board/insert',
+			url: '/secondlife/board/update/' + boardNo,
 			type: 'POST',
 			data: formData,
 			contentType: false,
@@ -300,4 +300,30 @@ function free(){
       $('#writing').attr('placeholder', originalPlaceholder);
       $('#price').val('');
     }
+}
+
+// categoryNo 값을 가져옵니다.
+var categoryNo = $('#categoryNo').val();
+
+console.log($('#categoryNo').val());
+
+// categoryNo 값에 해당하는 버튼을 찾아 클릭합니다.
+var button = $('li#category-' + (parseInt(categoryNo) + 1) + ' > button');
+console.log(button);
+if (button.length) {
+  button.parent().addClass('selected2');
+}
+
+if($('#price').val() == 0){
+      $('#freeSharing').click();
+}
+
+console.log("condition 값 : ",$('#condition').val());
+$('.twotypebutton button').eq($('#condition').val()).addClass('selected');
+
+console.log("category 번호는 ",category);
+if(category == 2){
+  $('[name="tradeCategoryNo"]').click();
+}else{
+  $('.tradingMethod > div').eq(category).children().click();
 }

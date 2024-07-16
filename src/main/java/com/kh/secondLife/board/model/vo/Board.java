@@ -15,7 +15,7 @@ public class Board {
 	private int boardNo; // 거래글 번호
 	private int categoryNo; // 거래글 카테고리 번호 (수입명품=0, 패션의류=1, 패션잡화=2 등등)
 	private int boardWriter; // 거래글 작성자 번호 = Member 필드의 memberNo
-	private int tradeCategoryNo; // 거래 방식 번호 (택배거래=0, 직거래=1)
+	private int tradeCategoryNo; // 거래 방식 번호 (택배거래=0, 직거래=1, 모두=2)
 	private String productName; // 상품명 (ex. 마우스 팔아요)
 	private int price; // 가격
 	private int condition; // 물건 상태(중고=0, 새상품=1)
