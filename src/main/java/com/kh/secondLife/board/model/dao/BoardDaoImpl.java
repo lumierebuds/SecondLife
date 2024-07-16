@@ -110,4 +110,9 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.insert("board.insertLike", paramMap);
 	}
 
+	@Override
+	public int tradeClose(Map<String, Object> paramMap) {
+		return sqlSession.update("board.tradeClose", paramMap);
+	}
+
 }

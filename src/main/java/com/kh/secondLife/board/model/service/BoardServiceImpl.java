@@ -142,4 +142,10 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 
+
+	@Override
+	public int tradeClose(Map<String, Object> paramMap) {
+		return boardDao.tradeClose(paramMap);
+	}
+
 }

@@ -25,6 +25,7 @@ public class Board {
 	private String status; // 유효 여부 [기본값 : 'Y']
 	private String saleCondition; // 거래 완료 여부 [기본값 : 'N']
 	private int count; // 조회수
+	private int purchaser;
 	
 }
 

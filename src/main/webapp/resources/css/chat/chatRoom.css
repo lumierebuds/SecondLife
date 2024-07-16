@@ -345,6 +345,20 @@ header {
     position: relative;
 }
 
+.trade-close {
+    width: 70px;
+    height: 30px;
+    padding: 3px;
+    align-self: flex-end;
+    border: none;
+    background-color: #D2B48C;
+    border-radius: 5px;
+}
+
+.trade-close:hover {
+    background-color: #d6c3aa;
+}
+
 .message-input {
     display: flex;
     flex-direction: column;

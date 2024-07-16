@@ -250,4 +250,14 @@
 		    )
 	</insert>
 	
+	<update id="tradeClose">
+		UPDATE BOARD
+		SET SALE_CONDITION = 'Y',
+			PURCHASER = #{purchaser},
+			MODIFY_DATE = SYSDATE
+		WHERE BOARD_NO = #{boardNo}
+		  AND STATUS = 'Y'
+		  AND SALE_CONDITION = 'N'
+	</update>
+	
 </mapper>

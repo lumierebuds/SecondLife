@@ -33,7 +33,7 @@
                 </div>
             </button>
             <div id="myDropdown" class="user-profile-content">
-                <a href="#logout" class="logout-toggle">로그아웃</a>
+                <a class="logout-toggle">로그아웃</a>
             </div>
         </div>
     </header>
@@ -54,6 +54,10 @@
                                     &#8942; <!-- 미트볼 아이콘 (⋮) -->
                                 </button>
                                 <button class="delete-btn" style="display: none;" onclick="deleteChatRoom('${chatRoom.chatRoomNo}')">삭제</button>
+                                <c:if test="${loginUser.memberNo == chatRoom.secondMemberNo}">
+                                    <c:set var="purchaser" value="${chatRoom.firstMemberNo}"></c:set>
+                                    <c:set var="boardNo" value="${chatRoom.boardNo}"></c:set>
+                                </c:if>
                             </div>
                         </div>
                     </li>
@@ -63,6 +67,9 @@
         <!-- 선택된 채팅방 번호 저장 -->
         <input type="hidden" id="currChatRoom" value="">
         <div class="chat-window">
+            <c:if test="${not empty boardNo and not empty purchaser}">
+                <button class="trade-close">거래완료</button>
+            </c:if>
             <ul class="message-collect">
                 <div class="empty-box">
                     <svg width="96" height="81" viewBox="0 0 96 81" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -180,6 +187,46 @@
             
             return $li;
         }
+
+        $('.logout-toggle').on('click', function() {
+            $.ajax({
+                url: "${contextPath}/member/logout",
+                method: 'get',
+                success: function(response) {
+                    if(response == 'success') {
+                        location.replace(location.href);
+                    }else {
+                        alert("로그아웃 실패");
+                        location.replace("${contextPath}");
+                    }
+                }
+            })
+        });
+
+        var boardNo = '${boardNo}';
+        var purchaser = '${purchaser}';
+        $('.trade-close').on('click', function(e) {
+            $.ajax({
+                url: "${contextPath}/board/trade/close",
+                method: "post",
+                data: {
+                    boardNo,
+                    purchaser
+                },
+                success: function(result) {
+                    if(result > 0) {
+                        alert("거래 완료 처리되었습니다.");
+                        location.replace(location.href);
+                    } else {
+                        alert("오류 발생! 거래 완료에 실패했습니다.")
+                        location.replace(location.href);
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr);
+                }
+            })
+        });
     </script>
 
     <script src="${contextPath}/resources/js/chat/chat.js"></script>
