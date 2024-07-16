@@ -76,7 +76,7 @@
     <div class="modal-background" id="modalBackground">
 		<!-- 로그인 모달 -->
 		<div class="modal-content modal-login">
-			<img src="https://via.placeholder.com/50" alt="로고">
+			<img src="/secondlife/resources/images/사이트 로고.png" alt="로고">
 			<form action="/secondlife/member/login" method="post">
 				<input type="text" placeholder="아이디" name="id"> <input type="password"
 					placeholder="비밀번호" name="pwd">

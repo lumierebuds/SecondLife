@@ -127,6 +127,7 @@
 		<result column="NICKNAME" property="nickname"/>
 		<result column="ID" property="id"/>
 		<result column="COUNT" property="count"/>
+		<result column="MEMBER_NO" property="memberNo"/>
 		
 		<collection property="biList" javaType="List" ofType="boardImg">
 			<id column="BOARD_IMG_NO" property="boardImgNo"/>
@@ -135,7 +136,7 @@
 		</collection>
 	</resultMap>
     
-    
+    <!-- 판매자 판매내역 -->
     <select id="selectSellBoardList" resultMap="boardExtMap">
     	SELECT  BOARD_NO,
 				PRODUCT_NAME,
@@ -151,9 +152,45 @@
     	WHERE BOARD_WRITER = #{memberNo} 
     		AND B.STATUS='Y'
     		AND SALE_CONDITION = 'Y'
+    </select>
     
+    <!-- 나의 판매내역 -->
+    <select id="selectMySellBoardList" resultMap="boardExtMap">
+    	SELECT  BOARD_NO,
+				PRODUCT_NAME,
+				PRICE,
+				CONTENT,
+				TRADE_CATEGORY_NO,
+				B.CREATE_DATE AS CREATE_DATE,
+				BOARD_IMG_NO,
+				IMG_PATH,
+				CHANGE_NAME
+    	FROM BOARD B
+    	LEFT JOIN BOARD_IMG USING (BOARD_NO)
+    	WHERE BOARD_WRITER = #{memberNo} 
+    		AND B.STATUS='Y'
+    		AND SALE_CONDITION = 'Y'
     </select>
 	
+	<!-- 찜 목록 조회 -->
+    <select id="getWishlist" resultMap="boardExtMap" parameterType="int">
+		    SELECT 
+                F.MEMBER_NO AS "MEMBER_NO",
+        		B.BOARD_NO AS "BOARD_NO",
+                
+                PRODUCT_NAME,
+                PRICE,
+                
+                CHANGE_NAME,
+                IMG_PATH,
+                
+        		B.CREATE_DATE AS "CREATE_DATE"
+                
+        FROM FAVORITE_LIST F 
+        LEFT JOIN BOARD B ON F.BOARD_NO = B.BOARD_NO
+        LEFT JOIN BOARD_IMG BI ON B.BOARD_NO = BI.BOARD_NO
+        WHERE F.MEMBER_NO = #{memberNo}
+    </select>
 	
 	
 	

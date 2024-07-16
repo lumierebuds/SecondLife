@@ -117,6 +117,7 @@
 	border: 1px solid #B08968;
 	border-radius: 10px;
 	background-color: #E6CCB2;
+	
 }
 
 .box1 {
@@ -218,13 +219,19 @@ header {
 .header-user-menu-item a {
 	color: #7F5539;
 }
+
+.목록들{
+	overflow-y: auto; /* scroll 대신 auto 사용 */
+	max-height: 489px; /* 필요한 높이로 조정 */
+}
+
 </style>
 </head>
 <body>
     <div id="container">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
-		<main class="centered-content">
+		<main class="centered-content" >
 			<div class="marginer"></div>
 			<div class="content">
 				<div class="tap">
@@ -240,7 +247,7 @@ header {
 					</div>
 				</div>
 
-				<div class="main">
+				<div class="main"  >
 					<div class="title">
 						<div class="빈공간"></div>
 						<div class="semi-title">
@@ -254,13 +261,13 @@ header {
 						</div>
 
 						<hr class="hello">
-						
+						<div class="목록들" style="overflow-y: auto; max-height: 489px;" >
 						<c:if test="${not empty boardList}">
-						<c:forEach items="${boardList}" var="board">
-						<div class="information">
+						<c:forEach items="${boardList}" var="board" >
+						<div class="information"  >
 							<div class="box1">
 								<input type="checkbox" class="box-1">
-								<div class="date">
+								<div class="date" >
 									<p>${board.createDate}</p>
 								</div>
 								<div class="condition">
@@ -289,6 +296,7 @@ header {
 						</div>
 						</c:forEach>
 						</c:if>
+						</div>
 						
 					</div>
 				</div>

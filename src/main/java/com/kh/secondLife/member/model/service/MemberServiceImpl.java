@@ -11,7 +11,9 @@ import com.kh.secondLife.member.model.dao.MemberDao;
 import com.kh.secondLife.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -84,6 +86,19 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<BoardExt> selectSellerBoardList(int memberNo) {
 		return dao.selectSellerBoardList(memberNo);
+	}
+
+	@Override
+	public List<BoardExt> selectMySellBoardList(int memberNo) {
+		return dao.selectMySellBoardList(memberNo);
+	}
+
+	@Override
+	public List<BoardExt> getWishlist(int memberNo) {
+		
+		List<BoardExt> tmp = dao.getWishlist(memberNo);
+		log.debug("찜 목록 - {}", tmp);
+		return tmp;
 	}
 
 	

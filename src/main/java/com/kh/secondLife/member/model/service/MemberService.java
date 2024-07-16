@@ -29,4 +29,8 @@ public interface MemberService {
 
 	List<BoardExt> selectSellerBoardList(int memberNo);
 
+	List<BoardExt> selectMySellBoardList(int memberNo);
+
+	List<BoardExt> getWishlist(int memberNo);
+
 }

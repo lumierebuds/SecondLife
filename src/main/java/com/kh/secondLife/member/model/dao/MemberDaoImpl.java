@@ -66,6 +66,16 @@ public class MemberDaoImpl implements MemberDao{
 	public List<BoardExt> selectSellerBoardList(int memberNo) {
 		return sqlSession.selectList("member.selectSellBoardList", memberNo);
 	}
+
+	@Override
+	public List<BoardExt> selectMySellBoardList(int memberNo) {
+		return sqlSession.selectList("member.selectMySellBoardList", memberNo);
+	}
+
+	@Override
+	public List<BoardExt> getWishlist(int memberNo) {
+		return sqlSession.selectList("member.getWishlist", memberNo);
+	}
 	
 
 	

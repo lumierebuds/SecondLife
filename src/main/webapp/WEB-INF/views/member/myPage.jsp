@@ -30,7 +30,7 @@
       .choice {
         width: 100%;
         height: 70%;
-        margin-top: 90px;
+        margin-top: 130px;
       }
 
       .선택들 {

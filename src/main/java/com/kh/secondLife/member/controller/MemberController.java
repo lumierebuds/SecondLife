@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.secondLife.member.model.vo.FavoriteList;
 import com.kh.secondLife.member.model.vo.Member;
 import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.member.model.service.MemberService;
@@ -229,10 +230,7 @@ public class MemberController {
 		return "/member/sell";
 	}
 	
-	@GetMapping("/basket")
-	public String basket() {
-		return "member/basket";
-	}
+	
 	
 	@GetMapping("/buy")
 	public String buy() {
@@ -252,9 +250,20 @@ public class MemberController {
 		return "member/sellerSell";
 	}
 	
+	// 나의 판매내역
+	@GetMapping("/sell/{memberNo}")
+	public String sell(@PathVariable(value="memberNo", required = true) int memberNo,
+			Model model) {
+		List<BoardExt> boardList = (List<BoardExt>)mService.selectMySellBoardList(memberNo);
+		
+		model.addAttribute("boardList" , boardList);
+		
+		Member member = mService.selectMemberInfo(memberNo);
+		model.addAttribute("member", member);
+		return "member/sell";
+	}
 	
 	
-
 	
 	@GetMapping("/memberDetail/{memberNo}")
 	public String memberDetail(@PathVariable(value="memberNo", required = true) int memberNo,
@@ -266,6 +275,14 @@ public class MemberController {
 		model.addAttribute("member", member);
 		return "member/memberDetail";
 	}
+	
+	@GetMapping("/basket")
+    public String basket(@ModelAttribute("loginUser") Member loginUser, Model model) {
+        List<BoardExt> wishlist = mService.getWishlist(loginUser.getMemberNo());
+        model.addAttribute("wishlist", wishlist);
+        return "member/basket";
+    }
+	
 	
 	
 

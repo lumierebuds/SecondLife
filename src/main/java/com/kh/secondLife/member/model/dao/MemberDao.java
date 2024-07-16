@@ -27,6 +27,10 @@ public interface MemberDao {
 	boolean deleteMemberById(String memberId);
 
 	List<BoardExt> selectSellerBoardList(int memberNo);
+
+	List<BoardExt> selectMySellBoardList(int memberNo);
+
+	List<BoardExt> getWishlist(int memberNo);
 	
 	
 }
