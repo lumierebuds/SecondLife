@@ -21,7 +21,7 @@
             
             <div class="header-area">
                 <div class="header-title">
-                    <img src="/secondlife/resources/images/사이트 로고.png" alt="사이트로고">
+                    <img src="/secondlife/resources/images/defaultImg.png" alt="사이트로고">
                     <a href="/secondlife"><h3>SecondLife</h3></a>
                 </div>
                 <div class="header-menu">
