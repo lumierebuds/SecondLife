@@ -44,4 +44,15 @@
 		</interceptor>
 	</interceptors>
 	
+	<!-- 웹 소켓 등록 -->
+	<websocket:handlers>
+		<websocket:mapping handler="chatWebSocketHandler" path="/chat"/>
+		
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		
+		<websocket:sockjs/>
+	</websocket:handlers>
+	
 </beans:beans>

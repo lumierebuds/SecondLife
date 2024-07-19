@@ -33,7 +33,7 @@
 .choice {
 	width: 100%;
 	height: 70%;
-	margin-top: 90px;
+	margin-top: 130px;
 }
 
 .선택들 {
@@ -243,7 +243,9 @@ header {
 								<a href="/secondlife/member/buy"><p>구매내역</p></a>
 							</div>
 						</div>
+
 						
+
 						<div class="choices">
 							<div class="선택들">
 								<a href="/secondlife/member/basket"><p>찜 목록</p></a>
@@ -283,7 +285,7 @@ header {
 							</div>
 							<hr class="hello2">
 							<div class="box2">
-								<img src="/경찬.jpg" alt="" width="80px" height="100px">
+								<img src="${contextPath}/resources/images/SecondLife_profile.png" alt="" width="80px" height="100px">
 								<div class="text">
 									<div class="won">
 										<p>3,000원</p>

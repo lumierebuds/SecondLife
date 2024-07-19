@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Second Life - 상품의 새 삶</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/secondlife/resources/css/review/insertReview.css">
+    <link rel="stylesheet" href="/secondlife/resources/css/member/insertReview.css">
     <style>
         textarea::placeholder {
             color: #9C6644;

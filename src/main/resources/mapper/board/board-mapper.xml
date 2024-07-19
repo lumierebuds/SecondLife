@@ -35,19 +35,41 @@
 		(
 			BOARD_IMG_NO,
 			BOARD_NO,
-			ORIGIN_NAME,
 			CHANGE_NAME,
 			IMG_PATH
 		) VALUES
 		(
 			SEQ_BOARD_IMG_NO.NEXTVAL,
 			#{boardNo},
-			#{originName},
 			#{changeName},
 			#{imgPath}
 		)
 	</insert>
 
+	<update id="updateBoard">	
+		UPDATE BOARD
+		SET CATEGORY_NO = #{categoryNo},
+			TRADE_CATEGORY_NO = #{tradeCategoryNo},
+			PRODUCT_NAME = #{productName},
+			PRICE = #{price},
+			CONDITION = #{condition},
+			CONTENT = #{content},
+			MODIFY_DATE = DEFAULT
+		WHERE BOARD_NO = #{boardNo} AND STATUS = 'Y'
+	</update>
+
+	<select id="selectBoardImg" resultType="boardImg">
+		SELECT *
+		FROM BOARD_IMG
+		WHERE BOARD_NO = #{boardNo} AND STATUS = 'Y'
+	</select>
+
+	<update id="updateBoardImg">
+		UPDATE BOARD_IMG
+		SET STATUS = 'N',
+			MODIFY_DATE = DEFAULT
+		WHERE CHANGE_NAME = #{fileName} AND STATUS = 'Y'
+	</update>
 	
 	<select id="selectCategoryName" resultType="string">
 		SELECT CATEGORY_NAME
@@ -60,6 +82,7 @@
 		SELECT COUNT(*)
 		FROM BOARD
 		WHERE STATUS = 'Y'
+		  AND SALE_CONDITION = 'N'
 		<choose>
 			<when test="search != null and search != ''">
 			AND 
@@ -81,9 +104,11 @@
 		<result column="CREATE_DATE" property="createDate"/>
 		<result column="CONTENT" property="content"/>
 		<result column="BOARD_WRITER" property="boardWriter"/>
+		<result column="TRADE_CATEGORY_NO" property="tradeCategoryNo"/>
 		<result column="NICKNAME" property="nickname"/>
 		<result column="ID" property="id"/>
 		<result column="COUNT" property="count"/>
+		<result column="CONDITION" property="condition"/>
 		
 		<collection property="biList" javaType="List" ofType="boardImg">
 			<id column="BOARD_IMG_NO" property="boardImgNo"/>
@@ -109,6 +134,7 @@
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		WHERE B.STATUS = 'Y'
 		  AND BI.STATUS = 'Y'
+		  AND SALE_CONDITION = 'N'
 		<!-- 카테고리 or 검색 결과 -->
 		<choose>
 			<when test="search != null and search !=''">
@@ -139,6 +165,8 @@
 		  B.CREATE_DATE AS CREATE_DATE,
 		  BOARD_WRITER,
 		  COUNT,
+		  TRADE_CATEGORY_NO,
+		  CONDITION,
 		  
 		  BOARD_IMG_NO,
 		  IMG_PATH,
@@ -147,6 +175,7 @@
 		LEFT JOIN BOARD_IMG "BI"
 		ON (B.BOARD_NO = BI.BOARD_NO)
 		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{boardNo}
+		AND SALE_CONDITION = 'N'
 	</select>
 	
 	
@@ -239,8 +268,22 @@
 	<select id="selectBoardListCount" resultType="int">
 		SELECT COUNT(*)
 		FROM BOARD
+		WHERE SALE_CONDITION = 'N'
+		  AND STATUS = 'Y'
 	</select>
 	
+
+	<!--  관리자 게시글 삭제 기능 -->
+	<update id="deleteBoardByNo" parameterType="int"> 
+        UPDATE BOARD
+        SET STATUS = 'N'
+        WHERE BOARD_NO = #{boardNo}
+   </update>
+	
+	
+	
+	
+
 	<!-- 게시글 찜하기 기능(insert) -->
 	<insert id="insertLike">
 		INSERT INTO FAVORITE_LIST 
@@ -252,6 +295,16 @@
 		    )
 	</insert>
 	
+	<update id="tradeClose">
+		UPDATE BOARD
+		SET SALE_CONDITION = 'Y',
+			PURCHASER = #{purchaser},
+			MODIFY_DATE = SYSDATE
+		WHERE BOARD_NO = #{boardNo}
+		  AND STATUS = 'Y'
+		  AND SALE_CONDITION = 'N'
+	</update>
+	
 	<!-- 게시글 삭제하기 기능(update) -->
 	<update id="deleteBoard">
 		UPDATE BOARD 
@@ -259,5 +312,6 @@
         WHERE BOARD_NO = #{boardNo} 
         AND BOARD_WRITER = #{memberNo}
 	</update>
+
 	
 </mapper>

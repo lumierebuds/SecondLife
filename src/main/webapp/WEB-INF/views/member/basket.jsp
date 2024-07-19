@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +35,7 @@
 .choice {
 	width: 100%;
 	height: 70%;
-	margin-top: 90px;
+	margin-top: 130px;
 }
 
 .선택들 {
@@ -119,7 +121,7 @@
 
 .찜 .box {
 	margin-top: 20px;
-	margin-left: 220px;
+	margin-left: 5px;
 	width: 20px;
 	height: 20px;
 	background-color: grey;
@@ -180,6 +182,12 @@ header {
 .header-user-menu-item a {
 	color: #7F5539;
 }
+
+.찜들 {
+	overflow-y: auto; /* scroll 대신 auto 사용 */
+	max-height: 489px; /* 필요한 높이로 조정 */
+}
+
 </style>
 </head>
 <body>
@@ -219,21 +227,6 @@ header {
 				</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 					<div class="main">
 						<!-- 여기서 작업 -->
 						<div class="title">
@@ -257,49 +250,33 @@ header {
 							</div>
 
 							<hr class="hello">
-							<div class="찜들">
+							
+							<div class="찜들전체">
+							<div class="찜들" style="overflow-y: auto; max-height: 489px;">
+								<c:if test="${wishlist ne null}">
+								<c:forEach var="board" items="${wishlist }">
 								<div class="찜">
-									<img src="/성민.jpg" alt="" width="120px" height="160px">
+									<img src="/secondlife/${board.biList.get(0).imgPath}${board.biList.get(0).changeName}" alt="" width="120px" height="160px">
 									<div class="information">
 										<div class="titles">
 											<div class="title">
-												<p>[새상품급] 남성 검은 가발 급처합니다.</p>
+												<p>${board.productName}</p>
 											</div>
 											<input type="checkbox" class="box">
 										</div>
 										<div class="won">
-											<p>40,000원</p>
+											<p>${board.price}원</p>
 										</div>
 										<div class="date">
-											<p>2일 전</p>
+											<p>${board.createDate}</p>
 										</div>
-										<hr class="hello2">
-										<div class="location">
-											<p>서울특별시 강남구</p>
-										</div>
+										
+										
 									</div>
 								</div>
-								<div class="찜">
-									<img src="/민혁.jpg" alt="" width="120px" height="160px">
-									<div class="information">
-										<div class="titles">
-											<div class="title">
-												<p>[새상품급] 남성 검은 슬랙스 급처해요.</p>
-											</div>
-											<input type="checkbox" class="box">
-										</div>
-										<div class="won">
-											<p>25,000원</p>
-										</div>
-										<div class="date">
-											<p>2시간 전</p>
-										</div>
-										<hr class="hello2">
-										<div class="location">
-											<p>서울특별시 강남구</p>
-										</div>
-									</div>
-								</div>
+								</c:forEach>
+								</c:if> 
+							</div>
 							</div>
 
 						</div>

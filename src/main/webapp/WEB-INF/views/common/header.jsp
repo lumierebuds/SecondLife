@@ -21,7 +21,7 @@
             
             <div class="header-area">
                 <div class="header-title">
-                    <img src="/secondlife/resources/images/사이트 로고.png" alt="사이트로고">
+                    <img src="/secondlife/resources/images/defaultImg.png" alt="사이트로고">
                     <a href="/secondlife"><h3>SecondLife</h3></a>
                 </div>
                 <div class="header-menu">
@@ -76,7 +76,7 @@
     <div class="modal-background" id="modalBackground">
 		<!-- 로그인 모달 -->
 		<div class="modal-content modal-login">
-			<img src="https://via.placeholder.com/50" alt="로고">
+			<img src="/secondlife/resources/images/사이트 로고.png" alt="로고">
 			<form action="/secondlife/member/login" method="post">
 				<input type="text" placeholder="아이디" name="id"> <input type="password"
 					placeholder="비밀번호" name="pwd">

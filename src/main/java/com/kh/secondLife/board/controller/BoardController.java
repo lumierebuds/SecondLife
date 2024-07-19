@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.secondLife.board.model.service.BoardService;
 import com.kh.secondLife.board.model.vo.Board;
+import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.board.model.vo.BoardImg;
 import com.kh.secondLife.common.Pagenation;
 
@@ -108,6 +109,7 @@ public class BoardController {
 			//첨부파일
 			@RequestParam(value="upfile[]", required=false) MultipartFile[] upfile // 항상 객체 생성
 			) {
+
 		// 넘어온 값 확인
 		log.debug("loginUser - {}", loginUser);
 		log.debug("업로드 파일 정보 - {}", upfile);
@@ -137,7 +139,6 @@ public class BoardController {
 				BoardImg bi = new BoardImg();
 				bi.setChangeName(changeName);
 				log.debug("이미지의 원본명 - {}", image.getOriginalFilename());
-				bi.setOriginName(image.getOriginalFilename());
 				bi.setImgPath(webPath);
 				
 				biList.add(bi);
@@ -179,60 +180,69 @@ public class BoardController {
 		return resultMap;
 	}
 	
-//	// 게시글 수정 페이지
-//	@GetMapping("/update/{boardNo}")
-//	public String updateBoard(
-//			@PathVariable("boardNo") int boardNo,
-//			Model model
-//			) {
-//		// 작성했던 게시글 정보가 보이게 한후, 모델에 담아서 포워딩
-//		Board board = boardService.selectBoard(boardNo);
+	// 게시글 수정 페이지
+	@GetMapping("/update/{boardNo}")
+	public String updateBoard(
+			@PathVariable("boardNo") int boardNo,
+			Model model
+			) {
+		// 작성했던 게시글 정보가 보이게 한후, 모델에 담아서 포워딩
+		BoardExt board = (BoardExt) boardService.selectBoard(boardNo);
 //		BoardImg boardImg = boardService.selectBoardImg(boardNo);
-//		// 게시글 본문내용 변경 <br> -> \n
-//		board.setContent(Utils.newLineClear(board.getContent()));
-//		
-//		model.addAttribute("board", board);
-//		model.addAttribute("boardImg", boardImg);
-//		
-//		return "board/boardUpdateForm";
-//	}
-//	
-//	// 게시글 수정 페이지 -> 게시글 수정 버튼 눌렀을 때
-//	@PostMapping("/update/{boardNo}")
-//	public String updateBoard2(
-//			@PathVariable("boardCode") String boardCode,
-//			@PathVariable("boardNo") int boardNo,
-//			Model model,
-//			Board board, // 저장할 게시판 데이터
-//			RedirectAttributes ra,
-//			// 첨부파일
-//			@RequestParam(value="upfile", required = false) MultipartFile upfile,
-//			int boardImgNo,
-//			String deleteList // 일반게시판 1, 사진게시판 1,2,3
-//			) {
-//		// 업무로직
-//		// BOARD테이블 수정하고
-//		log.debug("board ? {} , boardImgNo ? {}" , board, boardImgNo);
-//		
-//		// upfile에 전달된 IMG이 있으면 이미지테이블 수정 , 추가
-//		// 사진이 없던곳에서 새롭게 추가된경우 -> INSERT
-//		// 사진이 있던곳에서 새롭게 추가된경우 -> UPDATE
-//		// 사진이 있던곳에서 삭제가 된경우 -> DELETE
-//		// 원래 사진이 없었고, 추가된 것도 없는 경우 -> 아무것도 안함.
-//		int result = 0;
-//		
-//		result = boardService.updateBoard(board, upfile, boardImgNo, deleteList);
-//		
-//		if(result > 0) {
-//			ra.addFlashAttribute("alertMsg", "게시글 수정 성공");
-//			// 작업성공시 리다이렉트
-//			return "redirect:/board/detail/" + boardCode + "/" + boardNo;
-//		}else {
-//			model.addAttribute("errorMsg", "게시글 수정 실패");
-//			return "common/errorPage";
-//		}
-//		
-//	}
+		// 게시글 본문내용 변경 <br> -> \n
+		board.setContent(Utils.newLineClear(board.getContent()));
+		
+		log.debug("업데이트 시 거래글 내용 - {}", board);
+		model.addAttribute("board", board);
+		
+		return "board/boardUpdateForm";
+	}
+	
+	// 게시글 수정 페이지 -> 게시글 수정 버튼 눌렀을 때
+	@ResponseBody
+	@PostMapping("/update/{boardNo}")
+	public Map<String, Object> updateBoard2(
+			@PathVariable("boardNo") int boardNo,
+			@ModelAttribute("loginUser") Member loginUser,
+			Model model,
+			Board board, // 저장할 게시판 데이터
+			RedirectAttributes ra,
+			// 첨부파일
+			@RequestParam(value="upfile[]", required = false) MultipartFile[] upfile
+			) { 
+		// 업무로직
+		// 1. board 테이블 수정
+		// 2. 기존의 거래글 내용 중 이미지 목록 가져오기
+		// 3. 새로 넘어온 거래글 이미지 목록과 기존 이미지 목록 파일명으로 비교
+		// -> 서버에서 넘어간 자료는 changeName 그대로 사용자 페이지에 들어갈 거임
+		// 4. 새로 삽입되어야 하는 이미지 새롭게 그룹(리스트에 넣는다) List<BoardImg> newImages -> BOARD_IMG 테이블에 INSERT
+		// 5. 서로 다른 것 중 기존에서 빠진 것 따로 뽑아서 그룹(리스트에 넣는다) List<BoardImg> deleteImages -> BOARD_IMG 테이블에 UPDATE(STATUS = 'N')
+		// (파일 삭제는 추후 스케쥴러에서 담당) -> 당장은 신경안써도 됨
+		
+		/* List<BoardImg> biList = new ArrayList<>(); */
+		List<MultipartFile> upfileList = Arrays.asList(upfile);
+		
+		int result = 0;
+		
+		try {
+			
+			result = boardService.updateBoard(board, upfileList);
+			log.debug("거래글 정보(등록 후) - {}", board);
+			
+		} catch (Exception e) {
+			
+			ra.addFlashAttribute("errorMsg", e.getMessage());
+			
+		}
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		resultMap.put("result", result);
+		resultMap.put("boardNo", board.getBoardNo());
+		
+		return resultMap;
+		
+	}
 	/*------------------------------게시글 등록/수정 끝------------------------------*/
 	
 	// 게시글 상세 페이지 
@@ -361,6 +371,21 @@ public class BoardController {
 		
 		System.out.println(paramMap);
 		return paramMap;
+	}
+	
+	@PostMapping("/trade/close")
+	@ResponseBody
+	public int tradeClose(
+			@RequestParam Map<String, Object> paramMap
+			) {
+		
+		log.debug("전달된 값들 - {}", paramMap);
+		// 업무로직
+		// 1. 전달된 boardNo와 구매자의 memberNo로 board 테이블 업데이트
+		int result = boardService.tradeClose(paramMap);
+
+		// 2. 결과 리턴
+		return result;
 	}
 	
 	@PostMapping("/delete/{boardNo}")

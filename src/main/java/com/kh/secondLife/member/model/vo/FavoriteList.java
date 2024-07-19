@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FavoriteList {
-	private int favoriteListNo;
 	private int memberNo;
 	private int boardNo;
 	private String status;

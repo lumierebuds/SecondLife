@@ -1,5 +1,10 @@
 package com.kh.secondLife.member.controller;
 
+import java.util.Map;
+
+import java.util.List;
+
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +21,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.secondLife.member.model.vo.FavoriteList;
 import com.kh.secondLife.member.model.vo.Member;
+import com.kh.secondLife.board.model.vo.BoardExt;
 import com.kh.secondLife.member.model.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/member")
-@SessionAttributes({"loginUser"})
+@SessionAttributes({"loginUser", "chatRoomList"})
 @RequiredArgsConstructor
 public class MemberController {
 	
@@ -56,10 +63,9 @@ public class MemberController {
 	        model.addAttribute("loginUser", loginUser);
 	        session.setAttribute("loginUser", loginUser); // 로그인 인터셉터에서 사용하기 위함
 	        
-	        String nextUrl = (String) session.getAttribute("nextUrl");
-	        viewName = "redirect:" + (nextUrl != null ? nextUrl : "/");
+	        viewName = "redirect:/";
 
-          log.debug("로그인 한 유저 정보 - {}", loginUser);
+	        log.debug("로그인 한 유저 정보 - {}", loginUser);
 	        viewName = "redirect:/";
 	        if(loginUser.getAdminAuth().equals("Y")) {
 	        	viewName += "admin/memberManage/1";
@@ -226,30 +232,94 @@ public class MemberController {
 		return "/member/sell";
 	}
 	
-	@GetMapping("/basket")
-	public String basket() {
-		return "member/basket";
-	}
+	
 	
 	@GetMapping("/buy")
 	public String buy() {
 		return "member/buy";
 	}
 	
-
+	// 판매자의 판매내역 
+	@GetMapping("/sellerSell/{memberNo}")
+	public String sellerSell(@PathVariable(value="memberNo", required = true) int memberNo,
+			Model model) {
+		List<BoardExt> boardList = (List<BoardExt>)mService.selectSellerBoardList(memberNo);
+		
+		model.addAttribute("boardList" , boardList);
+		
+		Member member = mService.selectMemberInfo(memberNo);
+		model.addAttribute("member", member);
+		return "member/sellerSell";
+	}
+	
+	// 나의 판매내역
+	@GetMapping("/sell/{memberNo}")
+	public String sell(@PathVariable(value="memberNo", required = true) int memberNo,
+			Model model) {
+		List<BoardExt> boardList = (List<BoardExt>)mService.selectMySellBoardList(memberNo);
+		
+		model.addAttribute("boardList" , boardList);
+		
+		Member member = mService.selectMemberInfo(memberNo);
+		model.addAttribute("member", member);
+		return "member/sell";
+	}
+	
+	
 	
 	@GetMapping("/memberDetail/{memberNo}")
 	public String memberDetail(@PathVariable(value="memberNo", required = true) int memberNo,
 					Model model) {
 		
 		Member member = mService.selectMemberInfo(memberNo);
-			
+		log.debug("조회할 회원 : {}" , member );	
+		
 		model.addAttribute("member", member);
 		return "member/memberDetail";
 	}
 	
+	@GetMapping("/basket")
+    public String basket(@ModelAttribute("loginUser") Member loginUser, Model model) {
+        List<BoardExt> wishlist = mService.getWishlist(loginUser.getMemberNo());
+        model.addAttribute("wishlist", wishlist);
+        return "member/basket";
+    }
+	
+	
 	
 
+	@GetMapping("/review/insert")
+	public String reviewEnrollForm(
+			@RequestParam Map<String, Object> paramMap,
+			Model model
+			) {
+		model.addAttribute("boardNo", paramMap.get("boardNo"));
+		
+		return "member/insertReview";
+	}
 	
+	/*@PostMapping("/review/insert")
+	public String insertReview(
+			Model model,
+			Review review,
+			RedirectAttributes ra
+			) {
+		// 업무로직
+		// 1. 받아온 review 정보 등록 요청
+		int result = mService.insertReview(review);
+		log.debug("리뷰 등록 후 리뷰 객체 상태 - {}", review);
+		
+		// 2. 결과에 따라 메세지 등록
+		String url = "";
+		if(result == 1) {
+			ra.addAttribute("alertMsg", "리뷰가 등록되었습니다.");
+			url = "redirect:/"; // 일단 메인으로. 추후 해당 유저의 정보 중 받은 리뷰 메뉴로 이동
+		} else {
+			ra.addAttribute("alertMsg", "리뷰 등록 실패");
+			url = "redirect:/member/insert";
+		}
+		
+		return url;
+	}*/
 	
 }

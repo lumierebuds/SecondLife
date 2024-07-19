@@ -96,10 +96,16 @@ public class BoardDaoImpl implements BoardDao{
 	public int selectBoardListCount(Map<String, Object> paramMap) {
 		return sqlSession.selectOne("board.selectBoardListCount", paramMap);
 	}
+
+	@Override
+	public boolean deleteBoardByNo(int boardNo) {
+		int result = sqlSession.delete("board.deleteBoardByNo", boardNo);
+        return result > 0;
+	}
 	
 
 	@Override
-	public int increateCount(int boardNo) {
+	public int increaseCount(int boardNo) {
 		
 		return sqlSession.update("board.increaseCount", boardNo);
 	}
@@ -111,6 +117,31 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
+	public int tradeClose(Map<String, Object> paramMap) {
+		return sqlSession.update("board.tradeClose", paramMap);
+	}
+	// 게시물 수정 POST
+	/* 게시물 글 수정 */
+	
+	// 글 업데이트
+	@Override
+	public int updateBoard(Board board) {
+		return sqlSession.update("board.updateBoard", board);
+	}
+
+	// 기존 이미지 불러오는 용도
+	@Override
+	public List<BoardImg> selectBoardImg(int boardNo) {
+		return sqlSession.selectList("board.selectBoardImg", boardNo);
+	}
+	
+	// 기존 이미지중 수정하면서 지울(STATUS => N) 용도로 만든 거
+	@Override
+	public int updateBoardImg(String fileName) {
+		return sqlSession.update("board.updateBoardImg", fileName);
+	}
+	/* 게시물 글 수정 끝*/
+
 	public int deleteBoard(Map<String, Object> paramMap) {
 		
 		return sqlSession.update("board.deleteBoard", paramMap);

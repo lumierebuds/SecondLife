@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.secondLife.board.model.vo.Board;
 import com.kh.secondLife.board.model.vo.BoardImg;
@@ -36,8 +37,16 @@ public interface BoardService {
 	
 	int selectBoardListCount(Map<String, Object> paramMap);
 
+
+	boolean deleteBoardByNo(int boardNo);
+
 	int insertLike(Map<String, Object> paramMap) throws Exception;
 
+	int tradeClose(Map<String, Object> paramMap);
+
+	int updateBoard(Board board, List<MultipartFile> upfileList);
+	
 	int deleteBoard(Map<String, Object> paramMap) throws Exception;
+
 	
 }

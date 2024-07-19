@@ -34,12 +34,23 @@ public interface BoardDao {
 
 	List<Board> selectSellorBoard(Map<String, Object> paramMap);
 
-	int increateCount(int boardNo);
+	int increaseCount(int boardNo);
   
 	int selectBoardListCount(Map<String, Object> paramMap);
 
+
+	boolean deleteBoardByNo(int boardNo);
+
 	int insertLike(Map<String, Object> paramMap);
 
+	int tradeClose(Map<String, Object> paramMap);
+	
+	int updateBoard(Board board);
+
+	int updateBoardImg(String fileName);
+
+	List<BoardImg> selectBoardImg(int boardNo);
 	int deleteBoard(Map<String, Object> paramMap);
 	
+
 }
