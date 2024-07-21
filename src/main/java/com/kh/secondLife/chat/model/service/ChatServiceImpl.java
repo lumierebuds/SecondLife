@@ -21,17 +21,23 @@ public class ChatServiceImpl implements ChatService {
 
     @Transactional(rollbackFor = {Exception.class})
     @Override
-    public int insertChatRoom(ChatRoom chatRoom) {
+    public int insertChatRoom(ChatRoom chatRoom) throws Exception {
 
     	int result = chatDao.insertChatRoom(chatRoom);
     	
     	ChatRoomJoin firstJoin = new ChatRoomJoin();
     	firstJoin.setChatRoomNo(chatRoom.getChatRoomNo());
+    	firstJoin.setMemberNo(chatRoom.getFirstMemberNo());
     	result *= chatDao.joinChatRoom(firstJoin);
     	
     	ChatRoomJoin secondJoin = new ChatRoomJoin();
     	secondJoin.setChatRoomNo(chatRoom.getChatRoomNo());
+    	secondJoin.setMemberNo(chatRoom.getSecondMemberNo());
     	result *= chatDao.joinChatRoom(secondJoin);
+    	
+    	if(result <= 0) {
+    		throw new Exception("채팅방 참여 실패");
+    	}
     			
     	return result;
     }

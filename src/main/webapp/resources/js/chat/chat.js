@@ -7,14 +7,15 @@ fileInput.addEventListener('change', (event) => {
     }
 });
 
-function deleteChatRoom(chatRoomNo) {
+$('.delete-btn').on('click', function(e) {
     if (confirm("채팅방을 나가면 채팅 내역을 더이상 확인할 수 없어요. 정말 나가시겠어요?")) {
         // AJAX 요청을 통해 서버에 채팅방 삭제 요청
         $.ajax({
-            url: `/secondlife/chat/room/leave/${chatRoomNo}`,
+            url: `/secondlife/chat/room/leave/${$(this).val()}`,
             method: 'post',
             success: function(result) {
                 if (result > 0) {
+                	chattingSocket.close();
                     location.replace(location.href);
                 } else {
                     alert("채팅방이 이미 삭제되었거나, 채팅방 나가기에 실패했습니다.");
@@ -23,9 +24,9 @@ function deleteChatRoom(chatRoomNo) {
             error: function(xhr) {
                 console.log(xhr);
             }
-        })
+        });
     }
-}
+});
 
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
@@ -42,7 +43,7 @@ window.onclick = function(event) {
             }
         }
     }
-}
+};
 
 // 삭제 버튼 토글 함수
 function toggleDeleteButton(button) {

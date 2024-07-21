@@ -61,9 +61,10 @@ public class ChatController {
     	// 채팅을 신청하는 측일 때 FirstMemberNo에 담김
     	chatRoom.setFirstMemberNo(loginUser.getMemberNo());
     	
-    	log.debug("chatRoom 값 - {}", chatRoom);
-    	
-        int result = chatService.insertChatRoom(chatRoom);
+    	int result = 0;
+    	try {
+    		result = chatService.insertChatRoom(chatRoom);    		
+    	} catch(Exception e) {}
         
         return result;
     }
