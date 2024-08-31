@@ -9,7 +9,7 @@ import com.kh.secondLife.chat.model.vo.ChatRoomExt;
 
 public interface ChatService {
 
-    int insertChatRoom(ChatRoom chatRoom);
+    int insertChatRoom(ChatRoom chatRoom) throws Exception;
     int leaveChatRoom(Map<String, Object> paramMap);
     int countChatRoomMember(int chatRoomNo);
     int deleteChatRoom(int chatRoomNo);

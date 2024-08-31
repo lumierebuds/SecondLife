@@ -11,7 +11,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.kh.secondLife.member.model.vo.Member;
 
-@SessionAttributes({"loginUser"})
 public class LoginInterceptor implements HandlerInterceptor {
 	
 	@Autowired

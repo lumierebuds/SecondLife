@@ -51,7 +51,13 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     	// 성공적으로 저장 시 같은 채팅방의 사용자들에게 전송
     	if(result > 0) {
     		for (WebSocketSession s : sessions) {
-				int chatRoomNo = (int) s.getAttributes().get("chatRoomNo");
+    			int chatRoomNo = 0;
+    			try {
+    				chatRoomNo = (int) s.getAttributes().get("chatRoomNo");    				
+    			} catch (Exception e) {
+    				log.debug("session get('chatRoomNo') 오류");
+    				chatMessage.setMessage("");
+    			}
 				
 				// 각 세션의 채팅방 번호와 전달받은 메세지의 채팅방 번호 비교
 				if(chatRoomNo == chatMessage.getChatRoomNo()) {

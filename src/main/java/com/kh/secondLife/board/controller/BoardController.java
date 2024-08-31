@@ -379,7 +379,7 @@ public class BoardController {
 			@RequestParam Map<String, Object> paramMap
 			) {
 		
-		log.debug("전달된 값들 - {}", paramMap);
+		log.debug("거래완료 시 전달된 값들 - {}", paramMap);
 		// 업무로직
 		// 1. 전달된 boardNo와 구매자의 memberNo로 board 테이블 업데이트
 		int result = boardService.tradeClose(paramMap);

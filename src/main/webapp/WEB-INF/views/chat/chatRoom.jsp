@@ -42,7 +42,7 @@
             <ul>
                 <!-- 채팅방 목록을 foreach 문을 통해 렌더링 -->
                 <c:forEach var="chatRoom" items="${chatRoomList}">
-                    <li class="nav-item" data-no="${chatRoom.chatRoomNo}">
+                    <li class="nav-item" data-no="${chatRoom.chatRoomNo}" data-purchaser="${chatRoom.firstMemberNo}" data-boardno="${chatRoom.boardNo}">
                         <div class="chat-room-info">
                             <img class="profile-img" src="/secondlife/resources/images/SecondLife_profile.png" alt="${chatRoom.nickname}">
                             <div class="profile-info">
@@ -53,11 +53,7 @@
                                 <button class="more-options-btn" onclick="toggleDeleteButton(this)">
                                     &#8942; <!-- 미트볼 아이콘 (⋮) -->
                                 </button>
-                                <button class="delete-btn" style="display: none;" onclick="deleteChatRoom('${chatRoom.chatRoomNo}')">삭제</button>
-                                <c:if test="${loginUser.memberNo == chatRoom.secondMemberNo}">
-                                    <c:set var="purchaser" value="${chatRoom.firstMemberNo}"></c:set>
-                                    <c:set var="boardNo" value="${chatRoom.boardNo}"></c:set>
-                                </c:if>
+                                <button class="delete-btn" style="display: none;" value='${chatRoom.chatRoomNo}'>삭제</button>
                             </div>
                         </div>
                     </li>
@@ -67,9 +63,7 @@
         <!-- 선택된 채팅방 번호 저장 -->
         <input type="hidden" id="currChatRoom" value="">
         <div class="chat-window">
-            <c:if test="${not empty boardNo and not empty purchaser}">
-                <button class="trade-close">거래완료</button>
-            </c:if>
+            <button class="trade-close" style="display:none">거래완료</button>
             <ul class="message-collect">
                 <div class="empty-box">
                     <svg width="96" height="81" viewBox="0 0 96 81" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -118,10 +112,21 @@
 
         var nextChatMessageNo = 0;
 
+        var boardNo;
+        var purchaser;
         $('.nav-item').on('dblclick', function(e) {
         	chattingSocket && chattingSocket.close();
         	
             $currChatRoom.val($(this).data('no'));
+
+            boardNo = $(this).data('boardno');
+            purchaser = $(this).data('purchaser');
+            
+            if(purchaser != '${loginUser.memberNo}') {
+            	$('.trade-close').css("display", "block");
+            } else {
+            	$('.trade-close').css("display", "none");
+            }
 
             chattingSocket = new SockJS(contextPath + "/chat");
 
@@ -141,11 +146,14 @@
                 method: 'post',
                 success: function(data) {
                     $.each(data, function(index, item) {
+                    	// messagePacking : 각 메세지를 알맞게 html 태그로 생성 + css 처리 해주는 함수
                         $messageCollect.append(messagePacking(item, opponentNickname));
                         $messageCollect.scrollTop($messageCollect[0].scrollHeight);
                     });
+                },
+                error: function(xhr) {
+                	console.log(xhr);
                 }
-                
             })
 
             // 서버로 부터 메세지 받았을 때
@@ -153,6 +161,10 @@
                 console.log(e.data);
                 // 전달받은 JSON 형태 메세지 js 객체로 변환
                 var chatMessage = JSON.parse(e.data);
+                
+                if(!($.trim(chatMessage.message)) ) {
+                	alert('채팅 전송에 실패했습니다');
+                }
             
                 var $messageCollect = $('.message-collect');
                 $messageCollect.append(messagePacking(chatMessage, opponentNickname));
@@ -203,8 +215,6 @@
             })
         });
 
-        var boardNo = '${boardNo}';
-        var purchaser = '${purchaser}';
         $('.trade-close').on('click', function(e) {
             $.ajax({
                 url: "${contextPath}/board/trade/close",
