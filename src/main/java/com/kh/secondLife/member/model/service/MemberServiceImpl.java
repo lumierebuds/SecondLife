@@ -46,6 +46,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int idCheck(String id) {
+		log.debug("아이디 체크");
 		return dao.idCheck(id);
 	}
 	

@@ -79,6 +79,7 @@ public class MemberController {
 	
 	@GetMapping("/signup") 
 	public String enrollForm() {
+		log.debug("signup 로그");
 		return "/member/signup";
 	}
 	
@@ -115,8 +116,10 @@ public class MemberController {
 	@GetMapping("/idCheck")
     @ResponseBody
     public String idCheck(@RequestParam("id") String id) {
-        int result = mService.idCheck(id);
-        return result > 0 ? "fail" : "success";
+		log.debug("아이디 {}", id);
+		int result = mService.idCheck(id);
+		return result > 0 ? "fail" : "true";
+		
     }
 	
 	@GetMapping("/modify")
@@ -171,7 +174,7 @@ public class MemberController {
 
 	@PostMapping("/delete")
     public String deleteMember(@RequestParam("id") String id, HttpSession session, SessionStatus status, RedirectAttributes ra) {
-        Member loginUser = (Member) session.getAttribute("loginUser");
+		Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null && loginUser.getId().equals(id)) {
             int result = mService.deleteMember(id);
             if (result > 0) {
@@ -192,7 +195,7 @@ public class MemberController {
 	@GetMapping("/findId")
 	@ResponseBody
 	public String findId(@RequestParam("email") String email) {
-	    String id = mService.findIdByEmail(email);
+		String id = mService.findIdByEmail(email);
 	    System.out.println(id);
 	    return id != null ? id : "fail";
 	}
@@ -201,7 +204,7 @@ public class MemberController {
     @GetMapping("/getEmail")
     @ResponseBody
     public String getEmail(@RequestParam("id") String id) {
-        // 1. 아이디로 회원 조회
+    	// 1. 아이디로 회원 조회
         String email = mService.getMemberById(id);
         
         // 2. 랜덤 인증코드 생성
@@ -244,7 +247,6 @@ public class MemberController {
 	public String sellerSell(@PathVariable(value="memberNo", required = true) int memberNo,
 			Model model) {
 		List<BoardExt> boardList = (List<BoardExt>)mService.selectSellerBoardList(memberNo);
-		
 		model.addAttribute("boardList" , boardList);
 		
 		Member member = mService.selectMemberInfo(memberNo);
@@ -257,7 +259,6 @@ public class MemberController {
 	public String sell(@PathVariable(value="memberNo", required = true) int memberNo,
 			Model model) {
 		List<BoardExt> boardList = (List<BoardExt>)mService.selectMySellBoardList(memberNo);
-		
 		model.addAttribute("boardList" , boardList);
 		
 		Member member = mService.selectMemberInfo(memberNo);
@@ -270,7 +271,6 @@ public class MemberController {
 	@GetMapping("/memberDetail/{memberNo}")
 	public String memberDetail(@PathVariable(value="memberNo", required = true) int memberNo,
 					Model model) {
-		
 		Member member = mService.selectMemberInfo(memberNo);
 		log.debug("조회할 회원 : {}" , member );	
 		
@@ -294,7 +294,6 @@ public class MemberController {
 			Model model
 			) {
 		model.addAttribute("boardNo", paramMap.get("boardNo"));
-		
 		return "member/insertReview";
 	}
 	

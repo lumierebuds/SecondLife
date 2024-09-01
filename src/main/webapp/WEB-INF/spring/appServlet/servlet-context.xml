@@ -35,6 +35,8 @@
 			<exclude-mapping path="/member/signup"/>
 			<exclude-mapping path="/member/login"/>
 			<exclude-mapping path="/member/findId"/>
+			<exclude-mapping path="/member/idCheck"/> 
+			<!-- 아이디 중복체크 매핑이 필터에 걸려서 안되었나봄 -->
 			<exclude-mapping path="/member/getEmail"/>
 			<exclude-mapping path="/board/list"/>
 			<exclude-mapping path="/board/detail"/>

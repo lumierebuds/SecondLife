@@ -303,6 +303,7 @@ form {
 								id : id
 							},
 							success : function(response) {
+								console.log(response);
 								if (response === "fail") {
 									alert("아이디가 중복됩니다.");
 								} else {
