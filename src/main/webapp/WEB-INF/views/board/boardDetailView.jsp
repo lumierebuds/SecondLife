@@ -206,7 +206,7 @@
             <div class="da">
               <div class="da-title">
                 <h2>같이 보면 좋은 상품들</h2>
-                <span><a href="#">더보기</a></span>
+                <span><a href="/secondlife/board/list?category=${board.categoryNo}">더보기</a></span>
               </div>
               <div class="da-content">
                 <c:if test="${not empty list }">
