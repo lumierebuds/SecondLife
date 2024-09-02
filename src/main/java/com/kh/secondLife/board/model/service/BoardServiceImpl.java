@@ -256,6 +256,7 @@ public class BoardServiceImpl implements BoardService {
 	            String changeName = Utils.saveFile(file, serverFolderPath);
 	            BoardImg bi = new BoardImg();
 	            bi.setBoardNo(board.getBoardNo());
+	            bi.setOriginName(file.getOriginalFilename());
 	            bi.setChangeName(changeName);
 	            bi.setImgPath(webPath);
 	            result *= boardDao.insertBoardImg(bi);
