@@ -40,10 +40,30 @@
             <div class="list-assort">
               <!-- 최신순, 인기순, 저가순, 고가순-->
               <ul id="sort">
-                <li><a href="">최신순</a></li>
-                <li><a href="">인기순</a></li>
-                <li><a href="">저가순</a></li>
-                <li><a href="">고가순</a></li>
+              	<c:choose>
+              		<%-- 검색어로 목록 조회 --%>
+              		<c:when test="${not empty param.search and empty param.category }">
+              			    <li><a href="?search=${param.search}&sort=latest">최신순</a></li>
+			                <li><a href="?search=${param.search}&sort=popular">인기순</a></li>
+			                <li><a href="?search=${param.search}&sort=lowPrice">저가순</a></li>
+			                <li><a href="?search=${param.search}&sort=highPrice">고가순</a></li>
+              		</c:when>
+              		<%-- 카테고리로 목록 조회 --%>
+              		<c:when test="${not empty param.category and empty param.search }">
+              			    <li><a href="?category=${param.category}&sort=latest">최신순</a></li>
+			                <li><a href="?category=${param.category}&sort=popular">인기순</a></li>
+			                <li><a href="?category=${param.category}&sort=lowPrice">저가순</a></li>
+			                <li><a href="?category=${param.category}&sort=highPrice">고가순</a></li>
+              		</c:when>
+              		<%-- 검색 & 카테고리로 조회할때 (이런 기능 없음) --%>
+              		<c:when test="${empty param.category and empty param.search }">
+              			    <li><a href="?sort=latest">최신순</a></li>
+			                <li><a href="?sort=popular">인기순</a></li>
+			                <li><a href="?sort=lowPrice">저가순</a></li>
+			                <li><a href="?sort=highPrice">고가순</a></li>
+              		</c:when>
+              		
+              	</c:choose>
               </ul>
             </div>
           </div>
@@ -80,14 +100,25 @@
 		  
 		  
 		  <!-- 전체, 카테고리, 검색조회시에 필요한 쿼리스트링을 포함한 url  -->
-		  
+		  <!-- 최신순, 인기순, 저가순, 고가순을 위한 값도 추가 필요 -->
 		  <c:choose>
+		  	<%-- 검색어로 목록 조회 --%>
 		  	<c:when test="${not empty param.search and empty param.category}">
-		  		<c:set var="url" value="?search=${param.search}&pageNo="/>
+		  		<c:if test="${not empty param.sort }">
+		  			 <c:set var="url" value="?search=${param.search}&sort=${param.sort}&pageNo="/>	
+		  		</c:if>
+		  		<c:if test="${empty param.sort }">
+		  		 	<c:set var="url" value="?search=${param.search}&pageNo="/>
+		  		</c:if>
 		  	</c:when>
+		  	<%-- 카테고리로 목록 조회 --%>
 		  	<c:when test="${not empty param.category and empty param.search}">
 		  		<c:if test="${param.category >= 0 and param.category <= 12}">
 		  			<c:set var="url" value="?category=${param.category}&pageNo="/>
+		  		</c:if>
+		  		
+		  		<c:if test="${not empty param.sort and param.category >= 0 and param.category <= 12}">
+		  			<c:set var="url" value="?category=${param.category}&sort=${param.sort}&pageNo="/>
 		  		</c:if>
 		  		
 		  		<c:if test="${param.category < 0 or param.category > 12}">
@@ -96,14 +127,18 @@
 		  			</script>
 		  		</c:if>
 		  	</c:when>
+		  	
+		  	<%-- 검색 & 카테고리로 조회할때 (이런 기능 없음) --%>
 		  	<c:when test="${not empty param.category and not empty param.search}">
 		  		<script>
 		  			location.href = "/secondlife/board/list?pageNo=1"
 		  		</script>
 		  	</c:when>
+		  	
 		  	<c:otherwise>
 				<c:set var="url" value="?pageNo="/>	  		
 		  	</c:otherwise>
+		 	
 		  </c:choose>
 	
 		  

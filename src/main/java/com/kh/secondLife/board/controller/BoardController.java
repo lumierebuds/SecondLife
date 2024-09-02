@@ -138,6 +138,7 @@ public class BoardController {
 				
 				BoardImg bi = new BoardImg();
 				bi.setChangeName(changeName);
+				bi.setOriginName(image.getOriginalFilename());
 				log.debug("이미지의 원본명 - {}", image.getOriginalFilename());
 				bi.setImgPath(webPath);
 				
