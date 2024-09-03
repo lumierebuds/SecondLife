@@ -286,6 +286,13 @@ public class BoardServiceImpl implements BoardService {
 		
 		return result;
 	}
+
+
+	@Override
+	public int deleteLike(Map<String, Object> paramMap) {
+		
+		return boardDao.deleteLike(paramMap);
+	}
 	
 
 

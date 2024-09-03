@@ -147,4 +147,10 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.update("board.deleteBoard", paramMap);
 	}
 
+	@Override
+	public int deleteLike(Map<String, Object> paramMap) {
+		
+		return sqlSession.delete("board.deleteLike", paramMap);
+	}
+
 }

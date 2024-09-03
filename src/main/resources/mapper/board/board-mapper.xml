@@ -131,11 +131,9 @@
 		  PRODUCT_NAME,
 		  PRICE,
 		  B.CREATE_DATE AS CREATE_DATE,
-		  
 		  BOARD_IMG_NO,
 		  IMG_PATH,
-		  CHANGE_NAME
-		  
+		  CHANGE_NAME	  
 		FROM BOARD "B" 
 		LEFT JOIN BOARD_IMG "BI"
 		ON (B.BOARD_NO = BI.BOARD_NO)
@@ -170,7 +168,6 @@
 				ORDER BY CREATE_DATE DESC
 			</otherwise>			
 		</choose>
-		
 	</select>
 	
 	<!-- 조회수 증가 로직  -->
@@ -320,6 +317,13 @@
 		    DEFAULT
 		    )
 	</insert>
+	<!-- 게시글 찜하기 취소(delete) - 찜한이후 다시 찜하기를 누를땐  -->
+	<delete id="deleteLike">
+		DELETE FROM FAVORITE_LIST
+		WHERE MEMBER_NO = #{memberNo} 
+		AND BOARD_NO = #{boardNo}
+	</delete>
+	
 	
 	<update id="tradeClose">
 		UPDATE BOARD
