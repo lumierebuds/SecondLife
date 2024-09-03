@@ -282,12 +282,7 @@
   				url : `/secondlife/board/like/${board.boardNo}`,
   				type: "post",
   				success : function(response){
-  					if(response.result > 0){
-  						alert("게시글을 찜했습니다!");
-  					} 
-  					else{
-  						alert("이미 찜한 게시글입니다.");
-  					}
+  					alert(response.msg); 
   					location.href = '/secondlife/board/detail/' + '${board.boardNo}';
   				},
   				error : function(xhr){

@@ -48,5 +48,7 @@ public interface BoardService {
 	
 	int deleteBoard(Map<String, Object> paramMap) throws Exception;
 
+	int deleteLike(Map<String, Object> paramMap);
+
 	
 }

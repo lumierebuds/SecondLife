@@ -51,6 +51,8 @@ public interface BoardDao {
 
 	List<BoardImg> selectBoardImg(int boardNo);
 	int deleteBoard(Map<String, Object> paramMap);
+
+	int deleteLike(Map<String, Object> paramMap);
 	
 
 }

@@ -361,16 +361,15 @@ public class BoardController {
 		
 		int result = 0;
 		
-		// 2. 예외처리를 해서 중복된 행이 추가되지 않게 만든다.   
+		// 2. 예외처리를 통해 게시글 찜하기와 취소하기 로직을 추가
 		try {
 			result = boardService.insertLike(paramMap);
+			paramMap.put("msg", "게시글을 찜했습니다!" );
 		} catch (Exception e) {
-			result = 0; 
+			result = boardService.deleteLike(paramMap);
+			paramMap.put("msg", "찜한 게시글을 취소합니다.");
 		}
-		
-		paramMap.put("result", result);
-		
-		System.out.println(paramMap);
+				
 		return paramMap;
 	}
 	
