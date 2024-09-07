@@ -28,18 +28,17 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        log.info("session ?? {}", session.getId());
+//        log.info("session ?? {}", session.getId());
     	sessions.add(session);
+    }
+    
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        sessions.remove(session);
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-    	// 업무로직
-    	// 1) 전달받은 메세지를 ChatMessage 테이블에 추가
-    	// 2) 서버에서 세션에 접속 중인 상대 사용자에게 메세지 전달
-    	//	  - 상대 사용자 memberNo 얻어서 해당 사용자에게 전송(그걸 받아서 화면에 출력하는 건 따로 해야함)
-    	log.debug("session ? {}", session.getId());
-		log.debug("message ? {}", message.getPayload());
     	
 		// 전달받은 메세지는 JSON 형태.
     	ObjectMapper objectMapper = new ObjectMapper();
@@ -54,9 +53,12 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     			int chatRoomNo = 0;
     			try {
     				chatRoomNo = (int) s.getAttributes().get("chatRoomNo");    				
-    			} catch (Exception e) {
-    				log.debug("session get('chatRoomNo') 오류");
-    				chatMessage.setMessage("");
+    			} catch (NullPointerException ne) {
+					log.error("Session : NullPointerException Occurred");
+					return;
+				} catch (Exception e) {
+    				e.printStackTrace();
+    				return;
     			}
 				
 				// 각 세션의 채팅방 번호와 전달받은 메세지의 채팅방 번호 비교
@@ -65,10 +67,5 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 				}
             }
     	}
-    }
-
-    @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        sessions.remove(session);
     }
 }

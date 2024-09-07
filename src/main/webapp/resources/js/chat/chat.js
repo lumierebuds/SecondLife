@@ -95,6 +95,11 @@ $('.send-message-btn').on('click', function (e) {
     // 메시지 전송 로직을 구현하는 함수
     e.preventDefault();
 
+    if(!chattingSocket) {
+        alert("채팅방을 선택해주세요");
+        return;
+    }
+
     nextChatMessageNo = $('.message-collect').find('p').length;
     console.log(nextChatMessageNo);
 
