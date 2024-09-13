@@ -143,13 +143,13 @@
 
             $.ajax({
                 url: `${contextPath}/chat/room/\${$currChatRoom.val()}`,
-                method: 'post',
+                method: 'get',
                 success: function(data) {
                     $.each(data, function(index, item) {
                     	// messagePacking : 각 메세지를 알맞게 html 태그로 생성 + css 처리 해주는 함수
                         $messageCollect.append(messagePacking(item, opponentNickname));
-                        $messageCollect.scrollTop($messageCollect[0].scrollHeight);
                     });
+                    $messageCollect.scrollTop($messageCollect[0].scrollHeight);
                 },
                 error: function(xhr) {
                 	console.log(xhr);
@@ -158,14 +158,13 @@
 
             // 서버로 부터 메세지 받았을 때
             chattingSocket.onmessage = function(e) {
-                console.log(e.data);
                 // 전달받은 JSON 형태 메세지 js 객체로 변환
                 var chatMessage = JSON.parse(e.data);
-                
+
                 if(!($.trim(chatMessage.message)) ) {
                 	alert('채팅 전송에 실패했습니다');
+                    return;
                 }
-            
                 var $messageCollect = $('.message-collect');
                 $messageCollect.append(messagePacking(chatMessage, opponentNickname));
             
@@ -186,7 +185,8 @@
             $p.html(chatMessage.message.replace(/\\n/gm, "<br>"));
 
             var $span = $('<span></span>').toggleClass('chatDate');
-            $span.text(currentTime());
+            var date = new Date(chatMessage.createDate);
+            $span.text(`\${date.getFullYear().toString().substring(2)}년 \${date.getMonth() + 1}월 \${date.getDate()}일 \${date.getHours()}:\${date.getMinutes()}`);
 
             if(memberNo == chatMessage.memberNo) {
                 $p.toggleClass('myChat');

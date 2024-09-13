@@ -84,7 +84,12 @@
   </insert>
   
   <select id="selectChatMessageList" resultType="chatMessage">
-  	SELECT *
+  	SELECT
+  		CHAT_MESSAGE_NO,
+  		CHAT_ROOM_NO,
+  		MESSAGE,
+  		MEMBER_NO,
+  		CREATE_DATE
   	FROM CHAT_MESSAGE
   	WHERE CHAT_ROOM_NO = #{chatRoomNo}
   	ORDER BY CREATE_DATE

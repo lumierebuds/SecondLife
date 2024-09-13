@@ -1,5 +1,6 @@
 package com.kh.secondLife.chat.model.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +65,8 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public int insertMessage(ChatMessage chatMessage) {
+		chatMessage.setCreateDate(new Date(new java.util.Date().getTime()));
+		
 		return chatDao.insertMessage(chatMessage);
 	}
 

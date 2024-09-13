@@ -96,7 +96,7 @@ public class ChatController {
         return result;
     }
     
-    @PostMapping("/room/{chatRoomNo}")
+    @GetMapping("/room/{chatRoomNo}")
     @ResponseBody
     public List<ChatMessage> accessChatRoom(
     		@PathVariable int chatRoomNo,
